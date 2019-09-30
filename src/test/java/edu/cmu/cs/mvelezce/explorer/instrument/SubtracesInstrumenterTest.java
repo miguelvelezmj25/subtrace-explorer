@@ -1,6 +1,6 @@
 package edu.cmu.cs.mvelezce.explorer.instrument;
 
-import edu.cmu.cs.mvelezce.adapter.trivial.TrivialAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.instrumenter.instrument.Instrumenter;
 import org.junit.Test;
 
@@ -14,8 +14,8 @@ public class SubtracesInstrumenterTest {
       throws IOException, InterruptedException, NoSuchMethodException, IllegalAccessException,
           InvocationTargetException {
     String programName = "phosphorExamples";
-    String srcDir = TrivialAdapter.INSTRUMENTED_DIR_PATH;
-    String classDir = TrivialAdapter.INSTRUMENTED_CLASS_PATH;
+    String srcDir = BaseTrivialAdapter.INSTRUMENTED_DIR_PATH;
+    String classDir = BaseTrivialAdapter.INSTRUMENTED_CLASS_PATH;
     Instrumenter instrumenter = new SubtracesInstrumenter(programName, srcDir, classDir);
 
     String[] args = new String[2];

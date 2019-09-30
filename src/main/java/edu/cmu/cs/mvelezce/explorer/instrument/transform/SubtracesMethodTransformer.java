@@ -1,7 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.instrument.transform;
 
-import edu.cmu.cs.mvelezce.adapter.Adapter;
-import edu.cmu.cs.mvelezce.adapter.dummy.DummyAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.Adapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.dummy.BaseDummyAdapter;
 import edu.cmu.cs.mvelezce.explorer.instrument.SubtracesInstrumenter;
 import edu.cmu.cs.mvelezce.explorer.log.SubtracesLogger;
 import edu.cmu.cs.mvelezce.instrumenter.graph.MethodGraph;
@@ -24,14 +24,15 @@ import java.util.Set;
 public class SubtracesMethodTransformer extends BaseMethodTransformer {
 
   private final String programName;
-  private final Adapter programAdapter = new DummyAdapter();
+  private final Adapter programAdapter = new BaseDummyAdapter();
 
   private SubtracesMethodTransformer(Builder builder)
       throws NoSuchMethodException, MalformedURLException, IllegalAccessException,
           InvocationTargetException {
     super(new DefaultClassTransformer(builder.classDir), builder.debug);
 
-    System.err.println("Debug how to instrument IPD to avoid exiting something that we have not entered");
+    System.err.println(
+        "Debug how to instrument IPD to avoid exiting something that we have not entered");
 
     this.programName = builder.programName;
   }

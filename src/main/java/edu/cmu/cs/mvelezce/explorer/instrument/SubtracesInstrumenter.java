@@ -4,7 +4,7 @@ import edu.cmu.cs.mvelezce.explorer.instrument.transform.SubtracesMethodTransfor
 import edu.cmu.cs.mvelezce.explorer.utils.Packager;
 import edu.cmu.cs.mvelezce.instrumenter.instrument.BaseInstrumenter;
 import edu.cmu.cs.mvelezce.instrumenter.transform.methodnode.MethodTransformer;
-import edu.cmu.cs.mvelezce.instrumenter.utils.Options;
+import edu.cmu.cs.mvelezce.utils.Options;
 
 import java.io.File;
 import java.io.IOException;
