@@ -20,7 +20,7 @@ public class SubtraceLabeler extends BaseDynamicAnalysis<Map<Set<String>, List<S
 
   private SubtraceManager subtraceManager;
 
-  SubtraceLabeler(String programName) {
+  public SubtraceLabeler(String programName) {
     this(programName, new HashMap<>());
   }
 
