@@ -14,13 +14,11 @@ import java.util.Map;
 public class SubtracesLogger {
   public static final String INTERNAL_NAME = Type.getInternalName(SubtracesLogger.class);
   public static final String RESULTS_FILE = "results.ser";
-
-  static final String ENTER_DECISION = "Enter";
-  static final String EXIT_DECISION = "Exit";
-  static final String EXIT_DECISION_AT_RETURN = "ExitReturn";
-  static final String FALSE = "FALSE";
-  static final String TRUE = "TRUE";
-
+  public static final String FALSE = "FALSE";
+  public static final String TRUE = "TRUE";
+  public static final String ENTER_DECISION = "Enter";
+  public static final String EXIT_DECISION = "Exit";
+  public static final String EXIT_DECISION_AT_RETURN = "ExitReturn";
   private static final byte[] ENTER_DECISION_BYTES = ENTER_DECISION.getBytes();
   private static final byte[] EXIT_DECISION_BYTES = EXIT_DECISION.getBytes();
   private static final byte[] EXIT_DECISION_AT_RETURN_BYTES = EXIT_DECISION_AT_RETURN.getBytes();

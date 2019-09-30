@@ -9,6 +9,7 @@ import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDi
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.adapter.utils.Executor;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
+import edu.cmu.cs.mvelezce.explorer.Explorer;
 import edu.cmu.cs.mvelezce.explorer.log.SubtracesLogger;
 import edu.cmu.cs.mvelezce.utils.ConfigHelper;
 import edu.cmu.cs.mvelezce.utils.Options;
@@ -36,7 +37,7 @@ public class SubtracesAnalysisExecutor extends BaseDynamicAnalysis<Map<Set<Strin
     super(programName, options, new HashSet<>());
   }
 
-  SubtracesAnalysisExecutor(String programName) {
+  public SubtracesAnalysisExecutor(String programName) {
     this(programName, new HashSet<>());
   }
 
@@ -157,7 +158,7 @@ public class SubtracesAnalysisExecutor extends BaseDynamicAnalysis<Map<Set<Strin
 
   @Override
   public String outputDir() {
-    return Options.DIRECTORY + "/explorer/execute/traces/java/programs/" + this.getProgramName();
+    return Explorer.OUTPUT_DIR + "/execute/traces/java/programs/" + this.getProgramName();
   }
 
   private void runProgram(Set<String> config) throws IOException, InterruptedException {
