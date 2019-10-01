@@ -1,0 +1,8 @@
+{
+  "missingConstraint": "A",
+  "controlFlowStatements": [
+    {
+      "statement": "edu/cmu/cs/mvelezce/analysis/Trivial.main([Ljava/lang/String;)V.0"
+    }
+  ]
+}

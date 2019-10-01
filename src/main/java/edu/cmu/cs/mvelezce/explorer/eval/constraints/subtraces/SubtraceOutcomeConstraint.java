@@ -16,7 +16,7 @@ public class SubtraceOutcomeConstraint {
     this.subtraceLabelUUID = UUID.fromString(subtraceLabelUUID);
   }
 
-  UUID getSubtraceLabelUUID() {
+  public UUID getSubtraceLabelUUID() {
     return subtraceLabelUUID;
   }
 
