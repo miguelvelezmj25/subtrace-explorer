@@ -8,7 +8,7 @@ import edu.cmu.cs.mvelezce.explorer.idta.execute.DynamicAnalysisExecutor;
 import edu.cmu.cs.mvelezce.explorer.idta.other.CompleteDTAResultAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.other.DTAConstraintCalculator;
 import edu.cmu.cs.mvelezce.explorer.idta.other.PhosphorControlFlowStatementInfo;
-import edu.cmu.cs.mvelezce.explorer.idta.other.PhosphorExecutionResultAnalysis;
+import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DynamicAnalysisResultsParser;
 import edu.cmu.cs.mvelezce.utils.Options;
 
 import javax.annotation.Nullable;
@@ -21,9 +21,9 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
   public static final String OUTPUT_DIR = Options.DIRECTORY + "/idta";
 
   private final DynamicAnalysisExecutor dynamicAnalysisExecutor;
+  private final DynamicAnalysisResultsParser dynamicAnalysisResultsParser;
 
   private final ConfigConstraintAnalyzer configConstraintAnalyzer;
-  private final PhosphorExecutionResultAnalysis phosphorExecutionResultAnalysis;
   private final DTAConstraintCalculator DTAConstraintCalculator;
   private final DTAConstraintAnalysis DTAConstraintAnalysis;
   private final CompleteDTAResultAnalysis completeDTAResultAnalysis;
@@ -36,9 +36,9 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
     super(programName, new HashSet<>(options), initialConfig);
 
     this.dynamicAnalysisExecutor = new DynamicAnalysisExecutor(programName);
+    this.dynamicAnalysisResultsParser = new DynamicAnalysisResultsParser(programName);
 
     this.configConstraintAnalyzer = new ConfigConstraintAnalyzer(new HashSet<>(options));
-    this.phosphorExecutionResultAnalysis = new PhosphorExecutionResultAnalysis(programName);
     this.DTAConstraintCalculator = new DTAConstraintCalculator(options);
     this.DTAConstraintAnalysis = new DTAConstraintAnalysis(programName);
     this.completeDTAResultAnalysis = new CompleteDTAResultAnalysis(programName, options);
@@ -91,11 +91,11 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
       satisfiedConfigConstraints.addAll(satisfiedConfigConstraintsByConfig);
 
       this.dynamicAnalysisExecutor.runAnalysis(config);
-      Set<DecisionTaints> results = this.phosphorExecutionResultAnalysis.getResults();
+      Set<DecisionTaints> decisionTaints = this.dynamicAnalysisResultsParser.parseResults();
       //      System.out.println(results.size());
 
       Collection<Set<ConfigConstraint>> constraintsSet =
-          this.DTAConstraintCalculator.deriveConstraints(results, config).values();
+          this.DTAConstraintCalculator.deriveConstraints(decisionTaints, config).values();
       Set<ConfigConstraint> analysisConstraints = new HashSet<>();
 
       for (Set<ConfigConstraint> entry : constraintsSet) {
@@ -103,7 +103,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
       }
 
       this.DTAConstraintAnalysis.addConstraints(analysisConstraints);
-      this.completeDTAResultAnalysis.recordTaints(results);
+      this.completeDTAResultAnalysis.recordTaints(decisionTaints);
 
       configConstraintsToSatisfy.addAll(analysisConstraints);
       configConstraintsToSatisfy.removeAll(satisfiedConfigConstraints);

@@ -1,4 +1,4 @@
-package edu.cmu.cs.mvelezce.explorer.idta.other;
+package edu.cmu.cs.mvelezce.explorer.idta.results.parser;
 
 import edu.cmu.cs.mvelezce.adapter.adapters.BaseAdapter;
 import edu.cmu.cs.mvelezce.cc.DecisionTaints;
@@ -14,7 +14,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class PhosphorExecutionResultAnalysis {
+public class DynamicAnalysisResultsParser {
 
   private static final String PHOSPHOR_OUTPUT_DIR =
       BaseAdapter.USER_HOME
@@ -22,11 +22,11 @@ public class PhosphorExecutionResultAnalysis {
 
   private final String programName;
 
-  public PhosphorExecutionResultAnalysis(String programName) {
+  public DynamicAnalysisResultsParser(String programName) {
     this.programName = programName;
   }
 
-  public Set<DecisionTaints> getResults() throws IOException {
+  public Set<DecisionTaints> parseResults() throws IOException {
     String dir = PHOSPHOR_OUTPUT_DIR + "/" + programName;
     Collection<File> serializedFiles = this.getSerializedFiles(dir);
 
