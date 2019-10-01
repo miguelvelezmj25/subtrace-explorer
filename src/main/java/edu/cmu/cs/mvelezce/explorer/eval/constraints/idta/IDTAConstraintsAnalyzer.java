@@ -31,7 +31,7 @@ public class IDTAConstraintsAnalyzer implements Analysis<Set<FeatureExpr>> {
     this.options = options;
   }
 
-  IDTAConstraintsAnalyzer(String programName) {
+  public IDTAConstraintsAnalyzer(String programName) {
     this.programName = programName;
     this.configConstraints = new HashSet<>();
     this.options = new HashSet<>();
