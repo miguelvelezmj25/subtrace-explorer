@@ -79,6 +79,36 @@
             <artifactId>guava</artifactId>
             <version>28.1-jre</version>
         </dependency>
+
+        <dependency>
+            <groupId>de.fosd.typechef</groupId>
+            <artifactId>featureexpr</artifactId>
+            <version>0.1.1-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>
+                ${project.basedir}/lib/FeatureExprLib.jar
+            </systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>edu.cmu.cs.mvelezce</groupId>
+            <artifactId>min-configs</artifactId>
+            <version>0.2.0-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>
+                ${project.basedir}/lib/min-configs-0.2.0-SNAPSHOT-jar-with-dependencies.jar
+            </systemPath>
+        </dependency>
+
+        <dependency>
+            <groupId>de.fosd.typechef</groupId>
+            <artifactId>bdd</artifactId>
+            <version>1.0.1</version>
+            <scope>system</scope>
+            <systemPath>
+                ${project.basedir}/lib/jbddi-core-1.0.1.jar
+            </systemPath>
+        </dependency>
     </dependencies>
 
     <build>

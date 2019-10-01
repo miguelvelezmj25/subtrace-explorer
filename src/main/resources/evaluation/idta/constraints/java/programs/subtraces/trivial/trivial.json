@@ -1,0 +1,16 @@
+[
+  {
+    "id": "48bcf9a3-ff8b-41be-9f08-d6d57ef24ee5",
+    "outcomesToStringConstraints": {
+      "TRUE": "B",
+      "FALSE": "!B"
+    }
+  },
+  {
+    "id": "08c11eba-6bd2-4dde-b51b-cf6473484895",
+    "outcomesToStringConstraints": {
+      "TRUE": "A",
+      "FALSE": "!A"
+    }
+  }
+]
