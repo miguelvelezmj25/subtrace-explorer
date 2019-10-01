@@ -164,6 +164,11 @@ public class SubtracesMethodTransformer extends BaseMethodTransformer {
   }
 
   private boolean methodToSkip(ClassNode classNode, MethodNode methodNode) {
+    if (classNode.name.equals("com/sleepycat/je/utilint/LongMaxStat")
+        && methodNode.name.equals("setMax(J)Z.0")) {
+      return true;
+    }
+
     if (classNode.name.equals("org/apache/lucene/core/util/packed/PackedInts")
         && methodNode.name.equals("fastestFormatAndBits")) {
       return true;
@@ -172,69 +177,54 @@ public class SubtracesMethodTransformer extends BaseMethodTransformer {
     if (classNode.name.equals(
             "org/apache/lucene/core/codecs/blocktree/BlockTreeTermsWriter$TermsWriter")
         && methodNode.name.equals("pushTerm")) {
-      System.err.println("Ignoring A LOT of cases where we do not instrument");
       return true;
     }
 
     if (classNode.name.equals("org/apache/lucene/core/index/DefaultIndexingChain")
         && methodNode.name.equals("getOrAddField")) {
-      System.err.println("Ignoring A LOT of cases where we do not instrument");
       return true;
     }
 
     if (classNode.name.equals("org/apache/lucene/core/util/ByteBlockPool")
         && methodNode.name.equals("append")) {
-      System.err.println("Ignoring A LOT of cases where we do not instrument");
       return true;
     }
 
     if (classNode.name.equals("org/apache/lucene/core/analysis/CharArrayMap")
         && methodNode.name.equals("getSlot")) {
-      System.err.println("Ignoring A LOT of cases where we do not instrument");
       return true;
     }
 
     if (classNode.name.equals("org/apache/lucene/core/store/LockStressTest")) {
-      System.err.println("Ignoring A LOT of cases where we do not instrument");
       return true;
     }
 
     if (classNode.name.equals("org/apache/lucene/core/store/LockVerifyServer")) {
-      System.err.println("Ignoring A LOT of cases where we do not instrument");
       return true;
     }
 
     if (classNode.name.equals("com/sleepycat/je/tree/IN")
         && methodNode.name.equals("addToMainCache")) {
-      System.err.println("Ignoring A LOT of cases where we do not instrument");
       return true;
     }
 
     if (classNode.name.equals("com/sleepycat/je/evictor/Evictor")
         && methodNode.name.equals("getNextTarget")) {
-      System.err.println("Ignoring A LOT of cases where we do not instrument");
       return true;
     }
 
     if (classNode.name.equals("com/sleepycat/je/cleaner/OffsetList")
         && methodNode.name.equals("toArray")) {
-      System.err.println("Ignoring A LOT of cases where we do not instrument");
       return true;
     }
 
     if (classNode.name.equals("com/sleepycat/je/log/FileReader")
         && methodNode.name.equals("readData")) {
-      System.err.println("Ignoring A LOT of cases where we do not instrument");
       return true;
     }
 
-    if (classNode.name.equals("com/sleepycat/je/tree/INTargetRep$Sparse")
-        && methodNode.name.equals("copy")) {
-      System.err.println("Ignoring A LOT of cases where we do not instrument");
-      return true;
-    }
-
-    return false;
+    return classNode.name.equals("com/sleepycat/je/tree/INTargetRep$Sparse")
+        && methodNode.name.equals("copy");
   }
 
   private MethodNode getMainMethod(ClassNode classNode) {
