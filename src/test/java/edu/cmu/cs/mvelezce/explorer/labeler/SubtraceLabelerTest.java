@@ -47,13 +47,7 @@ public class SubtraceLabelerTest {
     args = new String[2];
     args[0] = "-delres";
     args[1] = "-saveres";
-    Map<Set<String>, List<String>> write = subtraceLabeler.analyze(args);
-
-    subtraceLabeler = new SubtraceLabeler(programName);
-    args = new String[0];
-    Map<Set<String>, List<String>> read = subtraceLabeler.analyze(args);
-
-    Assert.assertEquals(write, read);
+    subtraceLabeler.analyze(args);
   }
 
   @Test
