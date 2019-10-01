@@ -1,18 +1,14 @@
 package edu.cmu.cs.mvelezce.explorer.idta;
 
-import edu.cmu.cs.mvelezce.adapter.adapters.Adapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
-import edu.cmu.cs.mvelezce.adapter.utils.Executor;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
 import edu.cmu.cs.mvelezce.cc.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraintanalysis.DTAConstraintAnalysis;
-import edu.cmu.cs.mvelezce.explorer.idta.other.DTAConstraintCalculator;
-import edu.cmu.cs.mvelezce.explorer.idta.other.PhosphorExecutionResultAnalysis;
-import edu.cmu.cs.mvelezce.explorer.idta.other.PhosphorControlFlowStatementInfo;
+import edu.cmu.cs.mvelezce.explorer.idta.execute.DynamicAnalysisExecutor;
 import edu.cmu.cs.mvelezce.explorer.idta.other.CompleteDTAResultAnalysis;
+import edu.cmu.cs.mvelezce.explorer.idta.other.DTAConstraintCalculator;
+import edu.cmu.cs.mvelezce.explorer.idta.other.PhosphorControlFlowStatementInfo;
+import edu.cmu.cs.mvelezce.explorer.idta.other.PhosphorExecutionResultAnalysis;
 import edu.cmu.cs.mvelezce.utils.Options;
 
 import javax.annotation.Nullable;
@@ -24,8 +20,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
   public static final String OUTPUT_DIR = Options.DIRECTORY + "/idta";
 
-  private static final String PHOSPHOR_SCRIPTS_DIR =
-      "../phosphor/Phosphor/scripts/run-instrumented/implicit-optimized";
+  private final DynamicAnalysisExecutor dynamicAnalysisExecutor;
 
   private final ConfigConstraintAnalyzer configConstraintAnalyzer;
   private final PhosphorExecutionResultAnalysis phosphorExecutionResultAnalysis;
@@ -39,6 +34,8 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
   public IDTA(String programName, List<String> options, Set<String> initialConfig) {
     super(programName, new HashSet<>(options), initialConfig);
+
+    this.dynamicAnalysisExecutor = new DynamicAnalysisExecutor(programName);
 
     this.configConstraintAnalyzer = new ConfigConstraintAnalyzer(new HashSet<>(options));
     this.phosphorExecutionResultAnalysis = new PhosphorExecutionResultAnalysis(programName);
@@ -93,7 +90,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
           this.configConstraintAnalyzer.getConstraintsSatisfiedByConfig(configConstraint);
       satisfiedConfigConstraints.addAll(satisfiedConfigConstraintsByConfig);
 
-      this.runPhosphorAnalysis(config);
+      this.dynamicAnalysisExecutor.runAnalysis(config);
       Set<DecisionTaints> results = this.phosphorExecutionResultAnalysis.getResults();
       //      System.out.println(results.size());
 
@@ -127,170 +124,6 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
     // Optimize
     return configsToRun.iterator().next();
-  }
-
-  void runPhosphorAnalysis(Set<String> config) throws IOException, InterruptedException {
-    ProcessBuilder builder = new ProcessBuilder();
-
-    List<String> commandList = this.buildCommandAsList(config);
-    builder.command(commandList);
-    builder.directory(new File(PHOSPHOR_SCRIPTS_DIR));
-
-    System.out.println("Running program");
-    Process process = builder.start();
-
-    Executor.processOutput(process);
-    Executor.processError(process);
-
-    process.waitFor();
-  }
-
-  // TODO the access level was changed to hardcode some logic to execute all dynamic examples
-  List<String> buildCommandAsList(Set<String> config) {
-    List<String> commandList = new ArrayList<>();
-
-    String programName = this.getProgramName();
-    Adapter adapter;
-
-    switch (programName) {
-        //      case DynamicRunningExampleAdapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new DynamicRunningExampleAdapter();
-        //        break;
-        //      case PhosphorExample2Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new PhosphorExample2Adapter();
-        //        break;
-        //      case PhosphorExample8Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new PhosphorExample8Adapter();
-        //        break;
-        //      case PhosphorExample3Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new PhosphorExample3Adapter();
-        //        break;
-        //      case SimpleExample1Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new SimpleExample1Adapter();
-        //        break;
-        //      case Example1Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new Example1Adapter();
-        //        break;
-        //      case MultiFacetsAdapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new MultiFacetsAdapter();
-        //        break;
-        //      case SimpleForExample2Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new SimpleForExample2Adapter();
-        //        break;
-        //      case SimpleForExample4Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new SimpleForExample4Adapter();
-        //        break;
-        //      case SimpleForExample5Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new SimpleForExample5Adapter();
-        //        break;
-        //      case SimpleForExample6Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new SimpleForExample6Adapter();
-        //        break;
-        //      case OrContextAdapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new OrContextAdapter();
-        //        break;
-        //      case OrContext2Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new OrContext2Adapter();
-        //        break;
-        //      case OrContext3Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new OrContext3Adapter();
-        //        break;
-        //      case OrContext6Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new OrContext6Adapter();
-        //        break;
-        //      case IfOr2Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new IfOr2Adapter();
-        //        break;
-        //      case VariabilityContext1Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new VariabilityContext1Adapter();
-        //        break;
-        //      case VariabilityContext2Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new VariabilityContext2Adapter();
-        //        break;
-        //      case SubtracesAdapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new SubtracesAdapter();
-        //        break;
-        //      case Subtraces2Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new Subtraces2Adapter();
-        //        break;
-        //      case Subtraces6Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new Subtraces6Adapter();
-        //        break;
-        //      case Subtraces7Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new Subtraces7Adapter();
-        //        break;
-        //      case ImplicitAdapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new ImplicitAdapter();
-        //        break;
-        //      case Implicit2Adapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new Implicit2Adapter();
-        //        break;
-      case BaseTrivialAdapter.PROGRAM_NAME:
-        commandList.add("./examples.sh");
-        adapter = new BaseTrivialAdapter();
-        break;
-        //      case SoundAdapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new SoundAdapter();
-        //        break;
-        //      case ConstructorAdapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new ConstructorAdapter();
-        //        break;
-        //      case PrevaylerAdapter.PROGRAM_NAME:
-        //        commandList.add("./prevayler.sh");
-        //        commandList.add(PrevaylerAdapter.PROGRAM_NAME);
-        //        adapter = new PrevaylerAdapter();
-        //        break;
-      case BaseMeasureDiskOrderedScanAdapter.PROGRAM_NAME:
-        commandList.add("./measureDiskOrderedScan.sh");
-        adapter = new BaseMeasureDiskOrderedScanAdapter();
-        ((BaseMeasureDiskOrderedScanAdapter) adapter).preProcess();
-        break;
-      case BaseIndexFilesAdapter.PROGRAM_NAME:
-        commandList.add("./indexFiles.sh");
-        adapter = new BaseIndexFilesAdapter();
-        ((BaseIndexFilesAdapter) adapter).preProcess();
-        break;
-        //      case NestingAdapter.PROGRAM_NAME:
-        //        commandList.add("./examples.sh");
-        //        adapter = new NestingAdapter();
-        //        break;
-      default:
-        throw new RuntimeException("Could not find a phosphor script to run " + programName);
-    }
-
-    // TODO change the following method to take a Config object
-    String[] configArgs = adapter.configurationAsMainArguments(config);
-    List<String> configList = Arrays.asList(configArgs);
-    commandList.add(adapter.getMainClass());
-    commandList.addAll(configList);
-
-    return commandList;
   }
 
   //  private ExecTaints getExecTaints(Map<String, List> map) {
