@@ -47,7 +47,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
   @Nullable
   @Override
   public Void analyze() throws IOException, InterruptedException {
-    this.runDynamicAnalysis();
+    this.runProgramAnalysis();
 
     Set<ConfigConstraint> constraints = this.DTAConstraintAnalysis.analyze();
     this.DTAConstraintAnalysis.writeToFile(constraints);
@@ -75,7 +75,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
     return OUTPUT_DIR + "/analysis" + this.getProgramName() + "/cc";
   }
 
-  private void runDynamicAnalysis() throws IOException, InterruptedException {
+  private void runProgramAnalysis() throws IOException, InterruptedException {
     System.err.println("Maybe use the FeatureExprLib for constraints");
     Set<String> options = this.getOptions();
     Set<ConfigConstraint> configConstraintsToSatisfy = new HashSet<>();
