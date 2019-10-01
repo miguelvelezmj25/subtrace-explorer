@@ -1,7 +1,7 @@
-package edu.cmu.cs.mvelezce.explorer.instrument.transform;
+package edu.cmu.cs.mvelezce.explorer.gt.instrument.transform;
 
-import edu.cmu.cs.mvelezce.explorer.instrument.SubtracesInstrumenter;
-import edu.cmu.cs.mvelezce.explorer.log.SubtracesLogger;
+import edu.cmu.cs.mvelezce.explorer.gt.instrument.SubtracesInstrumenter;
+import edu.cmu.cs.mvelezce.explorer.gt.log.SubtracesLogger;
 import edu.cmu.cs.mvelezce.instrumenter.graph.MethodGraph;
 import edu.cmu.cs.mvelezce.instrumenter.graph.block.MethodBlock;
 import edu.cmu.cs.mvelezce.instrumenter.graph.builder.cfg.CFGBuilder;

@@ -1,4 +1,4 @@
-package edu.cmu.cs.mvelezce.explorer.log;
+package edu.cmu.cs.mvelezce.explorer.gt.log;
 
 import jdk.internal.org.objectweb.asm.Type;
 

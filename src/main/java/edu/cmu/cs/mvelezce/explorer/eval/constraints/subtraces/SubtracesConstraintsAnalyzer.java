@@ -6,7 +6,7 @@ import de.fosd.typechef.featureexpr.FeatureExpr;
 import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
 import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.analysis.Analysis;
-import edu.cmu.cs.mvelezce.explorer.valueanalysis.SubtraceAnalysisInfo;
+import edu.cmu.cs.mvelezce.explorer.gt.valueanalysis.SubtraceAnalysisInfo;
 import edu.cmu.cs.mvelezce.utils.Options;
 import org.apache.commons.io.FileUtils;
 

@@ -1,9 +1,9 @@
-package edu.cmu.cs.mvelezce.explorer.valueanalysis;
+package edu.cmu.cs.mvelezce.explorer.gt.valueanalysis;
 
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
-import edu.cmu.cs.mvelezce.explorer.labeler.SubtraceLabeler;
+import edu.cmu.cs.mvelezce.explorer.gt.labeler.SubtraceLabeler;
 import org.junit.Assert;
 import org.junit.Test;
 

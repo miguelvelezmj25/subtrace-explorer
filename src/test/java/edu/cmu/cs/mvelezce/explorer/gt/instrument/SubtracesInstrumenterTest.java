@@ -1,4 +1,4 @@
-package edu.cmu.cs.mvelezce.explorer.instrument;
+package edu.cmu.cs.mvelezce.explorer.gt.instrument;
 
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;

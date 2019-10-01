@@ -1,4 +1,4 @@
-package edu.cmu.cs.mvelezce.explorer.labeler.subtrace;
+package edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace;
 
 import com.google.common.base.Objects;
 import com.sun.istack.internal.Nullable;

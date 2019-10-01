@@ -1,7 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.eval.constraints.missing;
 
 import com.google.common.base.Objects;
-import edu.cmu.cs.mvelezce.explorer.labeler.subtrace.ControlFlowStatement;
+import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.ControlFlowStatement;
 
 import java.util.HashSet;
 import java.util.Set;

@@ -1,8 +1,8 @@
-package edu.cmu.cs.mvelezce.explorer.labeler.subtrace;
+package edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.cmu.cs.mvelezce.explorer.Explorer;
+import edu.cmu.cs.mvelezce.explorer.gt.Explorer;
 import edu.cmu.cs.mvelezce.utils.Options;
 
 import javax.annotation.Nullable;

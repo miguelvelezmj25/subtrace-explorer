@@ -1,4 +1,4 @@
-package edu.cmu.cs.mvelezce.explorer.valueanalysis;
+package edu.cmu.cs.mvelezce.explorer.gt.valueanalysis;
 
 import java.util.Map;
 import java.util.Set;

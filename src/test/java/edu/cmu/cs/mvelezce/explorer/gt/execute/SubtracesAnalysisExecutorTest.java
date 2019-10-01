@@ -1,4 +1,4 @@
-package edu.cmu.cs.mvelezce.explorer.execute;
+package edu.cmu.cs.mvelezce.explorer.gt.execute;
 
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;

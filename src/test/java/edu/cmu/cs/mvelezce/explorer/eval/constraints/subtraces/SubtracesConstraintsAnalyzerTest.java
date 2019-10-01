@@ -3,8 +3,8 @@ package edu.cmu.cs.mvelezce.explorer.eval.constraints.subtraces;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
-import edu.cmu.cs.mvelezce.explorer.valueanalysis.SubtraceAnalysisInfo;
-import edu.cmu.cs.mvelezce.explorer.valueanalysis.SubtracesValueAnalysis;
+import edu.cmu.cs.mvelezce.explorer.gt.valueanalysis.SubtraceAnalysisInfo;
+import edu.cmu.cs.mvelezce.explorer.gt.valueanalysis.SubtracesValueAnalysis;
 import org.junit.Assert;
 import org.junit.Test;
 

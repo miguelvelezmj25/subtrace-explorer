@@ -1,9 +1,9 @@
-package edu.cmu.cs.mvelezce.explorer.execute;
+package edu.cmu.cs.mvelezce.explorer.gt.execute;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.cmu.cs.mvelezce.explorer.Explorer;
-import edu.cmu.cs.mvelezce.explorer.log.SubtracesLogger;
+import edu.cmu.cs.mvelezce.explorer.gt.Explorer;
+import edu.cmu.cs.mvelezce.explorer.gt.log.SubtracesLogger;
 import edu.cmu.cs.mvelezce.utils.ConfigHelper;
 import edu.cmu.cs.mvelezce.utils.Options;
 import org.apache.commons.io.FileUtils;

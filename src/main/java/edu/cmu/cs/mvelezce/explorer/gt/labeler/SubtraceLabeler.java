@@ -1,13 +1,13 @@
-package edu.cmu.cs.mvelezce.explorer.labeler;
+package edu.cmu.cs.mvelezce.explorer.gt.labeler;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
-import edu.cmu.cs.mvelezce.explorer.Explorer;
-import edu.cmu.cs.mvelezce.explorer.execute.ConfigToTraceInfo;
-import edu.cmu.cs.mvelezce.explorer.labeler.subtrace.SubtraceLabel;
-import edu.cmu.cs.mvelezce.explorer.labeler.subtrace.SubtraceManager;
-import edu.cmu.cs.mvelezce.explorer.log.SubtracesLogger;
+import edu.cmu.cs.mvelezce.explorer.gt.Explorer;
+import edu.cmu.cs.mvelezce.explorer.gt.execute.ConfigToTraceInfo;
+import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.SubtraceLabel;
+import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.SubtraceManager;
+import edu.cmu.cs.mvelezce.explorer.gt.log.SubtracesLogger;
 import edu.cmu.cs.mvelezce.utils.Options;
 
 import java.io.File;

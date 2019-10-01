@@ -1,4 +1,4 @@
-package edu.cmu.cs.mvelezce.explorer;
+package edu.cmu.cs.mvelezce.explorer.gt;
 
 import edu.cmu.cs.mvelezce.utils.Options;
 

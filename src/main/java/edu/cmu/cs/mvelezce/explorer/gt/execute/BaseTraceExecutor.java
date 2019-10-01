@@ -1,4 +1,4 @@
-package edu.cmu.cs.mvelezce.explorer.execute;
+package edu.cmu.cs.mvelezce.explorer.gt.execute;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.cmu.cs.mvelezce.adapter.adapters.Adapter;
@@ -8,7 +8,7 @@ import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDi
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.adapter.utils.Executor;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
-import edu.cmu.cs.mvelezce.explorer.log.SubtracesLogger;
+import edu.cmu.cs.mvelezce.explorer.gt.log.SubtracesLogger;
 import edu.cmu.cs.mvelezce.utils.Options;
 
 import java.io.BufferedReader;

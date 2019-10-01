@@ -1,6 +1,6 @@
-package edu.cmu.cs.mvelezce.explorer.instrument;
+package edu.cmu.cs.mvelezce.explorer.gt.instrument;
 
-import edu.cmu.cs.mvelezce.explorer.instrument.transform.SubtracesMethodTransformer;
+import edu.cmu.cs.mvelezce.explorer.gt.instrument.transform.SubtracesMethodTransformer;
 import edu.cmu.cs.mvelezce.explorer.utils.Packager;
 import edu.cmu.cs.mvelezce.instrumenter.instrument.BaseInstrumenter;
 import edu.cmu.cs.mvelezce.instrumenter.transform.methodnode.MethodTransformer;

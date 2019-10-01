@@ -6,9 +6,9 @@ import de.fosd.typechef.featureexpr.FeatureExpr;
 import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.analysis.Analysis;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.subtraces.SubtraceOutcomeConstraint;
-import edu.cmu.cs.mvelezce.explorer.labeler.subtrace.ControlFlowStatement;
-import edu.cmu.cs.mvelezce.explorer.labeler.subtrace.SubtraceLabel;
-import edu.cmu.cs.mvelezce.explorer.labeler.subtrace.SubtraceManager;
+import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.ControlFlowStatement;
+import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.SubtraceLabel;
+import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.SubtraceManager;
 import edu.cmu.cs.mvelezce.utils.Options;
 
 import java.io.File;

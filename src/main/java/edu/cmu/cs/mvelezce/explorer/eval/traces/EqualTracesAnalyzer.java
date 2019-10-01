@@ -2,9 +2,9 @@ package edu.cmu.cs.mvelezce.explorer.eval.traces;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.cmu.cs.mvelezce.explorer.execute.BaseTraceExecutor;
-import edu.cmu.cs.mvelezce.explorer.execute.ConfigToTraceInfo;
-import edu.cmu.cs.mvelezce.explorer.log.SubtracesLogger;
+import edu.cmu.cs.mvelezce.explorer.gt.execute.BaseTraceExecutor;
+import edu.cmu.cs.mvelezce.explorer.gt.execute.ConfigToTraceInfo;
+import edu.cmu.cs.mvelezce.explorer.gt.log.SubtracesLogger;
 import edu.cmu.cs.mvelezce.utils.Options;
 import org.apache.commons.io.FileUtils;
 
