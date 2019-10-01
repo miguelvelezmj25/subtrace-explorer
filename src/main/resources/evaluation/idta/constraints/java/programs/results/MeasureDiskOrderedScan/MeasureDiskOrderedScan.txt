@@ -1,13 +1,13 @@
-Constraints found by Phosphor !SEQUENTIAL
-Constraints found by Phosphor (!DUPLICATES && !JECACHESIZE)
-Constraints found by Phosphor JECACHESIZE
-Constraints found by Phosphor (!DUPLICATES && !SEQUENTIAL)
-Constraints found by Phosphor SEQUENTIAL
-Constraints found by Phosphor !JECACHESIZE
-Constraints found by Phosphor DUPLICATES
-Constraints found by Phosphor (DUPLICATES && !SEQUENTIAL)
-Constraints found by Phosphor !DUPLICATES
-Constraints found by Phosphor (DUPLICATES && SEQUENTIAL)
+Constraints found by IDTA !SEQUENTIAL
+Constraints found by IDTA (!DUPLICATES && !JECACHESIZE)
+Constraints found by IDTA JECACHESIZE
+Constraints found by IDTA (!DUPLICATES && !SEQUENTIAL)
+Constraints found by IDTA SEQUENTIAL
+Constraints found by IDTA !JECACHESIZE
+Constraints found by IDTA DUPLICATES
+Constraints found by IDTA (DUPLICATES && !SEQUENTIAL)
+Constraints found by IDTA !DUPLICATES
+Constraints found by IDTA (DUPLICATES && SEQUENTIAL)
 
 Subtrace constraint SHAREDCACHE implied by 
 	(SHAREDCACHE && JECACHESIZE && DUPLICATES)
@@ -84,7 +84,7 @@ Subtrace constraint (!DUPLICATES && SHAREDCACHE) implied by
 	(SHAREDCACHE && !JECACHESIZE && !DUPLICATES)
 	(SHAREDCACHE && JECACHESIZE && !DUPLICATES)
 
-Extra constraints derived from Phosphor
+Extra constraints derived from IDTA
 	(!JECACHESIZE && !REPLICATED)
 	(!JECACHESIZE && REPLICATED)
 

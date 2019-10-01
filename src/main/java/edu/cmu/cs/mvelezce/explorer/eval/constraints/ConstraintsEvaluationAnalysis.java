@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class ConstraintsEvaluationAnalysis {
+class ConstraintsEvaluationAnalysis {
 
   private static final String LINE_SEPARATOR = System.getProperty("line.separator");
 
@@ -23,22 +23,22 @@ public class ConstraintsEvaluationAnalysis {
     this.options = options;
   }
 
-  void analyze(Set<FeatureExpr> phosphorInteractions, Set<FeatureExpr> subtracesInteractions)
+  void analyze(Set<FeatureExpr> idtaInteractions, Set<FeatureExpr> subtracesInteractions)
       throws IOException {
     StringBuilder results = new StringBuilder();
-    Set<FeatureExpr> foundPhosphorInteractions =
-        findCoveredPhosphorInteractions(phosphorInteractions, subtracesInteractions, results);
-    phosphorInteractions.removeAll(foundPhosphorInteractions);
-    subtracesInteractions.removeAll(foundPhosphorInteractions);
+    Set<FeatureExpr> foundIDTAInteractions =
+        findCoveredIDTAInteractions(idtaInteractions, subtracesInteractions, results);
+    idtaInteractions.removeAll(foundIDTAInteractions);
+    subtracesInteractions.removeAll(foundIDTAInteractions);
     results.append(LINE_SEPARATOR);
     System.out.println();
 
-    Set<FeatureExpr> foundImplyingPhosphorInteractions =
-        findImplyingPhosphorInteractions(phosphorInteractions, subtracesInteractions, results);
-    phosphorInteractions.removeAll(foundImplyingPhosphorInteractions);
-    removeAllImplyingPhosphorInteractions(subtracesInteractions, foundImplyingPhosphorInteractions);
+    Set<FeatureExpr> foundImplyingIDTAInteractions =
+        findImplyingIDTAInteractions(idtaInteractions, subtracesInteractions, results);
+    idtaInteractions.removeAll(foundImplyingIDTAInteractions);
+    removeAllImplyingIDTAInteractions(subtracesInteractions, foundImplyingIDTAInteractions);
 
-    printExtraPhosphorInteractions(phosphorInteractions, results);
+    printExtraIDTAInteractions(idtaInteractions, results);
     printMissingSubtraceInteractions(subtracesInteractions, results);
 
     this.writeToFile(results);
@@ -78,19 +78,19 @@ public class ConstraintsEvaluationAnalysis {
     }
   }
 
-  private void printExtraPhosphorInteractions(
-      Set<FeatureExpr> phosphorInteractions, StringBuilder results) {
-    if (phosphorInteractions.isEmpty()) {
+  private void printExtraIDTAInteractions(
+      Set<FeatureExpr> idtaInteractions, StringBuilder results) {
+    if (idtaInteractions.isEmpty()) {
       return;
     }
 
-    String result = "Extra constraints derived from Phosphor";
+    String result = "Extra constraints derived from IDTA";
     results.append(result);
     results.append(LINE_SEPARATOR);
     System.out.println(result);
 
-    for (FeatureExpr phosphorInteraction : phosphorInteractions) {
-      result = "\t" + this.prettyPrintFeatureExpr(phosphorInteraction);
+    for (FeatureExpr idtaInteraction : idtaInteractions) {
+      result = "\t" + this.prettyPrintFeatureExpr(idtaInteraction);
       results.append(result);
       results.append(LINE_SEPARATOR);
       System.out.println(result);
@@ -100,15 +100,15 @@ public class ConstraintsEvaluationAnalysis {
     System.out.println();
   }
 
-  private void removeAllImplyingPhosphorInteractions(
-      Set<FeatureExpr> subtracesInteractions, Set<FeatureExpr> foundImplyingPhosphorInteractions) {
+  private void removeAllImplyingIDTAInteractions(
+      Set<FeatureExpr> subtracesInteractions, Set<FeatureExpr> foundImplyingIDTAInteractions) {
     Set<FeatureExpr> subtracesInteractionsToRemove = new HashSet<>();
 
     for (FeatureExpr subtracesInteraction : subtracesInteractions) {
       boolean removeSubtrace = false;
 
-      for (FeatureExpr phosphorInteraction : foundImplyingPhosphorInteractions) {
-        if (phosphorInteraction.implies(subtracesInteraction).isTautology()) {
+      for (FeatureExpr idtaInteraction : foundImplyingIDTAInteractions) {
+        if (idtaInteraction.implies(subtracesInteraction).isTautology()) {
           removeSubtrace = true;
           break;
         }
@@ -122,46 +122,45 @@ public class ConstraintsEvaluationAnalysis {
     subtracesInteractions.removeAll(subtracesInteractionsToRemove);
   }
 
-  private Set<FeatureExpr> findCoveredPhosphorInteractions(
-      Set<FeatureExpr> phosphorInteractions,
+  private Set<FeatureExpr> findCoveredIDTAInteractions(
+      Set<FeatureExpr> idtaInteractions,
       Set<FeatureExpr> subtracesInteractions,
       StringBuilder results) {
-    Set<FeatureExpr> foundPhosphorInteractions = new HashSet<>();
+    Set<FeatureExpr> foundIDTAInteractions = new HashSet<>();
 
-    for (FeatureExpr phosphorInteraction : phosphorInteractions) {
-      if (!subtracesInteractions.contains(phosphorInteraction)) {
+    for (FeatureExpr idtaInteraction : idtaInteractions) {
+      if (!subtracesInteractions.contains(idtaInteraction)) {
         continue;
       }
 
-      String result =
-          "Constraints found by Phosphor " + this.prettyPrintFeatureExpr(phosphorInteraction);
+      String result = "Constraints found by IDTA " + this.prettyPrintFeatureExpr(idtaInteraction);
       results.append(result);
       results.append(LINE_SEPARATOR);
       System.out.println(result);
-      foundPhosphorInteractions.add(phosphorInteraction);
+      foundIDTAInteractions.add(idtaInteraction);
     }
 
-    return foundPhosphorInteractions;
+    return foundIDTAInteractions;
   }
 
-  private Set<FeatureExpr> findImplyingPhosphorInteractions(
-      Set<FeatureExpr> phosphorInteractions,
+  private Set<FeatureExpr> findImplyingIDTAInteractions(
+      Set<FeatureExpr> idtaInteractions,
       Set<FeatureExpr> subtracesInteractions,
       StringBuilder results) {
-    Set<FeatureExpr> foundImplyingPhosphorInteractions = new HashSet<>();
+    Set<FeatureExpr> foundImplyingIDTAInteractions = new HashSet<>();
 
     for (FeatureExpr subtracesInteraction : subtracesInteractions) {
-      Set<FeatureExpr> implyingPhosphorInteractions = new HashSet<>();
+      Set<FeatureExpr> implyingIDTAInteractions = new HashSet<>();
 
-      for (FeatureExpr phosphorInteraction : phosphorInteractions) {
-        if (!phosphorInteraction.implies(subtracesInteraction).isTautology()) {
+      for (FeatureExpr idtaInteraction : idtaInteractions) {
+        if (!idtaInteraction.implies(subtracesInteraction).isTautology()) {
           continue;
         }
 
-        implyingPhosphorInteractions.add(phosphorInteraction);
+        implyingIDTAInteractions.add(idtaInteraction);
       }
 
-      if (implyingPhosphorInteractions.isEmpty()) {
+      if (implyingIDTAInteractions.isEmpty()) {
         continue;
       }
 
@@ -173,10 +172,10 @@ public class ConstraintsEvaluationAnalysis {
       results.append(LINE_SEPARATOR);
       System.out.println(result);
 
-      foundImplyingPhosphorInteractions.addAll(implyingPhosphorInteractions);
+      foundImplyingIDTAInteractions.addAll(implyingIDTAInteractions);
 
-      for (FeatureExpr phosphorInteraction : implyingPhosphorInteractions) {
-        result = "\t" + this.prettyPrintFeatureExpr(phosphorInteraction);
+      for (FeatureExpr idtaInteraction : implyingIDTAInteractions) {
+        result = "\t" + this.prettyPrintFeatureExpr(idtaInteraction);
         results.append(result);
         results.append(LINE_SEPARATOR);
         System.out.println(result);
@@ -186,7 +185,7 @@ public class ConstraintsEvaluationAnalysis {
       System.out.println();
     }
 
-    return foundImplyingPhosphorInteractions;
+    return foundImplyingIDTAInteractions;
   }
 
   private String getOutputDir() {

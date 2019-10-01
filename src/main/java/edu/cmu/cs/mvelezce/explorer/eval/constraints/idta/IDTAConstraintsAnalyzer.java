@@ -145,7 +145,6 @@ public class IDTAConstraintsAnalyzer implements Analysis<Set<FeatureExpr>> {
 
   @Override
   public String outputDir() {
-    System.err.println("Change phosphor to another name");
     return Options.DIRECTORY
         + "/evaluation/idta/constraints/java/programs/idta/"
         + this.programName;
