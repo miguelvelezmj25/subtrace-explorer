@@ -1,0 +1,1 @@
+[{"packageName":"edu.cmu.cs.mvelezce.analysis","className":"Trivial","methodSignature":"main([Ljava/lang/String;)V","decisionIndex":2,"influencingTaints":[{"context":[],"condition":["B"]}]},{"packageName":"edu.cmu.cs.mvelezce.analysis","className":"Trivial","methodSignature":"main([Ljava/lang/String;)V","decisionIndex":1,"influencingTaints":[{"context":[],"condition":["A"]}]}]

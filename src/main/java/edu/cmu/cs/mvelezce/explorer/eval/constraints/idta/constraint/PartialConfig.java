@@ -25,7 +25,7 @@ public class PartialConfig {
     return this.partialConfig.keySet();
   }
 
-  Set<String> toConfig() {
+  public Set<String> toConfig() {
     Set<String> config = new HashSet<>();
 
     for (Map.Entry<String, Boolean> entry : partialConfig.entrySet()) {
