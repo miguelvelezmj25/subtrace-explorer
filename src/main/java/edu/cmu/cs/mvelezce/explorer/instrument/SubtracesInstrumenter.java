@@ -15,9 +15,12 @@ public class SubtracesInstrumenter extends BaseInstrumenter {
   public static final String DIRECTORY =
       Options.DIRECTORY + "/analysis/spec/instrument/java/programs";
 
-  SubtracesInstrumenter(String programName, String srcDir, String classDir) {
+  private final String mainClass;
+
+  SubtracesInstrumenter(String programName, String mainClass, String srcDir, String classDir) {
     super(programName, srcDir, classDir);
 
+    this.mainClass = mainClass;
     System.err.println(
         "Check what are the cases that we are not currently handling when instrumenting for subtraces");
   }
@@ -48,7 +51,8 @@ public class SubtracesInstrumenter extends BaseInstrumenter {
   public void instrument()
       throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
     MethodTransformer transformer =
-        new SubtracesMethodTransformer.Builder(this.getProgramName(), this.getClassDir())
+        new SubtracesMethodTransformer.Builder(
+                this.getProgramName(), this.mainClass, this.getClassDir())
             .setDebug(false)
             .build();
     transformer.transformMethods();

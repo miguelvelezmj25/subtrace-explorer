@@ -1,7 +1,5 @@
 package edu.cmu.cs.mvelezce.explorer.instrument.transform;
 
-import edu.cmu.cs.mvelezce.adapter.adapters.Adapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.dummy.BaseDummyAdapter;
 import edu.cmu.cs.mvelezce.explorer.instrument.SubtracesInstrumenter;
 import edu.cmu.cs.mvelezce.explorer.log.SubtracesLogger;
 import edu.cmu.cs.mvelezce.instrumenter.graph.MethodGraph;
@@ -24,17 +22,17 @@ import java.util.Set;
 public class SubtracesMethodTransformer extends BaseMethodTransformer {
 
   private final String programName;
-  private final Adapter programAdapter = new BaseDummyAdapter();
+  private final String mainClass;
 
   private SubtracesMethodTransformer(Builder builder)
       throws NoSuchMethodException, MalformedURLException, IllegalAccessException,
           InvocationTargetException {
     super(new DefaultClassTransformer(builder.classDir), builder.debug);
 
+    this.programName = builder.programName;
+    this.mainClass = builder.mainClass.replaceAll("\\.", "/");
     System.err.println(
         "Debug how to instrument IPD to avoid exiting something that we have not entered");
-
-    this.programName = builder.programName;
   }
 
   @Override
@@ -52,154 +50,46 @@ public class SubtracesMethodTransformer extends BaseMethodTransformer {
     Set<MethodNode> methodsToInstrument = new HashSet<>();
 
     for (MethodNode methodNode : classNode.methods) {
-      if (classNode.name.equals("org/apache/lucene/core/util/packed/PackedInts")
-          && methodNode.name.equals("fastestFormatAndBits")) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
-        continue;
-      }
-
-      if (classNode.name.equals(
-              "org/apache/lucene/core/codecs/blocktree/BlockTreeTermsWriter$TermsWriter")
-          && methodNode.name.equals("pushTerm")) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
-        continue;
-      }
-
-      if (classNode.name.equals("org/apache/lucene/core/index/DefaultIndexingChain")
-          && methodNode.name.equals("getOrAddField")) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
-        continue;
-      }
-
-      if (classNode.name.equals("org/apache/lucene/core/util/ByteBlockPool")
-          && methodNode.name.equals("append")) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
-        continue;
-      }
-
-      if (classNode.name.equals("org/apache/lucene/core/analysis/CharArrayMap")
-          && methodNode.name.equals("getSlot")) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
-        continue;
-      }
-
-      if (classNode.name.equals("org/apache/lucene/core/store/LockStressTest")) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
-        continue;
-      }
-
-      if (classNode.name.equals("org/apache/lucene/core/store/LockVerifyServer")) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
-        continue;
-      }
-
-      if (classNode.name.equals("com/sleepycat/je/tree/IN")
-          && methodNode.name.equals("addToMainCache")) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
-        continue;
-      }
-
-      if (classNode.name.equals("com/sleepycat/je/evictor/Evictor")
-          && methodNode.name.equals("getNextTarget")) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
-        continue;
-      }
-
-      // TODO issues with subtraces labeling
-      if (classNode.name.equals("com/sleepycat/je/cleaner/OffsetList")
-          && methodNode.name.equals("toArray")) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
-        continue;
-      }
-
-      if (classNode.name.equals("com/sleepycat/je/log/FileReader")
-          && methodNode.name.equals("readData")) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
-        continue;
-      }
-
-      if (classNode.name.equals("com/sleepycat/je/tree/INTargetRep$Sparse")
-          && methodNode.name.equals("copy")) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
+      if (this.methodToSkip(classNode, methodNode)) {
+        System.err.println("Skipping a lot of methods");
         continue;
       }
 
       // TODO handle methods with try catch blocks
       if (!methodNode.tryCatchBlocks.isEmpty()) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
+        System.err.println("Skipping methods with try catches");
         continue;
       }
 
-      // TODO handle methods with throw instructions
-      boolean hasThrow = false;
-      InsnList insnList = methodNode.instructions;
-      ListIterator<AbstractInsnNode> insnListIter = insnList.iterator();
-
-      while (insnListIter.hasNext()) {
-        AbstractInsnNode insnNode = insnListIter.next();
-
-        if (insnNode.getOpcode() == Opcodes.ATHROW) {
-          hasThrow = true;
-          break;
-        }
-      }
-
-      if (hasThrow) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
+      if (this.methodHasThrow(methodNode)) {
+        System.err.println("Skipping methods with throw instructions");
         continue;
       }
 
-      // TODO handle methods with switch instructions
-      boolean hasSwitch = false;
-      insnList = methodNode.instructions;
-      insnListIter = insnList.iterator();
-
-      while (insnListIter.hasNext()) {
-        AbstractInsnNode insnNode = insnListIter.next();
-        int opcode = insnNode.getOpcode();
-
-        if (opcode == Opcodes.TABLESWITCH || opcode == Opcodes.LOOKUPSWITCH) {
-          hasSwitch = true;
-          break;
-        }
-      }
-
-      if (hasSwitch) {
-        System.err.println("Ignoring A LOT of cases where we do not instrument");
+      if (this.methodHasSwitch(methodNode)) {
+        System.err.println("Skipping methods with switches");
         continue;
       }
 
-      // Check if there is a jump instruction
-      insnList = methodNode.instructions;
-      insnListIter = insnList.iterator();
-
-      while (insnListIter.hasNext()) {
-        AbstractInsnNode insnNode = insnListIter.next();
-
-        if (insnNode instanceof JumpInsnNode) {
-          try {
-            CFGBuilder.getCfg(methodNode, classNode);
-          } catch (InvalidGraphException ige) {
-            System.err.println(
-                "Ignoring "
-                    + methodNode.name
-                    + " from "
-                    + classNode.name
-                    + " since the graph is invalid");
-            break;
-          }
-
-          methodsToInstrument.add(methodNode);
-          break;
-        }
+      if (this.methodHasJump(classNode, methodNode)) {
+        methodsToInstrument.add(methodNode);
       }
     }
 
-    if (this.isMainClass(classNode)) {
-      System.err.println("This code to find the main class of the program is not correct");
-
-      if (!classNode.name.equals("org/apache/lucene/core/store/LockVerifyServer")
-          && !classNode.name.equals("org/apache/lucene/core/store/LockStressTest")) {
+    if (this.programName.equals("phosphorExamples")) {
+      try {
+        MethodNode mainMethod = this.getMainMethod(classNode);
+        methodsToInstrument.add(mainMethod);
+      } catch (RuntimeException re) {
+        System.err.println("Weird way to continue if there is no main method in this class");
+      }
+    } else {
+      if (classNode.name.equals(this.mainClass)) {
+        //      System.err.println("This code to find the main class of the program is not
+        // correct");
+        //
+        //      if (!classNode.name.equals("org/apache/lucene/core/store/LockVerifyServer")
+        //          && !classNode.name.equals("org/apache/lucene/core/store/LockStressTest"))
         MethodNode mainMethod = this.getMainMethod(classNode);
         methodsToInstrument.add(mainMethod);
       }
@@ -208,22 +98,143 @@ public class SubtracesMethodTransformer extends BaseMethodTransformer {
     return methodsToInstrument;
   }
 
-  private boolean isMainClass(ClassNode classNode) {
-    if (programAdapter.getMainClass().isEmpty()) {
+  private boolean methodHasJump(ClassNode classNode, MethodNode methodNode) {
+    InsnList insnList = methodNode.instructions;
+    ListIterator<AbstractInsnNode> insnListIter = insnList.iterator();
 
-      try {
-        getMainMethod(classNode);
+    while (insnListIter.hasNext()) {
+      AbstractInsnNode insnNode = insnListIter.next();
 
-        return true;
-      } catch (RuntimeException re) {
-        return false;
+      if (insnNode instanceof JumpInsnNode) {
+        try {
+          System.err.println("Seems weird how we check if the graph can be built");
+          CFGBuilder.getCfg(methodNode, classNode);
+
+          return true;
+        } catch (InvalidGraphException ige) {
+          System.err.println(
+              "Ignoring "
+                  + methodNode.name
+                  + " from "
+                  + classNode.name
+                  + " since the graph is invalid");
+
+          return false;
+        }
       }
-    } else {
-      String mainClass = programAdapter.getMainClass();
-      mainClass = mainClass.replaceAll("\\.", "/");
-
-      return classNode.name.equals(mainClass);
     }
+
+    return false;
+  }
+
+  private boolean methodHasSwitch(MethodNode methodNode) {
+    boolean hasSwitch = false;
+    InsnList insnList = methodNode.instructions;
+    ListIterator<AbstractInsnNode> insnListIter = insnList.iterator();
+
+    while (insnListIter.hasNext()) {
+      AbstractInsnNode insnNode = insnListIter.next();
+      int opcode = insnNode.getOpcode();
+
+      if (opcode == Opcodes.TABLESWITCH || opcode == Opcodes.LOOKUPSWITCH) {
+        hasSwitch = true;
+        break;
+      }
+    }
+
+    return hasSwitch;
+  }
+
+  private boolean methodHasThrow(MethodNode methodNode) {
+    System.err.println("Skipping methods with throw");
+    boolean hasThrow = false;
+    InsnList insnList = methodNode.instructions;
+    ListIterator<AbstractInsnNode> insnListIter = insnList.iterator();
+
+    while (insnListIter.hasNext()) {
+      AbstractInsnNode insnNode = insnListIter.next();
+
+      if (insnNode.getOpcode() == Opcodes.ATHROW) {
+        hasThrow = true;
+        break;
+      }
+    }
+
+    return hasThrow;
+  }
+
+  private boolean methodToSkip(ClassNode classNode, MethodNode methodNode) {
+    if (classNode.name.equals("org/apache/lucene/core/util/packed/PackedInts")
+        && methodNode.name.equals("fastestFormatAndBits")) {
+      return true;
+    }
+
+    if (classNode.name.equals(
+            "org/apache/lucene/core/codecs/blocktree/BlockTreeTermsWriter$TermsWriter")
+        && methodNode.name.equals("pushTerm")) {
+      System.err.println("Ignoring A LOT of cases where we do not instrument");
+      return true;
+    }
+
+    if (classNode.name.equals("org/apache/lucene/core/index/DefaultIndexingChain")
+        && methodNode.name.equals("getOrAddField")) {
+      System.err.println("Ignoring A LOT of cases where we do not instrument");
+      return true;
+    }
+
+    if (classNode.name.equals("org/apache/lucene/core/util/ByteBlockPool")
+        && methodNode.name.equals("append")) {
+      System.err.println("Ignoring A LOT of cases where we do not instrument");
+      return true;
+    }
+
+    if (classNode.name.equals("org/apache/lucene/core/analysis/CharArrayMap")
+        && methodNode.name.equals("getSlot")) {
+      System.err.println("Ignoring A LOT of cases where we do not instrument");
+      return true;
+    }
+
+    if (classNode.name.equals("org/apache/lucene/core/store/LockStressTest")) {
+      System.err.println("Ignoring A LOT of cases where we do not instrument");
+      return true;
+    }
+
+    if (classNode.name.equals("org/apache/lucene/core/store/LockVerifyServer")) {
+      System.err.println("Ignoring A LOT of cases where we do not instrument");
+      return true;
+    }
+
+    if (classNode.name.equals("com/sleepycat/je/tree/IN")
+        && methodNode.name.equals("addToMainCache")) {
+      System.err.println("Ignoring A LOT of cases where we do not instrument");
+      return true;
+    }
+
+    if (classNode.name.equals("com/sleepycat/je/evictor/Evictor")
+        && methodNode.name.equals("getNextTarget")) {
+      System.err.println("Ignoring A LOT of cases where we do not instrument");
+      return true;
+    }
+
+    if (classNode.name.equals("com/sleepycat/je/cleaner/OffsetList")
+        && methodNode.name.equals("toArray")) {
+      System.err.println("Ignoring A LOT of cases where we do not instrument");
+      return true;
+    }
+
+    if (classNode.name.equals("com/sleepycat/je/log/FileReader")
+        && methodNode.name.equals("readData")) {
+      System.err.println("Ignoring A LOT of cases where we do not instrument");
+      return true;
+    }
+
+    if (classNode.name.equals("com/sleepycat/je/tree/INTargetRep$Sparse")
+        && methodNode.name.equals("copy")) {
+      System.err.println("Ignoring A LOT of cases where we do not instrument");
+      return true;
+    }
+
+    return false;
   }
 
   private MethodNode getMainMethod(ClassNode classNode) {
@@ -664,12 +675,14 @@ public class SubtracesMethodTransformer extends BaseMethodTransformer {
   public static class Builder {
 
     private final String programName;
+    private final String mainClass;
     private final String classDir;
 
     private boolean debug = false;
 
-    public Builder(String programName, String classDir) {
+    public Builder(String programName, String mainClass, String classDir) {
       this.programName = programName;
+      this.mainClass = mainClass;
       this.classDir = classDir;
     }
 
