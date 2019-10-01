@@ -27,7 +27,7 @@ public abstract class BaseTraceExecutor<T> extends BaseDynamicAnalysis<T> {
   }
 
   @Override
-  public void writeToFile(T analysisResults) {
+  public void writeToFile(T analysisResults) throws IOException {
     System.err.println("Abstract since it is repeated with SubtraceLabeler");
     System.err.println(
         "Not writing anything since we already wrote the files after each execution");

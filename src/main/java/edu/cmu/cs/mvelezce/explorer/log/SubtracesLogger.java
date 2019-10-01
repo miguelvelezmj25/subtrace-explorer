@@ -19,12 +19,13 @@ public class SubtracesLogger {
   public static final String ENTER_DECISION = "Enter";
   public static final String EXIT_DECISION = "Exit";
   public static final String EXIT_DECISION_AT_RETURN = "ExitReturn";
+  public static final String ARROW = " --> ";
   private static final byte[] ENTER_DECISION_BYTES = ENTER_DECISION.getBytes();
   private static final byte[] EXIT_DECISION_BYTES = EXIT_DECISION.getBytes();
   private static final byte[] EXIT_DECISION_AT_RETURN_BYTES = EXIT_DECISION_AT_RETURN.getBytes();
   private static final byte[] FALSE_BYTES = FALSE.getBytes();
   private static final byte[] TRUE_BYTES = TRUE.getBytes();
-  private static final byte[] ARROW_BYTES = " --> ".getBytes();
+  private static final byte[] ARROW_BYTES = ARROW.getBytes();
   private static final byte[] SPACE_BYTES = " ".getBytes();
   private static final byte[] NEW_LINE_BYTES = "\n".getBytes();
   private static final int EXIT_AT_RETURN_FLAG_COUNT = -1;

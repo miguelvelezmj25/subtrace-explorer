@@ -165,7 +165,7 @@ public class SubtracesMethodTransformer extends BaseMethodTransformer {
 
   private boolean methodToSkip(ClassNode classNode, MethodNode methodNode) {
     if (classNode.name.equals("com/sleepycat/je/utilint/LongMaxStat")
-        && methodNode.name.equals("setMax(J)Z.0")) {
+        && methodNode.name.equals("setMax")) {
       return true;
     }
 

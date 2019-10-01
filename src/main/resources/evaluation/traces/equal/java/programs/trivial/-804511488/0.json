@@ -1,0 +1,1 @@
+[{"config":[],"trace":["1 --> Enter edu/cmu/cs/mvelezce/analysis/Trivial.main([Ljava/lang/String;)V.0","FALSE","1 --> Exit edu/cmu/cs/mvelezce/analysis/Trivial.main([Ljava/lang/String;)V.0","1 --> Enter edu/cmu/cs/mvelezce/analysis/Trivial.main([Ljava/lang/String;)V.1","FALSE","1 --> Exit edu/cmu/cs/mvelezce/analysis/Trivial.main([Ljava/lang/String;)V.1"]}]
