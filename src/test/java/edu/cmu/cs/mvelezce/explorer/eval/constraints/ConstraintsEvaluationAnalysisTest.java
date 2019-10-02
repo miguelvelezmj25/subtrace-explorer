@@ -5,6 +5,7 @@ import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.IDTAConstraintsAnalyzer;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.subtraces.SubtraceOutcomeConstraint;
@@ -85,6 +86,13 @@ public class ConstraintsEvaluationAnalysisTest {
   public void iGen() throws Exception {
     String programName = BaseIGenAdapter.PROGRAM_NAME;
     Set<String> options = new HashSet<>(BaseIGenAdapter.getListOfOptions());
+    analyze(programName, options);
+  }
+
+  @Test
+  public void pngtasticCounter() throws Exception {
+    String programName = BasePngtasticAdapter.PROGRAM_NAME;
+    Set<String> options = new HashSet<>(BasePngtasticAdapter.getListOfOptions());
     analyze(programName, options);
   }
 

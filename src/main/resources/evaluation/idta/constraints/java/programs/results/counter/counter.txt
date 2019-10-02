@@ -1,0 +1,23 @@
+Constraints found by IDTA !DISTTHRESHOLD
+Constraints found by IDTA !MINALPHA
+Constraints found by IDTA !LOGLEVEL
+Constraints found by IDTA MINALPHA
+Constraints found by IDTA LOGLEVEL
+Constraints found by IDTA FREQTHRESHOLD
+Constraints found by IDTA !TIMEOUT
+Constraints found by IDTA DISTTHRESHOLD
+Constraints found by IDTA TIMEOUT
+Constraints found by IDTA !FREQTHRESHOLD
+
+Extra constraints derived from IDTA
+	(!TIMEOUT && !FREQTHRESHOLD)
+	(!TIMEOUT && !DISTTHRESHOLD)
+	(!TIMEOUT && DISTTHRESHOLD)
+	(TIMEOUT && DISTTHRESHOLD)
+	(TIMEOUT && !FREQTHRESHOLD)
+	(!TIMEOUT && FREQTHRESHOLD)
+	(TIMEOUT && !DISTTHRESHOLD)
+	(TIMEOUT && FREQTHRESHOLD)
+
+Missing subtrace constraints
+	(FREQTHRESHOLD && DISTTHRESHOLD)
