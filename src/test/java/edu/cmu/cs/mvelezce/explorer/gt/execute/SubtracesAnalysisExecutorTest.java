@@ -3,6 +3,7 @@ package edu.cmu.cs.mvelezce.explorer.gt.execute;
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.analysis.dynamic.DynamicAnalysis;
 import org.junit.Assert;
@@ -52,6 +53,19 @@ public class SubtracesAnalysisExecutorTest {
     Map<Set<String>, List<String>> read = analysis.analyze(args);
 
     Assert.assertFalse(read.isEmpty());
+  }
+
+  @Test
+  public void pngtasticCounter() throws IOException, InterruptedException {
+    String programName = BasePngtasticAdapter.PROGRAM_NAME;
+    Set<String> options = new HashSet<>(BasePngtasticAdapter.getListOfOptions());
+    DynamicAnalysis<Map<Set<String>, List<String>>> analysis =
+            new SubtracesAnalysisExecutor(programName, options);
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+    analysis.analyze(args);
   }
 
   @Test

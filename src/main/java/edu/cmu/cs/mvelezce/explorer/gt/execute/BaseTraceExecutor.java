@@ -6,6 +6,7 @@ import edu.cmu.cs.mvelezce.adapter.adapters.BaseAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.adapter.utils.Executor;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
@@ -104,9 +105,9 @@ public abstract class BaseTraceExecutor<T> extends BaseDynamicAnalysis<T> {
     List<String> commandList = new ArrayList<>();
     commandList.add("time");
     commandList.add("java");
-    commandList.add("-Xmx12g");
-    commandList.add("-Xms12g");
-    commandList.add("-XX:+UseConcMarkSweepGC");
+    commandList.add("-Xmx26g");
+    commandList.add("-Xms26g");
+    //    commandList.add("-XX:+UseConcMarkSweepGC");
     //    commandList.add("-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=5005");
     commandList.add("-cp");
 
@@ -233,6 +234,10 @@ public abstract class BaseTraceExecutor<T> extends BaseDynamicAnalysis<T> {
       case BaseIGenAdapter.PROGRAM_NAME:
         commandList.add(this.getClassPath(BaseIGenAdapter.INSTRUMENTED_CLASS_PATH));
         adapter = new BaseIGenAdapter();
+        break;
+      case BasePngtasticAdapter.PROGRAM_NAME:
+        commandList.add(this.getClassPath(BasePngtasticAdapter.INSTRUMENTED_CLASS_PATH));
+        adapter = new BasePngtasticAdapter();
         break;
         //      case AbstractPrevaylerAdapter.PROGRAM_NAME:
         //        commandList.add(
