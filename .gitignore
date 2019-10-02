@@ -253,3 +253,4 @@ $RECYCLE.BIN/
 /results.ser
 /index/
 /src/main/resources/explorer/labeler/subtraces/java/programs/counter/
+/src/main/resources/explorer/value/analysis/java/programs/counter/
