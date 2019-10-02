@@ -5,10 +5,10 @@ import edu.cmu.cs.mvelezce.cc.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraintanalysis.DTAConstraintAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.execute.DynamicAnalysisExecutor;
-import edu.cmu.cs.mvelezce.explorer.idta.other.CompleteDTAResultAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.other.DTAConstraintCalculator;
 import edu.cmu.cs.mvelezce.explorer.idta.other.PhosphorControlFlowStatementInfo;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DynamicAnalysisResultsParser;
+import edu.cmu.cs.mvelezce.explorer.idta.results.statement.ControlFlowInfluencingTaintsAnalysis;
 import edu.cmu.cs.mvelezce.utils.Options;
 
 import javax.annotation.Nullable;
@@ -22,11 +22,11 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
   private final DynamicAnalysisExecutor dynamicAnalysisExecutor;
   private final DynamicAnalysisResultsParser dynamicAnalysisResultsParser;
+  private final ControlFlowInfluencingTaintsAnalysis controlFlowInfluencingTaintsAnalysis;
 
   private final ConfigConstraintAnalyzer configConstraintAnalyzer;
   private final DTAConstraintCalculator DTAConstraintCalculator;
   private final DTAConstraintAnalysis DTAConstraintAnalysis;
-  private final CompleteDTAResultAnalysis completeDTAResultAnalysis;
 
   IDTA(String programName) {
     this(programName, new ArrayList<>(), new HashSet<>());
@@ -37,11 +37,12 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
     this.dynamicAnalysisExecutor = new DynamicAnalysisExecutor(programName);
     this.dynamicAnalysisResultsParser = new DynamicAnalysisResultsParser(programName);
+    this.controlFlowInfluencingTaintsAnalysis =
+        new ControlFlowInfluencingTaintsAnalysis(programName, options);
 
     this.configConstraintAnalyzer = new ConfigConstraintAnalyzer(new HashSet<>(options));
     this.DTAConstraintCalculator = new DTAConstraintCalculator(options);
     this.DTAConstraintAnalysis = new DTAConstraintAnalysis(programName);
-    this.completeDTAResultAnalysis = new CompleteDTAResultAnalysis(programName, options);
   }
 
   @Nullable
@@ -54,8 +55,8 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
     System.err.println("Might want to save the constraints per decision, not the taints");
     Set<PhosphorControlFlowStatementInfo> phosphorControlFlowStatementInfos =
-        this.completeDTAResultAnalysis.analyze();
-    this.completeDTAResultAnalysis.writeToFile(phosphorControlFlowStatementInfos);
+        this.controlFlowInfluencingTaintsAnalysis.analyze();
+    this.controlFlowInfluencingTaintsAnalysis.writeToFile(phosphorControlFlowStatementInfos);
 
     return null;
   }
@@ -94,6 +95,8 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
       Set<DecisionTaints> decisionTaints = this.dynamicAnalysisResultsParser.parseResults();
       //      System.out.println(results.size());
 
+      this.controlFlowInfluencingTaintsAnalysis.saveTaints(decisionTaints);
+
       Collection<Set<ConfigConstraint>> constraintsSet =
           this.DTAConstraintCalculator.deriveConstraints(decisionTaints, config).values();
       Set<ConfigConstraint> analysisConstraints = new HashSet<>();
@@ -103,7 +106,6 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
       }
 
       this.DTAConstraintAnalysis.addConstraints(analysisConstraints);
-      this.completeDTAResultAnalysis.recordTaints(decisionTaints);
 
       configConstraintsToSatisfy.addAll(analysisConstraints);
       configConstraintsToSatisfy.removeAll(satisfiedConfigConstraints);

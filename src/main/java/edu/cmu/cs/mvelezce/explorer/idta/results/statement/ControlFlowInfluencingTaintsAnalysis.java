@@ -1,4 +1,4 @@
-package edu.cmu.cs.mvelezce.explorer.idta.other;
+package edu.cmu.cs.mvelezce.explorer.idta.results.statement;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -16,20 +16,20 @@ import java.util.*;
 
 // TODO might need to know what configurations will be executed to know what can be removed from
 // instrumentation
-public class CompleteDTAResultAnalysis
+public class ControlFlowInfluencingTaintsAnalysis
     extends BaseDynamicAnalysis<Set<PhosphorControlFlowStatementInfo>> {
 
   private final Map<String, Set<InfluencingTaints>> statementsToOptionsSet = new HashMap<>();
   //  private final Map<String, InfluencingTaints> statementsToOptions = new HashMap<>();
   private final List<String> options;
 
-  public CompleteDTAResultAnalysis(String programName, List<String> options) {
+  public ControlFlowInfluencingTaintsAnalysis(String programName, List<String> options) {
     super(programName, new HashSet<>(options), new HashSet<>());
 
     this.options = options;
   }
 
-  CompleteDTAResultAnalysis(String programName) {
+  ControlFlowInfluencingTaintsAnalysis(String programName) {
     this(programName, new ArrayList<>());
   }
 
@@ -83,6 +83,53 @@ public class CompleteDTAResultAnalysis
     }
 
     return phosphorControlFlowStatementInfos;
+  }
+
+  public void saveTaints(Set<DecisionTaints> results) {
+    this.putStatements(results);
+    this.putOptions(results);
+  }
+
+  private void putOptions(Set<DecisionTaints> results) {
+    for (DecisionTaints decisionTaints : results) {
+      Set<String> conditionTaints = TaintHelper.getConditionTaints(decisionTaints, this.options);
+      Set<String> contextTaints = TaintHelper.getContextTaints(decisionTaints, this.options);
+      InfluencingTaints influencingTaints = new InfluencingTaints(contextTaints, conditionTaints);
+
+      String statement = decisionTaints.getDecision();
+      Set<InfluencingTaints> currentTaints = this.statementsToOptionsSet.get(statement);
+      currentTaints.add(influencingTaints);
+    }
+  }
+
+  private void putStatements(Set<DecisionTaints> results) {
+    for (DecisionTaints decisionTaints : results) {
+      String statement = decisionTaints.getDecision();
+      this.statementsToOptionsSet.putIfAbsent(statement, new HashSet<>());
+    }
+  }
+
+  @Override
+  public void writeToFile(Set<PhosphorControlFlowStatementInfo> controlFlowInfos)
+      throws IOException {
+    String outputFile = this.outputDir() + "/" + this.getProgramName() + Options.DOT_JSON;
+    File file = new File(outputFile);
+    file.getParentFile().mkdirs();
+
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.writeValue(file, controlFlowInfos);
+  }
+
+  @Override
+  public Set<PhosphorControlFlowStatementInfo> readFromFile(File file) throws IOException {
+    ObjectMapper mapper = new ObjectMapper();
+
+    return mapper.readValue(file, new TypeReference<Set<PhosphorControlFlowStatementInfo>>() {});
+  }
+
+  @Override
+  public String outputDir() {
+    return IDTA.OUTPUT_DIR + "/analysis/" + this.getProgramName() + "/cc/statements";
   }
 
   //  private void mergeTaints() {
@@ -258,51 +305,4 @@ public class CompleteDTAResultAnalysis
   //
   //    this.statementsToOptions.keySet().removeAll(statementsToRemove);
   //  }
-
-  public void recordTaints(Set<DecisionTaints> results) {
-    this.putStatements(results);
-    this.putOptions(results);
-  }
-
-  private void putOptions(Set<DecisionTaints> results) {
-    for (DecisionTaints decisionTaints : results) {
-      Set<String> conditionTaints = TaintHelper.getConditionTaints(decisionTaints, this.options);
-      Set<String> contextTaints = TaintHelper.getContextTaints(decisionTaints, this.options);
-      InfluencingTaints influencingTaints = new InfluencingTaints(contextTaints, conditionTaints);
-
-      String statement = decisionTaints.getDecision();
-      Set<InfluencingTaints> currentTaints = this.statementsToOptionsSet.get(statement);
-      currentTaints.add(influencingTaints);
-    }
-  }
-
-  private void putStatements(Set<DecisionTaints> results) {
-    for (DecisionTaints decisionTaints : results) {
-      String statement = decisionTaints.getDecision();
-      this.statementsToOptionsSet.putIfAbsent(statement, new HashSet<>());
-    }
-  }
-
-  @Override
-  public void writeToFile(Set<PhosphorControlFlowStatementInfo> controlFlowInfos)
-      throws IOException {
-    String outputFile = this.outputDir() + "/" + this.getProgramName() + Options.DOT_JSON;
-    File file = new File(outputFile);
-    file.getParentFile().mkdirs();
-
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.writeValue(file, controlFlowInfos);
-  }
-
-  @Override
-  public Set<PhosphorControlFlowStatementInfo> readFromFile(File file) throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
-
-    return mapper.readValue(file, new TypeReference<Set<PhosphorControlFlowStatementInfo>>() {});
-  }
-
-  @Override
-  public String outputDir() {
-    return IDTA.OUTPUT_DIR + "/analysis/" + this.getProgramName() + "/cc/statements";
-  }
 }
