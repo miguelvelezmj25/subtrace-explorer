@@ -1,5 +1,6 @@
 package edu.cmu.cs.mvelezce.explorer.gt.execute;
 
+import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
@@ -19,6 +20,25 @@ public class SubtracesAnalysisExecutorTest {
   public void trivial() throws IOException, InterruptedException {
     String programName = BaseTrivialAdapter.PROGRAM_NAME;
     Set<String> options = new HashSet<>(BaseTrivialAdapter.getListOfOptions());
+    DynamicAnalysis<Map<Set<String>, List<String>>> analysis =
+        new SubtracesAnalysisExecutor(programName, options);
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+    analysis.analyze(args);
+
+    analysis = new SubtracesAnalysisExecutor(programName);
+    args = new String[0];
+    Map<Set<String>, List<String>> read = analysis.analyze(args);
+
+    Assert.assertFalse(read.isEmpty());
+  }
+
+  @Test
+  public void iGen() throws IOException, InterruptedException {
+    String programName = BaseIGenAdapter.PROGRAM_NAME;
+    Set<String> options = new HashSet<>(BaseIGenAdapter.getListOfOptions());
     DynamicAnalysis<Map<Set<String>, List<String>>> analysis =
         new SubtracesAnalysisExecutor(programName, options);
 

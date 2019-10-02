@@ -3,6 +3,7 @@ package edu.cmu.cs.mvelezce.explorer.gt.execute;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.cmu.cs.mvelezce.adapter.adapters.Adapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.BaseAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
@@ -228,6 +229,10 @@ public abstract class BaseTraceExecutor<T> extends BaseDynamicAnalysis<T> {
       case BaseTrivialAdapter.PROGRAM_NAME:
         commandList.add(this.getClassPath(BaseTrivialAdapter.INSTRUMENTED_CLASS_PATH));
         adapter = new BaseTrivialAdapter();
+        break;
+      case BaseIGenAdapter.PROGRAM_NAME:
+        commandList.add(this.getClassPath(BaseIGenAdapter.INSTRUMENTED_CLASS_PATH));
+        adapter = new BaseIGenAdapter();
         break;
         //      case AbstractPrevaylerAdapter.PROGRAM_NAME:
         //        commandList.add(
