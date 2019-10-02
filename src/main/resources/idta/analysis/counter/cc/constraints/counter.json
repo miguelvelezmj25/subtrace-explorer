@@ -1,0 +1,76 @@
+[
+  {
+    "partialConfig": {
+      "FREQTHRESHOLD": true,
+      "TIMEOUT": false
+    }
+  },
+  {
+    "partialConfig": {
+      "DISTTHRESHOLD": true
+    }
+  },
+  {
+    "partialConfig": {
+      "FREQTHRESHOLD": false,
+      "TIMEOUT": true
+    }
+  },
+  {
+    "partialConfig": {
+      "LOGLEVEL": false
+    }
+  },
+  {
+    "partialConfig": {
+      "FREQTHRESHOLD": true
+    }
+  },
+  {
+    "partialConfig": {
+      "MINALPHA": false
+    }
+  },
+  {
+    "partialConfig": {
+      "FREQTHRESHOLD": false,
+      "TIMEOUT": false
+    }
+  },
+  {
+    "partialConfig": {
+      "TIMEOUT": false
+    }
+  },
+  {
+    "partialConfig": {
+      "MINALPHA": true
+    }
+  },
+  {
+    "partialConfig": {
+      "LOGLEVEL": true
+    }
+  },
+  {
+    "partialConfig": {
+      "FREQTHRESHOLD": false
+    }
+  },
+  {
+    "partialConfig": {
+      "TIMEOUT": true
+    }
+  },
+  {
+    "partialConfig": {
+      "FREQTHRESHOLD": true,
+      "TIMEOUT": true
+    }
+  },
+  {
+    "partialConfig": {
+      "DISTTHRESHOLD": false
+    }
+  }
+]

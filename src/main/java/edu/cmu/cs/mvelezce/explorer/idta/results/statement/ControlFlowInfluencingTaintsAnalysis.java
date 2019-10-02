@@ -48,6 +48,7 @@ public class ControlFlowInfluencingTaintsAnalysis
   @Override
   public Set<PhosphorControlFlowStatementInfo> analyze() throws IOException, InterruptedException {
     System.err.println("Might want to save the constraints per decision, not the taints");
+    System.err.println("Check that we remove the control flow taints from the data flow taints");
     //    this.removeContextTaintsInConditionTaints();
     //    this.removeStatementsWithOnlyEmptyConditionTaints();
     ////    this.updatedConditionTaintsIfremoveContextTaintsInConditionTaints();

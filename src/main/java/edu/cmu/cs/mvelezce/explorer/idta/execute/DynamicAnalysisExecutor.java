@@ -4,6 +4,7 @@ import edu.cmu.cs.mvelezce.adapter.adapters.Adapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.adapter.utils.Executor;
 
@@ -152,6 +153,10 @@ public class DynamicAnalysisExecutor {
       case BaseIGenAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseIGenAdapter();
+        break;
+      case BasePngtasticAdapter.PROGRAM_NAME:
+        commandList.add("./counter.sh");
+        adapter = new BasePngtasticAdapter();
         break;
         //      case SoundAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");
