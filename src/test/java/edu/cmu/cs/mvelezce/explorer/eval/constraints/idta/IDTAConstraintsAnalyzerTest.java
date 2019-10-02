@@ -1,6 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.eval.constraints.idta;
 
 import de.fosd.typechef.featureexpr.FeatureExpr;
+import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
@@ -37,6 +38,13 @@ public class IDTAConstraintsAnalyzerTest {
   public void trivial() throws Exception {
     String programName = BaseTrivialAdapter.PROGRAM_NAME;
     Set<String> options = new HashSet<>(BaseTrivialAdapter.getListOfOptions());
+    analyzeInteractions(programName, options);
+  }
+
+  @Test
+  public void iGen() throws Exception {
+    String programName = BaseIGenAdapter.PROGRAM_NAME;
+    Set<String> options = new HashSet<>(BaseIGenAdapter.getListOfOptions());
     analyzeInteractions(programName, options);
   }
 
