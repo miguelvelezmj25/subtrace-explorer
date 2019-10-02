@@ -39,12 +39,24 @@
   },
   {
     "partialConfig": {
+      "DISTTHRESHOLD": false,
+      "TIMEOUT": false
+    }
+  },
+  {
+    "partialConfig": {
       "TIMEOUT": false
     }
   },
   {
     "partialConfig": {
       "MINALPHA": true
+    }
+  },
+  {
+    "partialConfig": {
+      "DISTTHRESHOLD": true,
+      "TIMEOUT": true
     }
   },
   {
@@ -59,6 +71,18 @@
   },
   {
     "partialConfig": {
+      "TIMEOUT": true
+    }
+  },
+  {
+    "partialConfig": {
+      "DISTTHRESHOLD": true,
+      "TIMEOUT": false
+    }
+  },
+  {
+    "partialConfig": {
+      "DISTTHRESHOLD": false,
       "TIMEOUT": true
     }
   },
