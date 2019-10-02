@@ -2,6 +2,7 @@ package edu.cmu.cs.mvelezce.explorer.eval.constraints;
 
 import de.fosd.typechef.featureexpr.FeatureExpr;
 import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
+import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
@@ -51,6 +52,10 @@ public class ConstraintsEvaluationAnalysisTest {
       }
     }
 
+    if (subtraceConstraints.isEmpty()) {
+      throw new RuntimeException("The GT constraints are empty");
+    }
+
     return subtraceConstraints;
   }
 
@@ -60,13 +65,26 @@ public class ConstraintsEvaluationAnalysisTest {
     IDTAConstraintsAnalyzer idtaConstraintsAnalyzer = new IDTAConstraintsAnalyzer(programName);
     String[] args = new String[0];
 
-    return idtaConstraintsAnalyzer.analyze(args);
+    Set<FeatureExpr> idtaConstraints = idtaConstraintsAnalyzer.analyze(args);
+
+    if (idtaConstraints.isEmpty()) {
+      throw new RuntimeException("The IDTA constraints are empty");
+    }
+
+    return idtaConstraints;
   }
 
   @Test
   public void trivial() throws Exception {
     String programName = BaseTrivialAdapter.PROGRAM_NAME;
     Set<String> options = new HashSet<>(BaseTrivialAdapter.getListOfOptions());
+    analyze(programName, options);
+  }
+
+  @Test
+  public void iGen() throws Exception {
+    String programName = BaseIGenAdapter.PROGRAM_NAME;
+    Set<String> options = new HashSet<>(BaseIGenAdapter.getListOfOptions());
     analyze(programName, options);
   }
 

@@ -1,0 +1,18 @@
+Constraints found by IDTA C
+Constraints found by IDTA !E
+Constraints found by IDTA (E && !F)
+Constraints found by IDTA (C && !D)
+Constraints found by IDTA (!A && !B && D && C)
+Constraints found by IDTA (D && !A && C)
+Constraints found by IDTA E
+Constraints found by IDTA !C
+Constraints found by IDTA (C && D)
+Constraints found by IDTA !G
+Constraints found by IDTA (D && A && C)
+Constraints found by IDTA (!A && B && D && C)
+Constraints found by IDTA G
+Constraints found by IDTA (E && F)
+
+Missing subtrace constraints
+	(E && F && G)
+	(E && F && !G)
