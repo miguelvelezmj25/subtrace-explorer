@@ -3,6 +3,7 @@ package edu.cmu.cs.mvelezce.explorer.eval.constraints.subtraces;
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.explorer.gt.valueanalysis.SubtraceAnalysisInfo;
 import edu.cmu.cs.mvelezce.explorer.gt.valueanalysis.SubtracesValueAnalysis;
@@ -37,6 +38,13 @@ public class SubtracesConstraintsAnalyzerTest {
   public void trivial() throws Exception {
     String programName = BaseTrivialAdapter.PROGRAM_NAME;
     Set<String> options = new HashSet<>(BaseTrivialAdapter.getListOfOptions());
+    analyzeConstraints(programName, options);
+  }
+
+  @Test
+  public void pngtasticCounter() throws Exception {
+    String programName = BasePngtasticAdapter.PROGRAM_NAME;
+    Set<String> options = new HashSet<>(BasePngtasticAdapter.getListOfOptions());
     analyzeConstraints(programName, options);
   }
 
