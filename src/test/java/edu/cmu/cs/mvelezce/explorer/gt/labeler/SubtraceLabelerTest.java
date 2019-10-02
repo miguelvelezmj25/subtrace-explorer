@@ -3,6 +3,7 @@ package edu.cmu.cs.mvelezce.explorer.gt.labeler;
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.explorer.gt.execute.SubtracesAnalysisExecutor;
 import org.junit.Assert;
@@ -55,6 +56,21 @@ public class SubtraceLabelerTest {
     Map<Set<String>, List<String>> read = subtraceLabeler.analyze(args);
 
     Assert.assertEquals(write, read);
+  }
+
+  @Test
+  public void pngtasticCounter() throws IOException, InterruptedException {
+    String programName = BasePngtasticAdapter.PROGRAM_NAME;
+    SubtracesAnalysisExecutor analysis = new SubtracesAnalysisExecutor(programName);
+
+    String[] args = new String[0];
+    Map<Set<String>, List<String>> configsToTraces = analysis.analyze(args);
+
+    SubtraceLabeler subtraceLabeler = new SubtraceLabeler(programName, configsToTraces);
+    args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+    subtraceLabeler.analyze(args);
   }
 
   @Test

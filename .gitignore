@@ -251,3 +251,5 @@ $RECYCLE.BIN/
 
 # End of https://www.gitignore.io/api/macos,windows,intellij+all,maven,eclipse,java
 /results.ser
+/index/
+/src/main/resources/explorer/labeler/subtraces/java/programs/counter/
