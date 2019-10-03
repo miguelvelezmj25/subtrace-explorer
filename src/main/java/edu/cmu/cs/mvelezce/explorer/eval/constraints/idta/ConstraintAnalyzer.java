@@ -26,12 +26,21 @@ public abstract class ConstraintAnalyzer implements Analysis<Set<FeatureExpr>> {
     this.options = options;
   }
 
+  protected abstract List<String> getStringConstraints();
+
   String getProgramName() {
     return programName;
   }
 
   Set<String> getOptions() {
     return options;
+  }
+
+  @Override
+  public Set<FeatureExpr> analyze() {
+    List<String> stringConstraints = this.getStringConstraints();
+
+    return new HashSet<>(MinConfigsGenerator.getFeatureExprs(stringConstraints));
   }
 
   @Override

@@ -1,7 +1,5 @@
 package edu.cmu.cs.mvelezce.explorer.eval.constraints.idta;
 
-import de.fosd.typechef.featureexpr.FeatureExpr;
-import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
 
 import java.util.*;
@@ -23,13 +21,7 @@ public class IDTAConstraintsAnalyzer extends ConstraintAnalyzer {
   }
 
   @Override
-  public Set<FeatureExpr> analyze() {
-    List<String> stringConstraints = this.getStringConstraints();
-
-    return new HashSet<>(MinConfigsGenerator.getFeatureExprs(stringConstraints));
-  }
-
-  private List<String> getStringConstraints() {
+  protected List<String> getStringConstraints() {
     System.err.println("This code was copied and pasted");
     List<String> stringConstraints = new ArrayList<>();
 
