@@ -3,7 +3,7 @@ package edu.cmu.cs.mvelezce.explorer.idta;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
 import edu.cmu.cs.mvelezce.cc.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
-import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraintanalysis.DTAConstraintAnalysis;
+import edu.cmu.cs.mvelezce.explorer.idta.results.dta.constraints.DTAConstraintAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.execute.DynamicAnalysisExecutor;
 import edu.cmu.cs.mvelezce.explorer.idta.other.DTAConstraintCalculator;
 import edu.cmu.cs.mvelezce.explorer.idta.other.PhosphorControlFlowStatementInfo;
@@ -27,10 +27,6 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
   private final ConfigConstraintAnalyzer configConstraintAnalyzer;
   private final DTAConstraintCalculator DTAConstraintCalculator;
   private final DTAConstraintAnalysis DTAConstraintAnalysis;
-
-  IDTA(String programName) {
-    this(programName, new ArrayList<>(), new HashSet<>());
-  }
 
   public IDTA(String programName, List<String> options, Set<String> initialConfig) {
     super(programName, new HashSet<>(options), initialConfig);

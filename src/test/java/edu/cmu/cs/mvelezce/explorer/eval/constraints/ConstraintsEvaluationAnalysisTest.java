@@ -60,7 +60,7 @@ public class ConstraintsEvaluationAnalysisTest {
     return subtraceConstraints;
   }
 
-  private Set<FeatureExpr> getIDTAConstraints(String programName) throws IOException {
+  private Set<FeatureExpr> getIDTAConstraints(String programName) throws Exception {
     System.err.println(
         "Might want to change how to get the IDTA constraints to a map from statements to constraints");
     IDTAConstraintsAnalyzer idtaConstraintsAnalyzer = new IDTAConstraintsAnalyzer(programName);

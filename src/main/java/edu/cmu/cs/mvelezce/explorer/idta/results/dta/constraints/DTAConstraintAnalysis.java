@@ -1,4 +1,4 @@
-package edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraintanalysis;
+package edu.cmu.cs.mvelezce.explorer.idta.results.dta.constraints;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
