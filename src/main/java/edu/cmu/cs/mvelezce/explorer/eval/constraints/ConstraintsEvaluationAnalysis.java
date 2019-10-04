@@ -1,6 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.eval.constraints;
 
 import de.fosd.typechef.featureexpr.FeatureExpr;
+import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
 import edu.cmu.cs.mvelezce.utils.Options;
 import org.apache.commons.io.FileUtils;
 
@@ -71,7 +72,7 @@ class ConstraintsEvaluationAnalysis {
     System.err.println(result);
 
     for (FeatureExpr subtraceInteraction : subtracesInteractions) {
-      result = "\t" + this.prettyPrintFeatureExpr(subtraceInteraction);
+      result = "\t" + ConstraintUtils.prettyPrintFeatureExpr(subtraceInteraction, this.options);
       results.append(result);
       results.append(LINE_SEPARATOR);
       System.err.println(result);
@@ -90,7 +91,7 @@ class ConstraintsEvaluationAnalysis {
     System.out.println(result);
 
     for (FeatureExpr idtaInteraction : idtaInteractions) {
-      result = "\t" + this.prettyPrintFeatureExpr(idtaInteraction);
+      result = "\t" + ConstraintUtils.prettyPrintFeatureExpr(idtaInteraction, this.options);
       results.append(result);
       results.append(LINE_SEPARATOR);
       System.out.println(result);
@@ -133,7 +134,9 @@ class ConstraintsEvaluationAnalysis {
         continue;
       }
 
-      String result = "Constraints found by IDTA " + this.prettyPrintFeatureExpr(idtaInteraction);
+      String result =
+          "Constraints found by IDTA "
+              + ConstraintUtils.prettyPrintFeatureExpr(idtaInteraction, this.options);
       results.append(result);
       results.append(LINE_SEPARATOR);
       System.out.println(result);
@@ -166,7 +169,7 @@ class ConstraintsEvaluationAnalysis {
 
       String result =
           "Subtrace constraint "
-              + this.prettyPrintFeatureExpr(subtracesInteraction)
+              + ConstraintUtils.prettyPrintFeatureExpr(subtracesInteraction, this.options)
               + " implied by ";
       results.append(result);
       results.append(LINE_SEPARATOR);
@@ -175,7 +178,7 @@ class ConstraintsEvaluationAnalysis {
       foundImplyingIDTAInteractions.addAll(implyingIDTAInteractions);
 
       for (FeatureExpr idtaInteraction : implyingIDTAInteractions) {
-        result = "\t" + this.prettyPrintFeatureExpr(idtaInteraction);
+        result = "\t" + ConstraintUtils.prettyPrintFeatureExpr(idtaInteraction, this.options);
         results.append(result);
         results.append(LINE_SEPARATOR);
         System.out.println(result);
@@ -192,15 +195,5 @@ class ConstraintsEvaluationAnalysis {
     return Options.DIRECTORY
         + "/evaluation/idta/constraints/java/programs/results/"
         + this.programName;
-  }
-
-  private String prettyPrintFeatureExpr(FeatureExpr featureExpr) {
-    String stringInteraction = featureExpr.toTextExpr().replaceAll("definedEx\\(", "");
-
-    for (String option : this.options) {
-      stringInteraction = stringInteraction.replaceAll(option + "\\)", option);
-    }
-
-    return stringInteraction;
   }
 }

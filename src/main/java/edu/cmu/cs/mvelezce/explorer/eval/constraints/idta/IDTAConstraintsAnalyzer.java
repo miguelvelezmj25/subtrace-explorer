@@ -34,6 +34,7 @@ public class IDTAConstraintsAnalyzer extends ConstraintAnalyzer {
   }
 
   private String getConstraint(ConfigConstraint configConstraint) {
+    System.err.println("Check if we can use the ConstraintUtils class");
     StringBuilder stringBuilder = new StringBuilder();
     Map<String, Boolean> partialConfig = configConstraint.getPartialConfig();
     stringBuilder.append("(");

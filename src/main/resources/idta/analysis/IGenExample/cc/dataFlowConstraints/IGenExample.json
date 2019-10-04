@@ -3,93 +3,11 @@
     "packageName": "edu.cmu.cs.mvelezce.analysis",
     "className": "IGenExample",
     "methodSignature": "main([Ljava/lang/String;)V",
-    "decisionIndex": 1,
-    "info": [
-      {
-        "context": [],
-        "condition": [
-          "G"
-        ]
-      }
-    ]
-  },
-  {
-    "packageName": "edu.cmu.cs.mvelezce.analysis",
-    "className": "IGenExample",
-    "methodSignature": "main([Ljava/lang/String;)V",
-    "decisionIndex": 2,
-    "info": [
-      {
-        "context": [],
-        "condition": [
-          "E"
-        ]
-      }
-    ]
-  },
-  {
-    "packageName": "edu.cmu.cs.mvelezce.analysis",
-    "className": "IGenExample",
-    "methodSignature": "main([Ljava/lang/String;)V",
     "decisionIndex": 8,
-    "info": [
-      {
-        "context": [
-          "C",
-          "D"
-        ],
-        "condition": [
-          "A"
-        ]
-      }
-    ]
-  },
-  {
-    "packageName": "edu.cmu.cs.mvelezce.analysis",
-    "className": "IGenExample",
-    "methodSignature": "main([Ljava/lang/String;)V",
-    "decisionIndex": 9,
-    "info": [
-      {
-        "context": [
-          "A",
-          "C",
-          "D"
-        ],
-        "condition": [
-          "B"
-        ]
-      }
-    ]
-  },
-  {
-    "packageName": "edu.cmu.cs.mvelezce.analysis",
-    "className": "IGenExample",
-    "methodSignature": "main([Ljava/lang/String;)V",
-    "decisionIndex": 3,
-    "info": [
-      {
-        "context": [
-          "E"
-        ],
-        "condition": [
-          "F"
-        ]
-      }
-    ]
-  },
-  {
-    "packageName": "edu.cmu.cs.mvelezce.analysis",
-    "className": "IGenExample",
-    "methodSignature": "main([Ljava/lang/String;)V",
-    "decisionIndex": 6,
-    "info": [
-      {
-        "context": [],
-        "condition": [
-          "C"
-        ]
-      }
+    "info": [],
+    "prettyConstraints": [
+      "(D && !A && C)",
+      "(D && A && C)"
     ]
   },
   {
@@ -97,15 +15,65 @@
     "className": "IGenExample",
     "methodSignature": "main([Ljava/lang/String;)V",
     "decisionIndex": 7,
-    "info": [
-      {
-        "context": [
-          "C"
-        ],
-        "condition": [
-          "D"
-        ]
-      }
+    "info": [],
+    "prettyConstraints": [
+      "(C && D)",
+      "(C && !D)"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "IGenExample",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 1,
+    "info": [],
+    "prettyConstraints": [
+      "!G",
+      "G"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "IGenExample",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 6,
+    "info": [],
+    "prettyConstraints": [
+      "!C",
+      "C"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "IGenExample",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 2,
+    "info": [],
+    "prettyConstraints": [
+      "!E",
+      "E"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "IGenExample",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 3,
+    "info": [],
+    "prettyConstraints": [
+      "(E && F)",
+      "(E && !F)"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "IGenExample",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 9,
+    "info": [],
+    "prettyConstraints": [
+      "(!A && B && D && C)",
+      "(!A && !B && D && C)"
     ]
   }
 ]

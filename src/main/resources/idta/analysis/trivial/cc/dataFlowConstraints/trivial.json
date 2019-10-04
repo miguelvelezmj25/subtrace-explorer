@@ -3,28 +3,22 @@
     "packageName": "edu.cmu.cs.mvelezce.analysis",
     "className": "Trivial",
     "methodSignature": "main([Ljava/lang/String;)V",
-    "decisionIndex": 2,
-    "info": [
-      {
-        "context": [],
-        "condition": [
-          "B"
-        ]
-      }
+    "decisionIndex": 1,
+    "info": [],
+    "prettyConstraints": [
+      "!A",
+      "A"
     ]
   },
   {
     "packageName": "edu.cmu.cs.mvelezce.analysis",
     "className": "Trivial",
     "methodSignature": "main([Ljava/lang/String;)V",
-    "decisionIndex": 1,
-    "info": [
-      {
-        "context": [],
-        "condition": [
-          "A"
-        ]
-      }
+    "decisionIndex": 2,
+    "info": [],
+    "prettyConstraints": [
+      "!B",
+      "B"
     ]
   }
 ]

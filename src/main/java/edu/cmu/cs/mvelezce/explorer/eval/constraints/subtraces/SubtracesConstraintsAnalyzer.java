@@ -7,6 +7,7 @@ import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
 import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.analysis.Analysis;
 import edu.cmu.cs.mvelezce.explorer.gt.valueanalysis.SubtraceAnalysisInfo;
+import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
 import edu.cmu.cs.mvelezce.utils.Options;
 import org.apache.commons.io.FileUtils;
 
@@ -85,7 +86,7 @@ public class SubtracesConstraintsAnalyzer implements Analysis<Set<SubtraceOutcom
 
     while (configsIter.hasNext()) {
       Set<String> config = configsIter.next();
-      String andConstraint = this.getAndConstraints(config);
+      String andConstraint = ConstraintUtils.parseAsConstraint(config, this.options);
       orConstraints.append(andConstraint);
 
       if (configsIter.hasNext()) {
@@ -94,30 +95,6 @@ public class SubtracesConstraintsAnalyzer implements Analysis<Set<SubtraceOutcom
     }
 
     return orConstraints.toString();
-  }
-
-  private String getAndConstraints(Set<String> config) {
-    StringBuilder stringBuilder = new StringBuilder("(");
-
-    Iterator<String> optionsIter = this.options.iterator();
-
-    while (optionsIter.hasNext()) {
-      String option = optionsIter.next();
-
-      if (!config.contains(option)) {
-        stringBuilder.append("!");
-      }
-
-      stringBuilder.append(option);
-
-      if (optionsIter.hasNext()) {
-        stringBuilder.append(" && ");
-      }
-    }
-
-    stringBuilder.append(")");
-
-    return stringBuilder.toString();
   }
 
   @Override
@@ -152,6 +129,7 @@ public class SubtracesConstraintsAnalyzer implements Analysis<Set<SubtraceOutcom
   @Override
   public void writeToFile(Set<SubtraceOutcomeConstraint> subtracesOutcomeConstraint)
       throws IOException {
+    System.err.println("Use ConstraintUtils to pretty print feature expressions");
     String outputFile = this.outputDir() + "/" + this.programName + Options.DOT_JSON;
     File file = new File(outputFile);
     file.getParentFile().mkdirs();
