@@ -21,23 +21,17 @@ import java.util.Set;
 
 public class SubtracesMethodTransformer extends BaseMethodTransformer {
 
-  private final String programName;
-  private final String mainClass;
-
   private SubtracesMethodTransformer(Builder builder)
       throws NoSuchMethodException, MalformedURLException, IllegalAccessException,
           InvocationTargetException {
-    super(new DefaultClassTransformer(builder.classDir), builder.debug);
+    super(
+        builder.programName,
+        new DefaultClassTransformer(builder.classDir),
+        builder.mainClass,
+        builder.debug);
 
-    this.programName = builder.programName;
-    this.mainClass = builder.mainClass.replaceAll("\\.", "/");
     System.err.println(
         "Debug how to instrument IPD to avoid exiting something that we have not entered");
-  }
-
-  @Override
-  protected String getProgramName() {
-    return this.programName;
   }
 
   @Override
@@ -76,7 +70,7 @@ public class SubtracesMethodTransformer extends BaseMethodTransformer {
       }
     }
 
-    if (this.programName.equals("phosphorExamples")) {
+    if (this.getProgramName().equals("phosphorExamples")) {
       try {
         MethodNode mainMethod = this.getMainMethod(classNode);
         methodsToInstrument.add(mainMethod);
@@ -84,7 +78,7 @@ public class SubtracesMethodTransformer extends BaseMethodTransformer {
         System.err.println("Weird way to continue if there is no main method in this class");
       }
     } else {
-      if (classNode.name.equals(this.mainClass)) {
+      if (classNode.name.equals(this.getMainClass())) {
         //      System.err.println("This code to find the main class of the program is not
         // correct");
         //

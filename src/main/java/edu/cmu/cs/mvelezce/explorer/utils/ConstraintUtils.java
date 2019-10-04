@@ -7,6 +7,10 @@ import java.util.*;
 
 public final class ConstraintUtils {
 
+  static {
+    System.err.println("This class should be with the FeatureExpr lib");
+  }
+
   private ConstraintUtils() {}
 
   public static String toStringConstraints(Set<Set<String>> configs, Set<String> options) {

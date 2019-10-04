@@ -4,7 +4,6 @@ import edu.cmu.cs.mvelezce.explorer.gt.instrument.transform.SubtracesMethodTrans
 import edu.cmu.cs.mvelezce.instrumenter.instrument.BaseInstrumenter;
 import edu.cmu.cs.mvelezce.instrumenter.transform.methodnode.MethodTransformer;
 import edu.cmu.cs.mvelezce.utils.Options;
-import edu.cmu.cs.mvelezce.utils.Packager;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,6 +13,11 @@ public class SubtracesInstrumenter extends BaseInstrumenter {
 
   public static final String DIRECTORY =
       Options.DIRECTORY + "/analysis/spec/instrument/java/programs";
+
+  static {
+    System.out.println(
+        "CHeck what the DIRECTORY field is. It seems that it is the location to debug graphs (i.e., instrumented methods)");
+  }
 
   private final String mainClass;
 
@@ -56,10 +60,5 @@ public class SubtracesInstrumenter extends BaseInstrumenter {
             .setDebug(false)
             .build();
     transformer.transformMethods();
-  }
-
-  @Override
-  public void compile() throws IOException, InterruptedException {
-    Packager.packageJar(this.getSrcDir());
   }
 }
