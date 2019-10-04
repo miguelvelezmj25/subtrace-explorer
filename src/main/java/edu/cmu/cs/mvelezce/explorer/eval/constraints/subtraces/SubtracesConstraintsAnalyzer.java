@@ -57,7 +57,7 @@ public class SubtracesConstraintsAnalyzer implements Analysis<Set<SubtraceOutcom
 
       for (Map.Entry<String, Set<Set<String>>> entry : valuesToConfigs.entrySet()) {
         Set<Set<String>> configs = entry.getValue();
-        String stringConstraints = toStringConstraints(configs);
+        String stringConstraints = ConstraintUtils.toStringConstraints(configs, this.options);
 
         if (stringConstraints.isEmpty()) {
           outcomesToConstraints.put(entry.getKey(), SATFeatureExprFactory.False());
@@ -77,24 +77,6 @@ public class SubtracesConstraintsAnalyzer implements Analysis<Set<SubtraceOutcom
     }
 
     return subtracesOutcomeConstraint;
-  }
-
-  private String toStringConstraints(Set<Set<String>> configs) {
-    StringBuilder orConstraints = new StringBuilder();
-
-    Iterator<Set<String>> configsIter = configs.iterator();
-
-    while (configsIter.hasNext()) {
-      Set<String> config = configsIter.next();
-      String andConstraint = ConstraintUtils.parseAsConstraint(config, this.options);
-      orConstraints.append(andConstraint);
-
-      if (configsIter.hasNext()) {
-        orConstraints.append(" || ");
-      }
-    }
-
-    return orConstraints.toString();
   }
 
   @Override
@@ -129,7 +111,6 @@ public class SubtracesConstraintsAnalyzer implements Analysis<Set<SubtraceOutcom
   @Override
   public void writeToFile(Set<SubtraceOutcomeConstraint> subtracesOutcomeConstraint)
       throws IOException {
-    System.err.println("Use ConstraintUtils to pretty print feature expressions");
     String outputFile = this.outputDir() + "/" + this.programName + Options.DOT_JSON;
     File file = new File(outputFile);
     file.getParentFile().mkdirs();
@@ -147,13 +128,10 @@ public class SubtracesConstraintsAnalyzer implements Analysis<Set<SubtraceOutcom
           subtraceOutcomeConstraint.getOutcomesToConstraints();
 
       for (Map.Entry<String, FeatureExpr> entry : outcomesToConstraints.entrySet()) {
-        String constraint = entry.getValue().toTextExpr().replaceAll("definedEx\\(", "");
+        FeatureExpr constraint = entry.getValue();
+        String prettyConstraint = ConstraintUtils.prettyPrintFeatureExpr(constraint, this.options);
 
-        for (String option : this.options) {
-          constraint = constraint.replaceAll(option + "\\)", option);
-        }
-
-        serializableOutcomesToStringConstraints.put(entry.getKey(), constraint);
+        serializableOutcomesToStringConstraints.put(entry.getKey(), prettyConstraint);
       }
 
       serialObjects.add(serialObject);

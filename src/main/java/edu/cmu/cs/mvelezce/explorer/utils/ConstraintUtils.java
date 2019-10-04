@@ -9,7 +9,25 @@ public final class ConstraintUtils {
 
   private ConstraintUtils() {}
 
-  public static String parseAsConstraint(Set<String> config, Collection<String> options) {
+  public static String toStringConstraints(Set<Set<String>> configs, Set<String> options) {
+    StringBuilder orConstraints = new StringBuilder();
+
+    Iterator<Set<String>> configsIter = configs.iterator();
+
+    while (configsIter.hasNext()) {
+      Set<String> config = configsIter.next();
+      String andConstraint = ConstraintUtils.parseAsConstraint(config, options);
+      orConstraints.append(andConstraint);
+
+      if (configsIter.hasNext()) {
+        orConstraints.append(" || ");
+      }
+    }
+
+    return orConstraints.toString();
+  }
+
+  private static String parseAsConstraint(Set<String> config, Collection<String> options) {
     Iterator<String> optionsIter = options.iterator();
     StringBuilder stringBuilder = new StringBuilder("(");
 

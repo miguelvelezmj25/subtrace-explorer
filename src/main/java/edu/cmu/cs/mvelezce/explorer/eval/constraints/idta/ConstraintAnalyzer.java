@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fosd.typechef.featureexpr.FeatureExpr;
 import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.analysis.Analysis;
+import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
 import edu.cmu.cs.mvelezce.utils.Options;
 import org.apache.commons.io.FileUtils;
 
@@ -82,11 +83,7 @@ public abstract class ConstraintAnalyzer implements Analysis<Set<FeatureExpr>> {
     List<String> stringInteractions = new ArrayList<>();
 
     for (FeatureExpr featureExpr : interactions) {
-      String stringInteraction = featureExpr.toTextExpr().replaceAll("definedEx\\(", "");
-
-      for (String option : this.options) {
-        stringInteraction = stringInteraction.replaceAll(option + "\\)", option);
-      }
+      String stringInteraction = ConstraintUtils.prettyPrintFeatureExpr(featureExpr, this.options);
 
       stringInteractions.add(stringInteraction);
     }
