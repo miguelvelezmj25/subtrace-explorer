@@ -45,7 +45,7 @@ public abstract class ConstraintAnalyzer implements Analysis<Set<FeatureExpr>> {
   }
 
   @Override
-  public Set<FeatureExpr> analyze(String[] args) throws Exception {
+  public Set<FeatureExpr> analyze(String[] args) throws IOException {
     Options.getCommandLine(args);
 
     String outputFile = this.outputDir();

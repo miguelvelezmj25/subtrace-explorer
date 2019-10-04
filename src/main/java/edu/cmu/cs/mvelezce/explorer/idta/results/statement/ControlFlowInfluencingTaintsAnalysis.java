@@ -27,7 +27,7 @@ public class ControlFlowInfluencingTaintsAnalysis
   }
 
   @Override
-  public Set<ControlFlowStatementTaints> analyze() throws IOException, InterruptedException {
+  public Set<ControlFlowStatementTaints> analyze() {
     System.err.println("Check that we remove the control flow taints from the data flow taints");
     Set<ControlFlowStatementTaints> results = new HashSet<>();
     Map<String, Set<InfluencingTaints>> statementsToTaints = this.getStatementsToData();

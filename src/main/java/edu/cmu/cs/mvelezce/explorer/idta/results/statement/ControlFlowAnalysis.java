@@ -9,6 +9,10 @@ import java.util.*;
 
 abstract class ControlFlowAnalysis<T, E> extends BaseDynamicAnalysis<T> {
 
+  static {
+    System.err.println("Is this a dynamic analysis");
+  }
+
   private final Map<String, Set<E>> statementsToData = new HashMap<>();
   private final Map<String, Set<InfluencingTaints>> statementsToInfluencingTaints = new HashMap<>();
   private final List<String> options;

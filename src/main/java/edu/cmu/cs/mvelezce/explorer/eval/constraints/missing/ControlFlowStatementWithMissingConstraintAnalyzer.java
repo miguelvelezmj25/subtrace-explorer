@@ -21,6 +21,10 @@ import java.util.UUID;
 class ControlFlowStatementWithMissingConstraintAnalyzer
     implements Analysis<ControlFlowStatementsWithMissingConstraint> {
 
+  static {
+    System.err.println("Extend the BaseAnalysis class");
+  }
+
   private final String programName;
   private final String stringConstraint;
   private final Set<SubtraceOutcomeConstraint> subtracesOutcomeConstraint;
@@ -39,7 +43,7 @@ class ControlFlowStatementWithMissingConstraintAnalyzer
   }
 
   @Override
-  public ControlFlowStatementsWithMissingConstraint analyze(String[] args) throws Exception {
+  public ControlFlowStatementsWithMissingConstraint analyze(String[] args) throws IOException {
     Options.getCommandLine(args);
 
     String outputFile = this.getFileName();
@@ -60,7 +64,7 @@ class ControlFlowStatementWithMissingConstraintAnalyzer
   }
 
   @Override
-  public ControlFlowStatementsWithMissingConstraint analyze() throws Exception {
+  public ControlFlowStatementsWithMissingConstraint analyze() throws IOException {
     FeatureExpr constraint = MinConfigsGenerator.parseAsFeatureExpr(this.stringConstraint);
     Set<UUID> uuidsWithConstraint =
         this.getUUIDSWithConstraint(this.subtracesOutcomeConstraint, constraint);

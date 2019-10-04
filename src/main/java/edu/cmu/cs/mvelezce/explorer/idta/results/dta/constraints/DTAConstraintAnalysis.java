@@ -14,6 +14,10 @@ import java.util.Set;
 
 public class DTAConstraintAnalysis extends BaseDynamicAnalysis<Set<ConfigConstraint>> {
 
+  static {
+    System.err.println("Is this a dynamic analysis?");
+  }
+
   // TODO how do we handle unsoundness of taint analysis?
   private final Set<ConfigConstraint> constraints = new HashSet<>();
 

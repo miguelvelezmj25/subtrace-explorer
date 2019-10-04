@@ -166,10 +166,9 @@ public class SubtracesMethodTransformer extends BaseMethodTransformer {
   private boolean methodToSkip(ClassNode classNode, MethodNode methodNode) {
 
     if (classNode.name.equals("counter/com/googlecode/pngtastic/core/PngProcessor")
-            && methodNode.name.equals("processHeadChunks")) {
+        && methodNode.name.equals("processHeadChunks")) {
       return true;
     }
-
 
     if (classNode.name.equals("com/sleepycat/je/utilint/LongMaxStat")
         && methodNode.name.equals("setMax")) {
