@@ -1,6 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.idta.execute;
 
 import edu.cmu.cs.mvelezce.adapter.adapters.Adapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.contextDataTaintsEqual.BaseContextDataTaintsEqualAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
@@ -157,6 +158,10 @@ public class DynamicAnalysisExecutor {
       case BasePngtasticAdapter.PROGRAM_NAME:
         commandList.add("./counter.sh");
         adapter = new BasePngtasticAdapter();
+        break;
+      case BaseContextDataTaintsEqualAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseContextDataTaintsEqualAdapter();
         break;
         //      case SoundAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");

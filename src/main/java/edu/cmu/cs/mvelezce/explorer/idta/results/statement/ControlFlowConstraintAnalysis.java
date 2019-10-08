@@ -28,6 +28,10 @@ public class ControlFlowConstraintAnalysis
     Map<String, Set<FeatureExpr>> statementsToConstraints = this.getStatementsToData();
 
     for (Map.Entry<String, Set<FeatureExpr>> entry : statementsToConstraints.entrySet()) {
+      if (entry.getValue().isEmpty()) {
+        continue;
+      }
+
       String statement = entry.getKey();
       String[] statementComponents = statement.split("\\.");
 
@@ -88,6 +92,10 @@ public class ControlFlowConstraintAnalysis
       influencingTaint = this.removeControlTaintsFromDataTaints(influencingTaint);
       Set<String> context = influencingTaint.getContext();
       Set<String> condition = influencingTaint.getCondition();
+
+      if (condition.isEmpty()) {
+        continue;
+      }
 
       stringConstraints.addAll(ConstraintUtils.getStringConstraints(context, condition, config));
     }
