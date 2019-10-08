@@ -1,0 +1,131 @@
+[
+  {
+    "packageName": "counter.com.googlecode.pngtastic",
+    "className": "Run",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 5,
+    "info": [],
+    "prettyConstraints": [
+      "!DISTTHRESHOLD",
+      "DISTTHRESHOLD"
+    ]
+  },
+  {
+    "packageName": "counter.com.googlecode.pngtastic.core",
+    "className": "PngColorCounter",
+    "methodSignature": "getColors(Lcounter/com/googlecode/pngtastic/core/PngImage;Ljava/util/List;J)Ljava/util/List;",
+    "decisionIndex": 8,
+    "info": [],
+    "prettyConstraints": [
+      "(FREQTHRESHOLD && TIMEOUT)",
+      "(!FREQTHRESHOLD && !TIMEOUT)",
+      "(FREQTHRESHOLD && !TIMEOUT)",
+      "(!FREQTHRESHOLD && TIMEOUT)"
+    ]
+  },
+  {
+    "packageName": "counter.com.googlecode.pngtastic",
+    "className": "Run",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 6,
+    "info": [],
+    "prettyConstraints": [
+      "FREQTHRESHOLD",
+      "!FREQTHRESHOLD"
+    ]
+  },
+  {
+    "packageName": "counter.com.googlecode.pngtastic",
+    "className": "Run",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 8,
+    "info": [],
+    "prettyConstraints": [
+      "!TIMEOUT",
+      "TIMEOUT"
+    ]
+  },
+  {
+    "packageName": "counter.com.googlecode.pngtastic",
+    "className": "Run",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 9,
+    "info": [],
+    "prettyConstraints": [
+      "LOGLEVEL",
+      "!LOGLEVEL"
+    ]
+  },
+  {
+    "packageName": "counter.com.googlecode.pngtastic.core",
+    "className": "PngColorCounter",
+    "methodSignature": "getMergedColors(Lcounter/com/googlecode/pngtastic/core/PngImage;Ljava/util/List;J)Ljava/util/List;",
+    "decisionIndex": 8,
+    "info": [],
+    "prettyConstraints": [
+      "(!DISTTHRESHOLD && TIMEOUT)",
+      "(DISTTHRESHOLD && TIMEOUT)",
+      "(DISTTHRESHOLD && !TIMEOUT)",
+      "(!DISTTHRESHOLD && !TIMEOUT)"
+    ]
+  },
+  {
+    "packageName": "counter.com.googlecode.pngtastic.core",
+    "className": "PngColorCounter",
+    "methodSignature": "getMergedColors(Lcounter/com/googlecode/pngtastic/core/PngImage;Ljava/util/List;J)Ljava/util/List;",
+    "decisionIndex": 6,
+    "info": [],
+    "prettyConstraints": [
+      "(!DISTTHRESHOLD && TIMEOUT)",
+      "(DISTTHRESHOLD && TIMEOUT)",
+      "(DISTTHRESHOLD && !TIMEOUT)",
+      "(!DISTTHRESHOLD && !TIMEOUT)"
+    ]
+  },
+  {
+    "packageName": "counter.com.googlecode.pngtastic",
+    "className": "Run",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 7,
+    "info": [],
+    "prettyConstraints": [
+      "!MINALPHA",
+      "MINALPHA"
+    ]
+  },
+  {
+    "packageName": "counter.com.googlecode.pngtastic.core",
+    "className": "PngColorCounter",
+    "methodSignature": "getMergedColors(Lcounter/com/googlecode/pngtastic/core/PngImage;Ljava/util/List;J)Ljava/util/List;",
+    "decisionIndex": 11,
+    "info": [],
+    "prettyConstraints": [
+      "(!DISTTHRESHOLD && TIMEOUT)",
+      "(DISTTHRESHOLD && TIMEOUT)",
+      "(DISTTHRESHOLD && !TIMEOUT)",
+      "(!DISTTHRESHOLD && !TIMEOUT)"
+    ]
+  },
+  {
+    "packageName": "counter.com.googlecode.pngtastic.core",
+    "className": "PngColorCounter",
+    "methodSignature": "getMergedColors(Lcounter/com/googlecode/pngtastic/core/PngImage;Ljava/util/List;J)Ljava/util/List;",
+    "decisionIndex": 2,
+    "info": [],
+    "prettyConstraints": [
+      "!TIMEOUT",
+      "TIMEOUT"
+    ]
+  },
+  {
+    "packageName": "counter.com.googlecode.pngtastic.core",
+    "className": "PngColorCounter",
+    "methodSignature": "getColors(Lcounter/com/googlecode/pngtastic/core/PngImage;Ljava/util/List;J)Ljava/util/List;",
+    "decisionIndex": 2,
+    "info": [],
+    "prettyConstraints": [
+      "!TIMEOUT",
+      "TIMEOUT"
+    ]
+  }
+]
