@@ -1,5 +1,6 @@
 package edu.cmu.cs.mvelezce.explorer.idta;
 
+import edu.cmu.cs.mvelezce.adapter.adapters.cannotExpandConstraintsDown.BaseCannotExpandConstraintsDownAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.contextDataTaintsEqual.BaseContextDataTaintsEqualAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
@@ -89,6 +90,20 @@ public class IDTATest {
   public void contextDataTaintsEqual() throws IOException, InterruptedException {
     String programName = BaseContextDataTaintsEqualAdapter.PROGRAM_NAME;
     List<String> options = BaseContextDataTaintsEqualAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void cannotExpandConstraintsDown() throws IOException, InterruptedException {
+    String programName = BaseCannotExpandConstraintsDownAdapter.PROGRAM_NAME;
+    List<String> options = BaseCannotExpandConstraintsDownAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
     String[] args = new String[2];

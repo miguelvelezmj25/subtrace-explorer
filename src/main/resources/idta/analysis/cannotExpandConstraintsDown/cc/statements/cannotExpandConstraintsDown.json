@@ -1,0 +1,46 @@
+[
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "CannotExpandConstraintsDown",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 3,
+    "info": [
+      {
+        "context": [],
+        "condition": [
+          "B"
+        ]
+      }
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "CannotExpandConstraintsDown",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 2,
+    "info": [
+      {
+        "context": [
+          "A"
+        ],
+        "condition": [
+          "B"
+        ]
+      }
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "CannotExpandConstraintsDown",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 1,
+    "info": [
+      {
+        "context": [],
+        "condition": [
+          "A"
+        ]
+      }
+    ]
+  }
+]

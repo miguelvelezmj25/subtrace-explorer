@@ -1,6 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.idta.execute;
 
 import edu.cmu.cs.mvelezce.adapter.adapters.Adapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.cannotExpandConstraintsDown.BaseCannotExpandConstraintsDownAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.contextDataTaintsEqual.BaseContextDataTaintsEqualAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
@@ -162,6 +163,10 @@ public class DynamicAnalysisExecutor {
       case BaseContextDataTaintsEqualAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseContextDataTaintsEqualAdapter();
+        break;
+      case BaseCannotExpandConstraintsDownAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseCannotExpandConstraintsDownAdapter();
         break;
         //      case SoundAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");
