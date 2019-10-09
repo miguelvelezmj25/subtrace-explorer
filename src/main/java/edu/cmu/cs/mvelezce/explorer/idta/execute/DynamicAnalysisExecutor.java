@@ -1,11 +1,13 @@
 package edu.cmu.cs.mvelezce.explorer.idta.execute;
 
 import edu.cmu.cs.mvelezce.adapter.adapters.Adapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.canExpandConstraintsDown.BaseCanExpandConstraintsDownAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.cannotExpandConstraintsDown.BaseCannotExpandConstraintsDownAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.contextDataTaintsEqual.BaseContextDataTaintsEqualAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.multipleReturns.BaseMultipleReturnsAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.adapter.utils.Executor;
@@ -167,6 +169,14 @@ public class DynamicAnalysisExecutor {
       case BaseCannotExpandConstraintsDownAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseCannotExpandConstraintsDownAdapter();
+        break;
+      case BaseCanExpandConstraintsDownAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseCanExpandConstraintsDownAdapter();
+        break;
+      case BaseMultipleReturnsAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseMultipleReturnsAdapter();
         break;
         //      case SoundAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");

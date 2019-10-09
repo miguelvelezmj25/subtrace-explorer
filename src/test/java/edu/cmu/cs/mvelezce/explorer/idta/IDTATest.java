@@ -1,10 +1,12 @@
 package edu.cmu.cs.mvelezce.explorer.idta;
 
+import edu.cmu.cs.mvelezce.adapter.adapters.canExpandConstraintsDown.BaseCanExpandConstraintsDownAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.cannotExpandConstraintsDown.BaseCannotExpandConstraintsDownAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.contextDataTaintsEqual.BaseContextDataTaintsEqualAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.multipleReturns.BaseMultipleReturnsAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
 import org.junit.Test;
@@ -104,6 +106,34 @@ public class IDTATest {
   public void cannotExpandConstraintsDown() throws IOException, InterruptedException {
     String programName = BaseCannotExpandConstraintsDownAdapter.PROGRAM_NAME;
     List<String> options = BaseCannotExpandConstraintsDownAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void canExpandConstraintsDown() throws IOException, InterruptedException {
+    String programName = BaseCanExpandConstraintsDownAdapter.PROGRAM_NAME;
+    List<String> options = BaseCanExpandConstraintsDownAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void multipleReturns() throws IOException, InterruptedException {
+    String programName = BaseMultipleReturnsAdapter.PROGRAM_NAME;
+    List<String> options = BaseMultipleReturnsAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
     String[] args = new String[2];
