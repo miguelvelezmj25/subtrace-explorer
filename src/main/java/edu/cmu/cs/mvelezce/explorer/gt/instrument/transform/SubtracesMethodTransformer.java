@@ -158,6 +158,10 @@ public class SubtracesMethodTransformer extends BaseMethodTransformer {
   }
 
   private boolean methodToSkip(ClassNode classNode, MethodNode methodNode) {
+    if (classNode.name.equals("com/sleepycat/je/rep/impl/node/ReplicaFactory$1")
+        && methodNode.name.equals("doRunReplicaLoopInternalWork")) {
+      return true;
+    }
 
     if (classNode.name.equals("counter/com/googlecode/pngtastic/core/PngProcessor")
         && methodNode.name.equals("processHeadChunks")) {
