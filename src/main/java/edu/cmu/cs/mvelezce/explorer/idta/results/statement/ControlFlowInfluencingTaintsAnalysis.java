@@ -59,10 +59,10 @@ public class ControlFlowInfluencingTaintsAnalysis
 
     for (Map.Entry<String, Set<InfluencingTaints>> entry :
         statementsToInfluencingTaints.entrySet()) {
-      String statement = entry.getKey();
       Set<InfluencingTaints> influencingTaints = entry.getValue();
-
-      data.put(statement, new HashSet<>(influencingTaints));
+      String statement = entry.getKey();
+      Set<InfluencingTaints> currentInfluencingTaints = data.get(statement);
+      currentInfluencingTaints.addAll(influencingTaints);
     }
   }
 

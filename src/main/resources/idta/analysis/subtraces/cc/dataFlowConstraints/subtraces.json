@@ -1,0 +1,50 @@
+[
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "Subtraces",
+    "methodSignature": "foo(Z)V",
+    "decisionIndex": 1,
+    "info": [],
+    "prettyConstraints": [
+      "(A && C)",
+      "(B && !C)",
+      "(A && !C)",
+      "(B && C)"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "Subtraces",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 1,
+    "info": [],
+    "prettyConstraints": [
+      "!A",
+      "A"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "Subtraces",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 2,
+    "info": [],
+    "prettyConstraints": [
+      "!B",
+      "B"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "Subtraces",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 3,
+    "info": [],
+    "prettyConstraints": [
+      "!A",
+      "A",
+      "!B",
+      "B"
+    ]
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "Subtraces",
+    "methodSignature": "foo(Z)V",
+    "decisionIndex": 1,
+    "info": [
+      {
+        "context": [
+          "B"
+        ],
+        "condition": [
+          "C"
+        ]
+      },
+      {
+        "context": [
+          "A"
+        ],
+        "condition": [
+          "C"
+        ]
+      }
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "Subtraces",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 1,
+    "info": [
+      {
+        "context": [],
+        "condition": [
+          "A"
+        ]
+      }
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "Subtraces",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 3,
+    "info": [
+      {
+        "context": [],
+        "condition": [
+          "A"
+        ]
+      },
+      {
+        "context": [],
+        "condition": [
+          "B"
+        ]
+      }
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "Subtraces",
+    "methodSignature": "main([Ljava/lang/String;)V",
+    "decisionIndex": 2,
+    "info": [
+      {
+        "context": [],
+        "condition": [
+          "B"
+        ]
+      }
+    ]
+  }
+]

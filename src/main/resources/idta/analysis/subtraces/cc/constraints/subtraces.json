@@ -1,0 +1,46 @@
+[
+  {
+    "partialConfig": {
+      "B": true,
+      "C": false
+    }
+  },
+  {
+    "partialConfig": {
+      "A": false
+    }
+  },
+  {
+    "partialConfig": {
+      "A": true,
+      "C": false
+    }
+  },
+  {
+    "partialConfig": {
+      "B": false
+    }
+  },
+  {
+    "partialConfig": {
+      "B": true,
+      "C": true
+    }
+  },
+  {
+    "partialConfig": {
+      "A": true,
+      "C": true
+    }
+  },
+  {
+    "partialConfig": {
+      "B": true
+    }
+  },
+  {
+    "partialConfig": {
+      "A": true
+    }
+  }
+]
