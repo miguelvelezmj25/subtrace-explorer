@@ -7,8 +7,10 @@ import edu.cmu.cs.mvelezce.adapter.adapters.contextDataTaintsEqual.BaseContextDa
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.methodCall.BaseMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.multipleReturns.BaseMultipleReturnsAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.subtraces.BaseSubtracesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.adapter.utils.Executor;
@@ -174,6 +176,14 @@ public class DynamicAnalysisExecutor {
       case BaseCanExpandConstraintsDownAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseCanExpandConstraintsDownAdapter();
+        break;
+      case BaseStaticMethodCallAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseStaticMethodCallAdapter();
+        break;
+      case BaseMethodCallAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseMethodCallAdapter();
         break;
       case BaseMultipleReturnsAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
