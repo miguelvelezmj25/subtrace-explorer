@@ -2,6 +2,7 @@ package edu.cmu.cs.mvelezce.explorer.idta;
 
 import edu.cmu.cs.mvelezce.adapter.adapters.canExpandConstraintsDown.BaseCanExpandConstraintsDownAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.cannotExpandConstraintsDown.BaseCannotExpandConstraintsDownAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.cannotRemoveNestedRegions.BaseCannotRemoveNestedRegionsAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.contextDataTaintsEqual.BaseContextDataTaintsEqualAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
@@ -53,6 +54,20 @@ public class IDTATest {
   public void MethodCall() throws IOException, InterruptedException {
     String programName = BaseMethodCallAdapter.PROGRAM_NAME;
     List<String> options = BaseMethodCallAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void CannotRemoveNestedRegions() throws IOException, InterruptedException {
+    String programName = BaseCannotRemoveNestedRegionsAdapter.PROGRAM_NAME;
+    List<String> options = BaseCannotRemoveNestedRegionsAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
     String[] args = new String[2];
