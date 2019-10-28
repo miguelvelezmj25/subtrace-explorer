@@ -1,6 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.idta;
 
 import edu.cmu.cs.mvelezce.adapter.adapters.canExpandConstraintsDown.BaseCanExpandConstraintsDownAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.canRemoveNestedConstraintsMultipleCallSites.BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.cannotExpandConstraintsDown.BaseCannotExpandConstraintsDownAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.cannotRemoveNestedRegions.BaseCannotRemoveNestedRegionsAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.contextDataTaintsEqual.BaseContextDataTaintsEqualAdapter;
@@ -54,6 +55,22 @@ public class IDTATest {
   public void MethodCall() throws IOException, InterruptedException {
     String programName = BaseMethodCallAdapter.PROGRAM_NAME;
     List<String> options = BaseMethodCallAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void CanRemoveNestedConstraintsMultipleCallSites()
+      throws IOException, InterruptedException {
+    String programName = BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter.PROGRAM_NAME;
+    List<String> options =
+        BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
     String[] args = new String[2];

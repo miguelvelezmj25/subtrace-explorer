@@ -2,6 +2,7 @@ package edu.cmu.cs.mvelezce.explorer.idta.execute;
 
 import edu.cmu.cs.mvelezce.adapter.adapters.Adapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.canExpandConstraintsDown.BaseCanExpandConstraintsDownAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.canRemoveNestedConstraintsMultipleCallSites.BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.cannotExpandConstraintsDown.BaseCannotExpandConstraintsDownAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.cannotRemoveNestedRegions.BaseCannotRemoveNestedRegionsAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.contextDataTaintsEqual.BaseContextDataTaintsEqualAdapter;
@@ -197,6 +198,10 @@ public class DynamicAnalysisExecutor {
       case BaseCannotRemoveNestedRegionsAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseCannotRemoveNestedRegionsAdapter();
+        break;
+      case BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter();
         break;
         //      case SoundAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");
