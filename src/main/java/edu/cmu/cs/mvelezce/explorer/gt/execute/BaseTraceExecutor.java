@@ -2,7 +2,6 @@ package edu.cmu.cs.mvelezce.explorer.gt.execute;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.cmu.cs.mvelezce.adapter.adapters.Adapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.BaseAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
@@ -115,6 +114,7 @@ public abstract class BaseTraceExecutor<T> extends BaseDynamicAnalysis<T> {
     //        + BaseAdapter.PATH_SEPARATOR
     //        + APACHE_COMMONS_PATH;
     Adapter adapter;
+    String mainClass;
 
     switch (programName) {
         //      case AbstractDynamicRunningExampleAdapter.PROGRAM_NAME:
@@ -230,14 +230,17 @@ public abstract class BaseTraceExecutor<T> extends BaseDynamicAnalysis<T> {
       case BaseTrivialAdapter.PROGRAM_NAME:
         commandList.add(this.getClassPath(BaseTrivialAdapter.INSTRUMENTED_CLASS_PATH));
         adapter = new BaseTrivialAdapter();
+        mainClass = BaseTrivialAdapter.MAIN_CLASS;
         break;
       case BaseIGenAdapter.PROGRAM_NAME:
         commandList.add(this.getClassPath(BaseIGenAdapter.INSTRUMENTED_CLASS_PATH));
         adapter = new BaseIGenAdapter();
+        mainClass = BaseIGenAdapter.MAIN_CLASS;
         break;
       case BasePngtasticAdapter.PROGRAM_NAME:
         commandList.add(this.getClassPath(BasePngtasticAdapter.INSTRUMENTED_CLASS_PATH));
         adapter = new BasePngtasticAdapter();
+        mainClass = BasePngtasticAdapter.MAIN_CLASS;
         break;
         //      case AbstractPrevaylerAdapter.PROGRAM_NAME:
         //        commandList.add(
@@ -251,11 +254,13 @@ public abstract class BaseTraceExecutor<T> extends BaseDynamicAnalysis<T> {
             this.getClassPath(BaseMeasureDiskOrderedScanAdapter.INSTRUMENTED_CLASS_PATH));
         adapter = new BaseMeasureDiskOrderedScanAdapter();
         ((BaseMeasureDiskOrderedScanAdapter) adapter).preProcess();
+        mainClass = BaseMeasureDiskOrderedScanAdapter.MAIN_CLASS;
         break;
       case BaseIndexFilesAdapter.PROGRAM_NAME:
         commandList.add(this.getClassPath(BaseIndexFilesAdapter.INSTRUMENTED_CLASS_PATH));
         adapter = new BaseIndexFilesAdapter();
         ((BaseIndexFilesAdapter) adapter).preProcess();
+        mainClass = BaseIndexFilesAdapter.MAIN_CLASS;
         break;
       default:
         throw new RuntimeException("Could not find an adapter for " + programName);
@@ -271,7 +276,7 @@ public abstract class BaseTraceExecutor<T> extends BaseDynamicAnalysis<T> {
         //        }
     }
 
-    commandList.add(adapter.getMainClass());
+    commandList.add(mainClass);
     String[] configArgs = adapter.configurationAsMainArguments(config);
     List<String> configList = Arrays.asList(configArgs);
     commandList.addAll(configList);
@@ -280,8 +285,8 @@ public abstract class BaseTraceExecutor<T> extends BaseDynamicAnalysis<T> {
   }
 
   private String getClassPath(String instrumentedClassPath) {
-    return BaseAdapter.CLASS_PATH
-        + BaseAdapter.PATH_SEPARATOR
+    return Executor.CLASS_PATH
+        + Executor.PATH_SEPARATOR
         + instrumentedClassPath; // + BaseAdapter.PATH_SEPARATOR + PHOSPHOR_CLASS_PATH;
   }
 }

@@ -1,7 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.idta.results.parser;
 
-import edu.cmu.cs.mvelezce.adapter.adapters.BaseAdapter;
 import edu.cmu.cs.mvelezce.cc.DecisionTaints;
+import edu.cmu.cs.mvelezce.utils.execute.Executor;
 import edu.columbia.cs.psl.phosphor.runtime.Taint;
 import org.apache.commons.io.FileUtils;
 
@@ -17,7 +17,7 @@ import java.util.Set;
 public class DynamicAnalysisResultsParser {
 
   private static final String PHOSPHOR_OUTPUT_DIR =
-      BaseAdapter.USER_HOME
+      Executor.USER_HOME
           + "/Documents/Programming/Java/Projects/phosphor/Phosphor/examples/implicit-optimized";
 
   private final String programName;

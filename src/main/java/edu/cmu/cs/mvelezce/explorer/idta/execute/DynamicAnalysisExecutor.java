@@ -58,6 +58,7 @@ public class DynamicAnalysisExecutor {
 
     String programName = this.programName;
     Adapter adapter;
+    String mainClass;
 
     switch (programName) {
         //      case DynamicRunningExampleAdapter.PROGRAM_NAME:
@@ -159,77 +160,95 @@ public class DynamicAnalysisExecutor {
       case BaseTrivialAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseTrivialAdapter();
+        mainClass = BaseTrivialAdapter.MAIN_CLASS;
         break;
       case BaseIGenAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseIGenAdapter();
+        mainClass = BaseIGenAdapter.MAIN_CLASS;
         break;
       case BasePngtasticAdapter.PROGRAM_NAME:
         commandList.add("./counter.sh");
         adapter = new BasePngtasticAdapter();
+        mainClass = BasePngtasticAdapter.MAIN_CLASS;
         break;
       case BaseContextDataTaintsEqualAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseContextDataTaintsEqualAdapter();
+        mainClass = BaseContextDataTaintsEqualAdapter.MAIN_CLASS;
         break;
       case BaseCannotExpandConstraintsDownAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseCannotExpandConstraintsDownAdapter();
+        mainClass = BaseCannotExpandConstraintsDownAdapter.MAIN_CLASS;
         break;
       case BaseCanExpandConstraintsDownAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseCanExpandConstraintsDownAdapter();
+        mainClass = BaseCanExpandConstraintsDownAdapter.MAIN_CLASS;
         break;
       case BaseStaticMethodCallAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseStaticMethodCallAdapter();
+        mainClass = BaseStaticMethodCallAdapter.MAIN_CLASS;
         break;
       case BaseMethodCallAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseMethodCallAdapter();
+        mainClass = BaseMethodCallAdapter.MAIN_CLASS;
         break;
       case BaseMultipleReturnsAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseMultipleReturnsAdapter();
+        mainClass = BaseMultipleReturnsAdapter.MAIN_CLASS;
         break;
       case BaseSubtracesAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseSubtracesAdapter();
+        mainClass = BaseSubtracesAdapter.MAIN_CLASS;
         break;
       case BaseCannotRemoveNestedRegionsAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseCannotRemoveNestedRegionsAdapter();
+        mainClass = BaseCannotRemoveNestedRegionsAdapter.MAIN_CLASS;
         break;
       case BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter();
+        mainClass = BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter.MAIN_CLASS;
         break;
       case BaseOverrideJREMethodAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseOverrideJREMethodAdapter();
+        mainClass = BaseOverrideJREMethodAdapter.MAIN_CLASS;
         break;
         //      case SoundAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");
         //        adapter = new SoundAdapter();
+        //        mainClass = BaseTrivialAdapter.MAIN_CLASS;
         //        break;
         //      case ConstructorAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");
         //        adapter = new ConstructorAdapter();
+        //        mainClass = BaseTrivialAdapter.MAIN_CLASS;
         //        break;
         //      case PrevaylerAdapter.PROGRAM_NAME:
         //        commandList.add("./prevayler.sh");
         //        commandList.add(PrevaylerAdapter.PROGRAM_NAME);
         //        adapter = new PrevaylerAdapter();
+        //        mainClass = BaseTrivialAdapter.MAIN_CLASS;
         //        break;
       case BaseMeasureDiskOrderedScanAdapter.PROGRAM_NAME:
         commandList.add("./measureDiskOrderedScan.sh");
         adapter = new BaseMeasureDiskOrderedScanAdapter();
         ((BaseMeasureDiskOrderedScanAdapter) adapter).preProcess();
+        mainClass = BaseMeasureDiskOrderedScanAdapter.MAIN_CLASS;
         break;
       case BaseIndexFilesAdapter.PROGRAM_NAME:
         commandList.add("./indexFiles.sh");
         adapter = new BaseIndexFilesAdapter();
         ((BaseIndexFilesAdapter) adapter).preProcess();
+        mainClass = BaseIndexFilesAdapter.MAIN_CLASS;
         break;
         //      case NestingAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");
@@ -242,7 +261,7 @@ public class DynamicAnalysisExecutor {
     // TODO change the following method to take a Config object
     String[] configArgs = adapter.configurationAsMainArguments(config);
     List<String> configList = Arrays.asList(configArgs);
-    commandList.add(adapter.getMainClass());
+    commandList.add(mainClass);
     commandList.addAll(configList);
 
     return commandList;
