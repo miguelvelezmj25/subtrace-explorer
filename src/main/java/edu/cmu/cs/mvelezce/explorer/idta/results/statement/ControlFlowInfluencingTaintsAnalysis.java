@@ -7,7 +7,7 @@ import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStatementInfo;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStatementTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.taint.InfluencingTaints;
-import edu.cmu.cs.mvelezce.utils.Options;
+import edu.cmu.cs.mvelezce.utils.config.Options;
 
 import java.io.File;
 import java.io.IOException;

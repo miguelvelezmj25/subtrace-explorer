@@ -3,7 +3,7 @@ package edu.cmu.cs.mvelezce.explorer.idta.other;
 import edu.cmu.cs.mvelezce.cc.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
 import edu.cmu.cs.mvelezce.explorer.idta.taint.TaintHelper;
-import edu.cmu.cs.mvelezce.utils.ConfigHelper;
+import edu.cmu.cs.mvelezce.utils.configurations.ConfigHelper;
 
 import java.util.*;
 

@@ -8,7 +8,7 @@ import edu.cmu.cs.mvelezce.explorer.gt.execute.ConfigToTraceInfo;
 import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.SubtraceLabel;
 import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.SubtraceManager;
 import edu.cmu.cs.mvelezce.explorer.gt.log.SubtracesLogger;
-import edu.cmu.cs.mvelezce.utils.Options;
+import edu.cmu.cs.mvelezce.utils.config.Options;
 
 import java.io.File;
 import java.io.IOException;

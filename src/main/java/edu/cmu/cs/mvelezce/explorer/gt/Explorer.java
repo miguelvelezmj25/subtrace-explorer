@@ -1,6 +1,6 @@
 package edu.cmu.cs.mvelezce.explorer.gt;
 
-import edu.cmu.cs.mvelezce.utils.Options;
+import edu.cmu.cs.mvelezce.utils.config.Options;
 
 public final class Explorer {
 

@@ -10,6 +10,7 @@ import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.methodCall.BaseMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.multipleReturns.BaseMultipleReturnsAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.overrideJREMethod.BaseOverrideJREMethodAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.subtraces.BaseSubtracesAdapter;
@@ -55,6 +56,20 @@ public class IDTATest {
   public void MethodCall() throws IOException, InterruptedException {
     String programName = BaseMethodCallAdapter.PROGRAM_NAME;
     List<String> options = BaseMethodCallAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void OverrideJREMethod() throws IOException, InterruptedException {
+    String programName = BaseOverrideJREMethodAdapter.PROGRAM_NAME;
+    List<String> options = BaseOverrideJREMethodAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
     String[] args = new String[2];

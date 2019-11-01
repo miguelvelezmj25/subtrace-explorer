@@ -9,7 +9,7 @@ import edu.cmu.cs.mvelezce.explorer.eval.constraints.subtraces.SubtraceOutcomeCo
 import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.ControlFlowStatement;
 import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.SubtraceLabel;
 import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.SubtraceManager;
-import edu.cmu.cs.mvelezce.utils.Options;
+import edu.cmu.cs.mvelezce.utils.config.Options;
 
 import java.io.File;
 import java.io.IOException;

@@ -9,7 +9,7 @@ import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowState
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStatementConstraintsPretty;
 import edu.cmu.cs.mvelezce.explorer.idta.taint.InfluencingTaints;
 import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
-import edu.cmu.cs.mvelezce.utils.Options;
+import edu.cmu.cs.mvelezce.utils.config.Options;
 
 import java.io.File;
 import java.io.IOException;

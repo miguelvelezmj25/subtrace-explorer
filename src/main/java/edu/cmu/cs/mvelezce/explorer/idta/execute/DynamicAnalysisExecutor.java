@@ -11,11 +11,12 @@ import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.methodCall.BaseMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.multipleReturns.BaseMultipleReturnsAdapter;
+import edu.cmu.cs.mvelezce.adapter.adapters.overrideJREMethod.BaseOverrideJREMethodAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.subtraces.BaseSubtracesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
-import edu.cmu.cs.mvelezce.adapter.utils.Executor;
+import edu.cmu.cs.mvelezce.utils.execute.Executor;
 
 import java.io.File;
 import java.io.IOException;
@@ -202,6 +203,10 @@ public class DynamicAnalysisExecutor {
       case BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");
         adapter = new BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter();
+        break;
+      case BaseOverrideJREMethodAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseOverrideJREMethodAdapter();
         break;
         //      case SoundAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");

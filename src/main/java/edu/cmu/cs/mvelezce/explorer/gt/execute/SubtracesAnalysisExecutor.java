@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.cmu.cs.mvelezce.explorer.gt.Explorer;
 import edu.cmu.cs.mvelezce.explorer.gt.log.SubtracesLogger;
-import edu.cmu.cs.mvelezce.utils.ConfigHelper;
-import edu.cmu.cs.mvelezce.utils.Options;
+import edu.cmu.cs.mvelezce.utils.config.Options;
+import edu.cmu.cs.mvelezce.utils.configurations.ConfigHelper;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

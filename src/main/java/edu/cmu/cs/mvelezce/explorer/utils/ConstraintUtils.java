@@ -1,7 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.utils;
 
 import de.fosd.typechef.featureexpr.FeatureExpr;
-import edu.cmu.cs.mvelezce.utils.ConfigHelper;
+import edu.cmu.cs.mvelezce.utils.configurations.ConfigHelper;
 
 import java.util.*;
 

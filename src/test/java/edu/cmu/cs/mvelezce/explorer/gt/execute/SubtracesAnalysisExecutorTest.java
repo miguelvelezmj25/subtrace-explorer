@@ -60,7 +60,7 @@ public class SubtracesAnalysisExecutorTest {
     String programName = BasePngtasticAdapter.PROGRAM_NAME;
     Set<String> options = new HashSet<>(BasePngtasticAdapter.getListOfOptions());
     DynamicAnalysis<Map<Set<String>, List<String>>> analysis =
-            new SubtracesAnalysisExecutor(programName, options);
+        new SubtracesAnalysisExecutor(programName, options);
 
     String[] args = new String[2];
     args[0] = "-delres";

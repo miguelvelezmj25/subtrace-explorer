@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.cmu.cs.mvelezce.explorer.gt.execute.BaseTraceExecutor;
 import edu.cmu.cs.mvelezce.explorer.gt.execute.ConfigToTraceInfo;
 import edu.cmu.cs.mvelezce.explorer.gt.log.SubtracesLogger;
-import edu.cmu.cs.mvelezce.utils.Options;
+import edu.cmu.cs.mvelezce.utils.config.Options;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

@@ -1,7 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.idta;
 
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
-import edu.cmu.cs.mvelezce.utils.ConfigHelper;
+import edu.cmu.cs.mvelezce.utils.configurations.ConfigHelper;
 
 import java.util.HashSet;
 import java.util.Map;

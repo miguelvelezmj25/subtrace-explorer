@@ -11,7 +11,7 @@ import edu.cmu.cs.mvelezce.explorer.idta.results.statement.ControlFlowConstraint
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.ControlFlowInfluencingTaintsAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStatementConstraints;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStatementTaints;
-import edu.cmu.cs.mvelezce.utils.Options;
+import edu.cmu.cs.mvelezce.utils.config.Options;
 
 import javax.annotation.Nullable;
 import java.io.File;
