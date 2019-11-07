@@ -31,7 +31,7 @@ public final class ConstraintUtils {
     return orConstraints.toString();
   }
 
-  private static String parseAsConstraint(Set<String> config, Collection<String> options) {
+  public static String parseAsConstraint(Set<String> config, Collection<String> options) {
     Iterator<String> optionsIter = options.iterator();
     StringBuilder stringBuilder = new StringBuilder("(");
 
