@@ -1,5 +1,6 @@
 package edu.cmu.cs.mvelezce.explorer.idta.execute;
 
+import com.mijecu25.meme.utils.execute.Executor;
 import edu.cmu.cs.mvelezce.adapter.adapters.Adapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.canExpandConstraintsDown.BaseCanExpandConstraintsDownAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.canRemoveNestedConstraintsMultipleCallSites.BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter;
@@ -16,7 +17,6 @@ import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.subtraces.BaseSubtracesAdapter;
 import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
-import edu.cmu.cs.mvelezce.utils.execute.Executor;
 
 import java.io.File;
 import java.io.IOException;
