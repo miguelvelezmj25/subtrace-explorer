@@ -253,7 +253,8 @@ public abstract class BaseTraceExecutor<T> extends BaseDynamicAnalysis<T> {
         commandList.add(
             this.getClassPath(BaseMeasureDiskOrderedScanAdapter.INSTRUMENTED_CLASS_PATH));
         adapter = new BaseMeasureDiskOrderedScanAdapter();
-        ((BaseMeasureDiskOrderedScanAdapter) adapter).preProcess();
+        ((BaseMeasureDiskOrderedScanAdapter) adapter)
+            .preProcess(BaseMeasureDiskOrderedScanAdapter.ORIGINAL_ROOT_DIR);
         mainClass = BaseMeasureDiskOrderedScanAdapter.MAIN_CLASS;
         break;
       case BaseIndexFilesAdapter.PROGRAM_NAME:

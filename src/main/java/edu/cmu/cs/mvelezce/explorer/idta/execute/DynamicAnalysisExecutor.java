@@ -241,7 +241,8 @@ public class DynamicAnalysisExecutor {
       case BaseMeasureDiskOrderedScanAdapter.PROGRAM_NAME:
         commandList.add("./measureDiskOrderedScan.sh");
         adapter = new BaseMeasureDiskOrderedScanAdapter();
-        ((BaseMeasureDiskOrderedScanAdapter) adapter).preProcess();
+        ((BaseMeasureDiskOrderedScanAdapter) adapter)
+            .preProcess(BaseMeasureDiskOrderedScanAdapter.ORIGINAL_ROOT_DIR);
         mainClass = BaseMeasureDiskOrderedScanAdapter.MAIN_CLASS;
         break;
       case BaseIndexFilesAdapter.PROGRAM_NAME:
