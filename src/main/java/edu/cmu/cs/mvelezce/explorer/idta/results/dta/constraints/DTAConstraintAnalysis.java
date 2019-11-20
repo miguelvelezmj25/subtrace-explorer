@@ -20,9 +20,12 @@ public class DTAConstraintAnalysis extends BaseDynamicAnalysis<Set<ConfigConstra
 
   // TODO how do we handle unsoundness of taint analysis?
   private final Set<ConfigConstraint> constraints = new HashSet<>();
+  private final String workloadSize;
 
-  public DTAConstraintAnalysis(String programName) {
+  public DTAConstraintAnalysis(String programName, String workloadSize) {
     super(programName, new HashSet<>(), new HashSet<>());
+
+    this.workloadSize = workloadSize;
   }
 
   @Override
@@ -81,6 +84,11 @@ public class DTAConstraintAnalysis extends BaseDynamicAnalysis<Set<ConfigConstra
 
   @Override
   public String outputDir() {
-    return IDTA.OUTPUT_DIR + "/analysis/" + this.getProgramName() + "/cc/constraints";
+    return IDTA.OUTPUT_DIR
+        + "/analysis/"
+        + this.getProgramName()
+        + "/cc/"
+        + this.workloadSize
+        + "/constraints";
   }
 }

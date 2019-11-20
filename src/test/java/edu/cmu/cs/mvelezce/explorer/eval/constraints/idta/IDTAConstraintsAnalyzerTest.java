@@ -16,8 +16,9 @@ import java.util.Set;
 
 public class IDTAConstraintsAnalyzerTest {
 
-  private void analyzeInteractions(String programName, Set<String> options) throws Exception {
-    DTAConstraintAnalysis constraintAnalysis = new DTAConstraintAnalysis(programName);
+  private void analyzeInteractions(String programName, String workloadSize, Set<String> options)
+      throws Exception {
+    DTAConstraintAnalysis constraintAnalysis = new DTAConstraintAnalysis(programName, workloadSize);
     String[] args = new String[0];
     Set<ConfigConstraint> constraints = constraintAnalysis.analyze(args);
     IDTAConstraintsAnalyzer analysis =
@@ -36,37 +37,42 @@ public class IDTAConstraintsAnalyzerTest {
   }
 
   @Test
-  public void trivial() throws Exception {
+  public void trivialSmall() throws Exception {
     String programName = BaseTrivialAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     Set<String> options = new HashSet<>(BaseTrivialAdapter.getListOfOptions());
-    analyzeInteractions(programName, options);
+    analyzeInteractions(programName, workloadSize, options);
   }
 
   @Test
-  public void iGen() throws Exception {
+  public void iGenSmall() throws Exception {
     String programName = BaseIGenAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     Set<String> options = new HashSet<>(BaseIGenAdapter.getListOfOptions());
-    analyzeInteractions(programName, options);
+    analyzeInteractions(programName, workloadSize, options);
   }
 
   @Test
-  public void pngtasticCounter() throws Exception {
+  public void pngtasticCounterSmall() throws Exception {
     String programName = BasePngtasticAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     Set<String> options = new HashSet<>(BasePngtasticAdapter.getListOfOptions());
-    analyzeInteractions(programName, options);
+    analyzeInteractions(programName, workloadSize, options);
   }
 
   @Test
-  public void measuredDiskOrderedScan() throws Exception {
+  public void measuredDiskOrderedScanSmall() throws Exception {
     String programName = BaseMeasureDiskOrderedScanAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     Set<String> options = new HashSet<>(BaseMeasureDiskOrderedScanAdapter.getListOfOptions());
-    analyzeInteractions(programName, options);
+    analyzeInteractions(programName, workloadSize, options);
   }
 
   @Test
-  public void indexFiles() throws Exception {
+  public void indexFilesSmall() throws Exception {
     String programName = BaseIndexFilesAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     Set<String> options = new HashSet<>(BaseIndexFilesAdapter.getListOfOptions());
-    analyzeInteractions(programName, options);
+    analyzeInteractions(programName, workloadSize, options);
   }
 }

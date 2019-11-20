@@ -25,8 +25,9 @@ import java.util.Set;
 public class IDTATest {
 
   @Test
-  public void Trivial() throws IOException, InterruptedException {
+  public void TrivialSmall() throws IOException, InterruptedException {
     String programName = BaseTrivialAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BaseTrivialAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
@@ -34,13 +35,14 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 
   @Test
-  public void StaticMethodCall() throws IOException, InterruptedException {
+  public void StaticMethodCallSmall() throws IOException, InterruptedException {
     String programName = BaseStaticMethodCallAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BaseStaticMethodCallAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
@@ -48,13 +50,14 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 
   @Test
-  public void MethodCall() throws IOException, InterruptedException {
+  public void MethodCallSmall() throws IOException, InterruptedException {
     String programName = BaseMethodCallAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BaseMethodCallAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
@@ -62,13 +65,14 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 
   @Test
-  public void OverrideJREMethod() throws IOException, InterruptedException {
+  public void OverrideJREMethodSmall() throws IOException, InterruptedException {
     String programName = BaseOverrideJREMethodAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BaseOverrideJREMethodAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
@@ -76,7 +80,7 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 
@@ -84,6 +88,7 @@ public class IDTATest {
   public void CanRemoveNestedConstraintsMultipleCallSites()
       throws IOException, InterruptedException {
     String programName = BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options =
         BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
@@ -92,13 +97,14 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 
   @Test
-  public void CannotRemoveNestedRegions() throws IOException, InterruptedException {
+  public void CannotRemoveNestedRegionsSmall() throws IOException, InterruptedException {
     String programName = BaseCannotRemoveNestedRegionsAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BaseCannotRemoveNestedRegionsAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
@@ -106,13 +112,14 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 
   @Test
-  public void Subtraces() throws IOException, InterruptedException {
+  public void SubtracesSmall() throws IOException, InterruptedException {
     String programName = BaseSubtracesAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BaseSubtracesAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
@@ -120,13 +127,14 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 
   @Test
-  public void iGen() throws IOException, InterruptedException {
+  public void iGenSmall() throws IOException, InterruptedException {
     String programName = BaseIGenAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BaseIGenAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
@@ -134,13 +142,14 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 
   @Test
-  public void pngtasticCounter() throws IOException, InterruptedException {
+  public void pngtasticCounterSmall() throws IOException, InterruptedException {
     String programName = BasePngtasticAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BasePngtasticAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
@@ -148,27 +157,44 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 
   @Test
-  public void MeasureDiskOrderedScan() throws IOException, InterruptedException {
+  public void MeasureDiskOrderedScanSmall() throws IOException, InterruptedException {
     String programName = BaseMeasureDiskOrderedScanAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BaseMeasureDiskOrderedScanAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
 
     String[] args = new String[2];
     args[0] = "-delres";
     args[1] = "-saveres";
-
-    IDTA analysis = new IDTA(programName, options, initialConfig);
     analysis.analyze(args);
   }
 
   @Test
-  public void indexFiles() throws IOException, InterruptedException {
+  public void MeasureDiskOrderedScanLarge() throws IOException, InterruptedException {
+    String programName = BaseMeasureDiskOrderedScanAdapter.PROGRAM_NAME;
+    String workloadSize = "large";
+    List<String> options = BaseMeasureDiskOrderedScanAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void indexFilesSmall() throws IOException, InterruptedException {
     String programName = BaseIndexFilesAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BaseIndexFilesAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
@@ -176,13 +202,14 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 
   @Test
-  public void contextDataTaintsEqual() throws IOException, InterruptedException {
+  public void contextDataTaintsEqualSmall() throws IOException, InterruptedException {
     String programName = BaseContextDataTaintsEqualAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BaseContextDataTaintsEqualAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
@@ -190,13 +217,14 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 
   @Test
-  public void cannotExpandConstraintsDown() throws IOException, InterruptedException {
+  public void cannotExpandConstraintsDownSmall() throws IOException, InterruptedException {
     String programName = BaseCannotExpandConstraintsDownAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BaseCannotExpandConstraintsDownAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
@@ -204,13 +232,14 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 
   @Test
-  public void canExpandConstraintsDown() throws IOException, InterruptedException {
+  public void canExpandConstraintsDownSmall() throws IOException, InterruptedException {
     String programName = BaseCanExpandConstraintsDownAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BaseCanExpandConstraintsDownAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
@@ -218,13 +247,14 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 
   @Test
-  public void multipleReturns() throws IOException, InterruptedException {
+  public void multipleReturnsSmall() throws IOException, InterruptedException {
     String programName = BaseMultipleReturnsAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
     List<String> options = BaseMultipleReturnsAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
@@ -232,7 +262,7 @@ public class IDTATest {
     args[0] = "-delres";
     args[1] = "-saveres";
 
-    IDTA analysis = new IDTA(programName, options, initialConfig);
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
 }

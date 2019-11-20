@@ -34,18 +34,20 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
   private final DTAConstraintCalculator DTAConstraintCalculator;
   private final DTAConstraintAnalysis DTAConstraintAnalysis;
 
-  public IDTA(String programName, List<String> options, Set<String> initialConfig) {
+  public IDTA(
+      String programName, String workloadSize, List<String> options, Set<String> initialConfig) {
     super(programName, new HashSet<>(options), initialConfig);
 
     this.dynamicAnalysisExecutor = new DynamicAnalysisExecutor(programName);
     this.dynamicAnalysisResultsParser = new DynamicAnalysisResultsParser(programName);
     this.controlFlowInfluencingTaintsAnalysis =
-        new ControlFlowInfluencingTaintsAnalysis(programName, options);
-    this.controlFlowConstraintAnalysis = new ControlFlowConstraintAnalysis(programName, options);
+        new ControlFlowInfluencingTaintsAnalysis(programName, workloadSize, options);
+    this.controlFlowConstraintAnalysis =
+        new ControlFlowConstraintAnalysis(programName, workloadSize, options);
 
     this.configConstraintAnalyzer = new ConfigConstraintAnalyzer(new HashSet<>(options));
     this.DTAConstraintCalculator = new DTAConstraintCalculator(options);
-    this.DTAConstraintAnalysis = new DTAConstraintAnalysis(programName);
+    this.DTAConstraintAnalysis = new DTAConstraintAnalysis(programName, workloadSize);
   }
 
   @Nullable

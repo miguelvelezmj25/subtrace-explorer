@@ -18,8 +18,9 @@ import java.util.*;
 public class ControlFlowConstraintAnalysis
     extends ControlFlowAnalysis<Set<ControlFlowStatementConstraints>, FeatureExpr> {
 
-  public ControlFlowConstraintAnalysis(String programName, List<String> options) {
-    super(programName, options);
+  public ControlFlowConstraintAnalysis(
+      String programName, String workloadSize, List<String> options) {
+    super(programName, workloadSize, options);
   }
 
   @Override
@@ -70,7 +71,35 @@ public class ControlFlowConstraintAnalysis
       List<String> stringConstraints = this.getStringConstraints(influencingTaints, config);
       Set<FeatureExpr> constraints = this.parseStringConstraintsAsConstraints(stringConstraints);
       statementsToConstraints.get(entry.getKey()).addAll(constraints);
+      //      Set<FeatureExpr> currentConstraints = statementsToConstraints.get(entry.getKey());
+      //      currentConstraints.addAll(constraints);
+      //      this.updateConstraints(currentConstraints);
     }
+  }
+
+  private void updateConstraints(Set<FeatureExpr> currentConstraints) {
+    System.err.println(
+        "Do the cross product of the data taints. Figure out how to handle different control taints. Remove redundant constraints.");
+    //    Set<FeatureExpr> newConstraints = new HashSet<>();
+    //
+    //    for (FeatureExpr currentConstraint : currentConstraints) {
+    //      for (FeatureExpr constraint : currentConstraints) {
+    //        FeatureExpr crossProduct = currentConstraint.and(constraint);
+    //
+    //        if (!crossProduct.isContradiction()) {
+    //          newConstraints.add(crossProduct);
+    //        }
+    //
+    ////        FeatureExpr notCrossProduct = currentConstraint.andNot(constraint);
+    ////
+    ////        if (!notCrossProduct.isContradiction()) {
+    ////          newConstraints.add(notCrossProduct);
+    ////        }
+    //      }
+    //    }
+    //
+    //    currentConstraints.clear();
+    //    currentConstraints.addAll(newConstraints);
   }
 
   private Set<FeatureExpr> parseStringConstraintsAsConstraints(List<String> stringConstraints) {
@@ -159,6 +188,11 @@ public class ControlFlowConstraintAnalysis
 
   @Override
   public String outputDir() {
-    return IDTA.OUTPUT_DIR + "/analysis/" + this.getProgramName() + "/cc/dataFlowConstraints";
+    return IDTA.OUTPUT_DIR
+        + "/analysis/"
+        + this.getProgramName()
+        + "/cc/"
+        + this.getWorkloadSize()
+        + "/dataFlowConstraints";
   }
 }

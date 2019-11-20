@@ -18,12 +18,13 @@ import java.util.*;
 public class ControlFlowInfluencingTaintsAnalysis
     extends ControlFlowAnalysis<Set<ControlFlowStatementTaints>, InfluencingTaints> {
 
-  public ControlFlowInfluencingTaintsAnalysis(String programName, List<String> options) {
-    super(programName, options);
+  public ControlFlowInfluencingTaintsAnalysis(
+      String programName, String workloadSize, List<String> options) {
+    super(programName, workloadSize, options);
   }
 
   ControlFlowInfluencingTaintsAnalysis(String programName) {
-    this(programName, new ArrayList<>());
+    this(programName, "", new ArrayList<>());
   }
 
   @Override
@@ -85,7 +86,12 @@ public class ControlFlowInfluencingTaintsAnalysis
 
   @Override
   public String outputDir() {
-    return IDTA.OUTPUT_DIR + "/analysis/" + this.getProgramName() + "/cc/statements";
+    return IDTA.OUTPUT_DIR
+        + "/analysis/"
+        + this.getProgramName()
+        + "/cc/"
+        + this.getWorkloadSize()
+        + "/statements";
   }
 
   //  private void mergeTaints() {
