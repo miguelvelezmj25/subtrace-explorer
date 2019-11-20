@@ -7,6 +7,7 @@ import edu.cmu.cs.mvelezce.adapters.canRemoveNestedConstraintsMultipleCallSites.
 import edu.cmu.cs.mvelezce.adapters.cannotExpandConstraintsDown.BaseCannotExpandConstraintsDownAdapter;
 import edu.cmu.cs.mvelezce.adapters.cannotRemoveNestedRegions.BaseCannotRemoveNestedRegionsAdapter;
 import edu.cmu.cs.mvelezce.adapters.cleanConstraints.BaseCleanConstraintsAdapter;
+import edu.cmu.cs.mvelezce.adapters.cleanConstraintsIssue.BaseCleanConstraintsIssueAdapter;
 import edu.cmu.cs.mvelezce.adapters.contextDataTaintsEqual.BaseContextDataTaintsEqualAdapter;
 import edu.cmu.cs.mvelezce.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
@@ -222,6 +223,11 @@ public class DynamicAnalysisExecutor {
         commandList.add("./examples.sh");
         adapter = new BaseCleanConstraintsAdapter();
         mainClass = BaseCleanConstraintsAdapter.MAIN_CLASS;
+        break;
+      case BaseCleanConstraintsIssueAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseCleanConstraintsIssueAdapter();
+        mainClass = BaseCleanConstraintsIssueAdapter.MAIN_CLASS;
         break;
       case BaseOverrideJREMethodAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");

@@ -5,6 +5,7 @@ import edu.cmu.cs.mvelezce.adapters.canRemoveNestedConstraintsMultipleCallSites.
 import edu.cmu.cs.mvelezce.adapters.cannotExpandConstraintsDown.BaseCannotExpandConstraintsDownAdapter;
 import edu.cmu.cs.mvelezce.adapters.cannotRemoveNestedRegions.BaseCannotRemoveNestedRegionsAdapter;
 import edu.cmu.cs.mvelezce.adapters.cleanConstraints.BaseCleanConstraintsAdapter;
+import edu.cmu.cs.mvelezce.adapters.cleanConstraintsIssue.BaseCleanConstraintsIssueAdapter;
 import edu.cmu.cs.mvelezce.adapters.contextDataTaintsEqual.BaseContextDataTaintsEqualAdapter;
 import edu.cmu.cs.mvelezce.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
@@ -197,6 +198,21 @@ public class IDTATest {
     String programName = BaseCleanConstraintsAdapter.PROGRAM_NAME;
     String workloadSize = "small";
     List<String> options = BaseCleanConstraintsAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void CleanConstraintIssueSmall() throws IOException, InterruptedException {
+    String programName = BaseCleanConstraintsIssueAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    List<String> options = BaseCleanConstraintsIssueAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
     IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
