@@ -1,11 +1,11 @@
 package edu.cmu.cs.mvelezce.explorer.eval.constraints.idta;
 
 import de.fosd.typechef.featureexpr.FeatureExpr;
-import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
+import edu.cmu.cs.mvelezce.adapters.iGen.BaseIGenAdapter;
+import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
+import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
+import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
 import edu.cmu.cs.mvelezce.explorer.idta.results.dta.constraints.DTAConstraintAnalysis;
 import org.junit.Assert;

@@ -1,9 +1,9 @@
 package edu.cmu.cs.mvelezce.explorer.gt.instrument;
 
-import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
+import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
+import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
+import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.instrumenter.instrument.Instrumenter;
 import org.junit.Test;
 

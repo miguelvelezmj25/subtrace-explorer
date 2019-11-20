@@ -1,7 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.eval.traces;
 
-import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
+import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.analysis.dynamic.DynamicAnalysis;
 import edu.cmu.cs.mvelezce.utils.configurations.ConfigHelper;
 import org.junit.Test;

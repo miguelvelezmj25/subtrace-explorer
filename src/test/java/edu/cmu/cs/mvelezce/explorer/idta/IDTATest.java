@@ -1,20 +1,20 @@
 package edu.cmu.cs.mvelezce.explorer.idta;
 
-import edu.cmu.cs.mvelezce.adapter.adapters.canExpandConstraintsDown.BaseCanExpandConstraintsDownAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.canRemoveNestedConstraintsMultipleCallSites.BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.cannotExpandConstraintsDown.BaseCannotExpandConstraintsDownAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.cannotRemoveNestedRegions.BaseCannotRemoveNestedRegionsAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.contextDataTaintsEqual.BaseContextDataTaintsEqualAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.methodCall.BaseMethodCallAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.multipleReturns.BaseMultipleReturnsAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.overrideJREMethod.BaseOverrideJREMethodAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.subtraces.BaseSubtracesAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
+import edu.cmu.cs.mvelezce.adapters.canExpandConstraintsDown.BaseCanExpandConstraintsDownAdapter;
+import edu.cmu.cs.mvelezce.adapters.canRemoveNestedConstraintsMultipleCallSites.BaseCanRemoveNestedConstraintsMultipleCallSitesAdapter;
+import edu.cmu.cs.mvelezce.adapters.cannotExpandConstraintsDown.BaseCannotExpandConstraintsDownAdapter;
+import edu.cmu.cs.mvelezce.adapters.cannotRemoveNestedRegions.BaseCannotRemoveNestedRegionsAdapter;
+import edu.cmu.cs.mvelezce.adapters.contextDataTaintsEqual.BaseContextDataTaintsEqualAdapter;
+import edu.cmu.cs.mvelezce.adapters.iGen.BaseIGenAdapter;
+import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
+import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapters.methodCall.BaseMethodCallAdapter;
+import edu.cmu.cs.mvelezce.adapters.multipleReturns.BaseMultipleReturnsAdapter;
+import edu.cmu.cs.mvelezce.adapters.overrideJREMethod.BaseOverrideJREMethodAdapter;
+import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
+import edu.cmu.cs.mvelezce.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
+import edu.cmu.cs.mvelezce.adapters.subtraces.BaseSubtracesAdapter;
+import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
 import org.junit.Test;
 
 import java.io.IOException;

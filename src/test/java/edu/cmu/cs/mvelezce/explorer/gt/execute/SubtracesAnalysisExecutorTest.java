@@ -1,10 +1,10 @@
 package edu.cmu.cs.mvelezce.explorer.gt.execute;
 
-import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
+import edu.cmu.cs.mvelezce.adapters.iGen.BaseIGenAdapter;
+import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
+import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
+import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.analysis.dynamic.DynamicAnalysis;
 import org.junit.Assert;
 import org.junit.Test;

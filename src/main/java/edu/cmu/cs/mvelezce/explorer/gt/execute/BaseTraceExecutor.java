@@ -2,12 +2,12 @@ package edu.cmu.cs.mvelezce.explorer.gt.execute;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mijecu25.meme.utils.execute.Executor;
-import edu.cmu.cs.mvelezce.adapter.adapters.Adapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
+import edu.cmu.cs.mvelezce.adapters.Adapter;
+import edu.cmu.cs.mvelezce.adapters.iGen.BaseIGenAdapter;
+import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
+import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
+import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
 import edu.cmu.cs.mvelezce.explorer.gt.log.SubtracesLogger;
 import edu.cmu.cs.mvelezce.utils.config.Options;

@@ -2,11 +2,11 @@ package edu.cmu.cs.mvelezce.explorer.eval.constraints;
 
 import de.fosd.typechef.featureexpr.FeatureExpr;
 import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
-import edu.cmu.cs.mvelezce.adapter.adapters.iGen.BaseIGenAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.indexFiles.BaseIndexFilesAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.pngtastic.BasePngtasticAdapter;
-import edu.cmu.cs.mvelezce.adapter.adapters.trivial.BaseTrivialAdapter;
+import edu.cmu.cs.mvelezce.adapters.iGen.BaseIGenAdapter;
+import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
+import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
+import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
+import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.IDTAConstraintsAnalyzer;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.subtraces.SubtraceOutcomeConstraint;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.subtraces.SubtracesConstraintsAnalyzer;
