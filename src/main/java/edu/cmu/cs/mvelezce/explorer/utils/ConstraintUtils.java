@@ -77,7 +77,7 @@ public final class ConstraintUtils {
     return stringConstraints;
   }
 
-  public static String prettyPrintFeatureExpr(FeatureExpr featureExpr, Set<String> options) {
+  public static String prettyPrintFeatureExpr(FeatureExpr featureExpr, Collection<String> options) {
     String stringInteraction = featureExpr.toTextExpr().replaceAll("definedEx\\(", "");
 
     for (String option : options) {
@@ -85,5 +85,24 @@ public final class ConstraintUtils {
     }
 
     return stringInteraction;
+  }
+
+  public static Set<String> toConfig(FeatureExpr featureExpr, Collection<String> options) {
+    String prettyConstraint = ConstraintUtils.prettyPrintFeatureExpr(featureExpr, options);
+    prettyConstraint = prettyConstraint.replaceAll("\\(", "");
+    prettyConstraint = prettyConstraint.replaceAll("\\)", "");
+    String[] optionsValues = prettyConstraint.split("&&");
+
+    Set<String> config = new HashSet<>();
+
+    for (String optionsValue : optionsValues) {
+      optionsValue = optionsValue.trim();
+
+      if (!optionsValue.startsWith("!")) {
+        config.add(optionsValue);
+      }
+    }
+
+    return config;
   }
 }
