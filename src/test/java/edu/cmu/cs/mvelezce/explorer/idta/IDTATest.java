@@ -171,7 +171,6 @@ public class IDTATest {
     Set<String> initialConfig = new HashSet<>();
 
     IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
-
     String[] args = new String[2];
     args[0] = "-delres";
     args[1] = "-saveres";

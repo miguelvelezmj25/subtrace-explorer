@@ -86,7 +86,6 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
   }
 
   private void runProgramAnalysis() throws IOException, InterruptedException {
-    System.err.println("Maybe use the FeatureExprLib for constraints");
     int sampleConfigs = 0;
 
     Set<String> options = this.getOptions();
@@ -125,6 +124,8 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
       configConstraintsToSatisfy.addAll(analysisConstraints);
       configConstraintsToSatisfy.removeAll(satisfiedConfigConstraints);
+
+      System.out.println("Constraints yet to explore " + configConstraintsToSatisfy.size());
 
       Set<Set<String>> configsToRun =
           this.configConstraintAnalyzer.getConfigsThatSatisfyConfigConstraints(
