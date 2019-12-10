@@ -1,7 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.idta.other;
 
-import edu.cmu.cs.mvelezce.cc.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
+import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.taint.TaintHelper;
 import edu.cmu.cs.mvelezce.utils.configurations.ConfigHelper;
 
@@ -12,6 +12,7 @@ public class DTAConstraintCalculator {
   private final List<String> options;
 
   public DTAConstraintCalculator(List<String> options) {
+    System.err.println("Weird that the package name is 'other'");
     this.options = options;
   }
 

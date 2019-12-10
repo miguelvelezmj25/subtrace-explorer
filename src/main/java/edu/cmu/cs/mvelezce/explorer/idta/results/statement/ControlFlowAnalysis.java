@@ -1,7 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.idta.results.statement;
 
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
-import edu.cmu.cs.mvelezce.cc.DecisionTaints;
+import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.taint.InfluencingTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.taint.TaintHelper;
 

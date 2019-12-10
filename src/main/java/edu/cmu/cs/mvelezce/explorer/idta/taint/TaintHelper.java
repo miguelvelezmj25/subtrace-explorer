@@ -1,6 +1,6 @@
 package edu.cmu.cs.mvelezce.explorer.idta.taint;
 
-import edu.cmu.cs.mvelezce.cc.DecisionTaints;
+import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
 import edu.columbia.cs.psl.phosphor.runtime.Taint;
 
 import javax.annotation.Nullable;

@@ -1,11 +1,11 @@
 package edu.cmu.cs.mvelezce.explorer.idta;
 
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
-import edu.cmu.cs.mvelezce.cc.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
 import edu.cmu.cs.mvelezce.explorer.idta.execute.DynamicAnalysisExecutor;
 import edu.cmu.cs.mvelezce.explorer.idta.other.DTAConstraintCalculator;
 import edu.cmu.cs.mvelezce.explorer.idta.results.dta.constraints.DTAConstraintAnalysis;
+import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DynamicAnalysisResultsParser;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.ControlFlowConstraintAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.ControlFlowInfluencingTaintsAnalysis;

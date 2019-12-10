@@ -2,8 +2,8 @@ package edu.cmu.cs.mvelezce.explorer.idta.results.statement;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.cmu.cs.mvelezce.cc.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
+import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStatementInfo;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStatementTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.taint.InfluencingTaints;
