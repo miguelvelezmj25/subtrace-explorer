@@ -15,6 +15,7 @@ import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrdere
 import edu.cmu.cs.mvelezce.adapters.methodCall.BaseMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapters.multipleReturns.BaseMultipleReturnsAdapter;
 import edu.cmu.cs.mvelezce.adapters.overrideJREMethod.BaseOverrideJREMethodAdapter;
+import edu.cmu.cs.mvelezce.adapters.performance.BasePerformanceAdapter;
 import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapters.subtraces.BaseSubtracesAdapter;
@@ -233,6 +234,11 @@ public class DynamicAnalysisExecutor {
         commandList.add("./examples.sh");
         adapter = new BaseOverrideJREMethodAdapter();
         mainClass = BaseOverrideJREMethodAdapter.MAIN_CLASS;
+        break;
+      case BasePerformanceAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BasePerformanceAdapter();
+        mainClass = BasePerformanceAdapter.MAIN_CLASS;
         break;
         //      case SoundAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");

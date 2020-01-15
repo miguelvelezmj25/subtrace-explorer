@@ -13,6 +13,7 @@ import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrdere
 import edu.cmu.cs.mvelezce.adapters.methodCall.BaseMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapters.multipleReturns.BaseMultipleReturnsAdapter;
 import edu.cmu.cs.mvelezce.adapters.overrideJREMethod.BaseOverrideJREMethodAdapter;
+import edu.cmu.cs.mvelezce.adapters.performance.BasePerformanceAdapter;
 import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapters.subtraces.BaseSubtracesAdapter;
@@ -168,6 +169,20 @@ public class IDTATest {
     String programName = BaseMeasureDiskOrderedScanAdapter.PROGRAM_NAME;
     String workloadSize = "small";
     List<String> options = BaseMeasureDiskOrderedScanAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void PerformanceSmall() throws IOException, InterruptedException {
+    String programName = BasePerformanceAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    List<String> options = BasePerformanceAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
     IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);

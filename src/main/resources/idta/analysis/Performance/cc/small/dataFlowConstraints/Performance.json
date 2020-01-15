@@ -1,0 +1,48 @@
+[
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "Performance",
+    "methodSignature": "run([Ljava/lang/String;)V",
+    "decisionIndex": 5,
+    "info": [],
+    "prettyConstraints": [
+      "(A && B)",
+      "(A && !B)",
+      "(!A && !B)",
+      "(!A && B)"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "Performance",
+    "methodSignature": "run([Ljava/lang/String;)V",
+    "decisionIndex": 3,
+    "info": [],
+    "prettyConstraints": [
+      "!B",
+      "B"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "Performance",
+    "methodSignature": "run([Ljava/lang/String;)V",
+    "decisionIndex": 1,
+    "info": [],
+    "prettyConstraints": [
+      "!A",
+      "A"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.analysis",
+    "className": "Performance",
+    "methodSignature": "foo(Z)I",
+    "decisionIndex": 1,
+    "info": [],
+    "prettyConstraints": [
+      "!B",
+      "B"
+    ]
+  }
+]
