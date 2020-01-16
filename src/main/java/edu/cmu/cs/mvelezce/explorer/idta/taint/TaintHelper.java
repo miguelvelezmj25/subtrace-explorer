@@ -3,7 +3,6 @@ package edu.cmu.cs.mvelezce.explorer.idta.taint;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
 import edu.columbia.cs.psl.phosphor.runtime.Taint;
 
-import javax.annotation.Nullable;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -12,27 +11,26 @@ public class TaintHelper {
 
   private TaintHelper() {}
 
-  public static Set<String> getContextTaints(DecisionTaints decisionTaints, List<String> options) {
-    @Nullable Taint contextTaintObject = decisionTaints.getExecCtxTaints();
-    Set<String> contextTaints = new HashSet<>();
+  public static Set<String> getControlTaints(DecisionTaints decisionTaints, List<String> options) {
+    Taint controlTaintsObject = decisionTaints.getControlTaints();
+    Set<String> controlTaints = new HashSet<>();
 
-    if (contextTaintObject != null) {
-      contextTaints = getTaintingOptions(contextTaintObject, options);
+    if (controlTaintsObject != null) {
+      controlTaints = getTaintingOptions(controlTaintsObject, options);
     }
 
-    return contextTaints;
+    return controlTaints;
   }
 
-  public static Set<String> getConditionTaints(
-      DecisionTaints decisionTaints, List<String> options) {
-    @Nullable Taint conditionTaintObject = decisionTaints.getConditionTaints();
-    Set<String> contextTaints = new HashSet<>();
+  public static Set<String> getDataTaints(DecisionTaints decisionTaints, List<String> options) {
+    Taint dataTaintsObject = decisionTaints.getDataTaints();
+    Set<String> dataTaints = new HashSet<>();
 
-    if (conditionTaintObject != null) {
-      contextTaints = getTaintingOptions(conditionTaintObject, options);
+    if (dataTaintsObject != null) {
+      dataTaints = getTaintingOptions(dataTaintsObject, options);
     }
 
-    return contextTaints;
+    return dataTaints;
   }
 
   private static Set<String> getTaintingOptions(Taint taint, List<String> options) {

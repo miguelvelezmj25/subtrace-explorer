@@ -277,7 +277,6 @@ public class DynamicAnalysisExecutor {
         throw new RuntimeException("Could not find a phosphor script to run " + programName);
     }
 
-    // TODO change the following method to take a Config object
     String[] configArgs = adapter.configurationAsMainArguments(config);
     List<String> configList = Arrays.asList(configArgs);
     commandList.add(mainClass);

@@ -32,19 +32,19 @@ public class DTAConstraintCalculator {
   private Set<ConfigConstraint> deriveConstraints(
       DecisionTaints decisionTaints, Set<String> config) {
     Set<ConfigConstraint> constraints = new HashSet<>();
-    Set<String> conditionTaints = TaintHelper.getConditionTaints(decisionTaints, this.options);
-    Set<String> contextTaints = TaintHelper.getContextTaints(decisionTaints, this.options);
+    Set<String> dataTaints = TaintHelper.getDataTaints(decisionTaints, this.options);
+    Set<String> controlTaints = TaintHelper.getControlTaints(decisionTaints, this.options);
 
-    Set<String> taintedOptions = new HashSet<>(conditionTaints);
-    taintedOptions.addAll(contextTaints);
-    Set<String> activatedContextOptions = new HashSet<>(contextTaints);
-    activatedContextOptions.retainAll(config);
-    Set<String> optionsInCondition = new HashSet<>(conditionTaints);
-    optionsInCondition.removeAll(contextTaints);
+    Set<String> taintedOptions = new HashSet<>(dataTaints);
+    taintedOptions.addAll(controlTaints);
+    Set<String> activatedControlOptions = new HashSet<>(controlTaints);
+    activatedControlOptions.retainAll(config);
+    Set<String> optionsInCondition = new HashSet<>(dataTaints);
+    optionsInCondition.removeAll(controlTaints);
     Set<Set<String>> combos = ConfigHelper.getConfigurations(optionsInCondition);
 
     for (Set<String> combo : combos) {
-      Set<String> activatedTaintOptions = new HashSet<>(activatedContextOptions);
+      Set<String> activatedTaintOptions = new HashSet<>(activatedControlOptions);
       activatedTaintOptions.addAll(combo);
 
       Set<String> partialConfig = new HashSet<>();

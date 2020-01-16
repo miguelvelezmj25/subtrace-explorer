@@ -53,9 +53,9 @@ abstract class ControlFlowAnalysis<T, E> extends BaseDynamicAnalysis<T> {
 
   Map<String, Set<InfluencingTaints>> addInfluencingTaints(Set<DecisionTaints> results) {
     for (DecisionTaints decisionTaints : results) {
-      Set<String> conditionTaints = TaintHelper.getConditionTaints(decisionTaints, this.options);
-      Set<String> contextTaints = TaintHelper.getContextTaints(decisionTaints, this.options);
-      InfluencingTaints influencingTaints = new InfluencingTaints(contextTaints, conditionTaints);
+      Set<String> dataTaints = TaintHelper.getDataTaints(decisionTaints, this.options);
+      Set<String> controlTaints = TaintHelper.getControlTaints(decisionTaints, this.options);
+      InfluencingTaints influencingTaints = new InfluencingTaints(controlTaints, dataTaints);
 
       String statement = decisionTaints.getDecision();
       Set<InfluencingTaints> currentTaints = this.statementsToInfluencingTaints.get(statement);
