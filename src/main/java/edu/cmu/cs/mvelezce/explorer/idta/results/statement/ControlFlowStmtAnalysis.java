@@ -36,7 +36,7 @@ abstract class ControlFlowStmtAnalysis<T, E> extends BaseDynamicAnalysis<T> {
 
   abstract void addData(Set<String> config, Set<DecisionTaints> results);
 
-  Map<String, E> getStatementsToData() {
+  public Map<String, E> getStatementsToData() {
     return statementsToData;
   }
 

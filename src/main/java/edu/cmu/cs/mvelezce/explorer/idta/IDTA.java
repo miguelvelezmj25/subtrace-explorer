@@ -1,14 +1,16 @@
 package edu.cmu.cs.mvelezce.explorer.idta;
 
+import de.fosd.typechef.featureexpr.FeatureExpr;
+import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
 import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
 import edu.cmu.cs.mvelezce.explorer.idta.constraint.Constraint;
 import edu.cmu.cs.mvelezce.explorer.idta.execute.DynamicAnalysisExecutor;
-import edu.cmu.cs.mvelezce.explorer.idta.other.DTAConstraintCalculator;
-import edu.cmu.cs.mvelezce.explorer.idta.results.dta.constraints.DTAConstraintAnalysis;
+import edu.cmu.cs.mvelezce.explorer.idta.results.constraints.DTAConstraintCalculator;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DynamicAnalysisResultsParser;
+import edu.cmu.cs.mvelezce.explorer.idta.results.partitions.IDTAPartitionsAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.ControlFlowStmtPartitioningAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.ControlFlowStmtTaintAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtPartitioning;
@@ -19,7 +21,6 @@ import edu.cmu.cs.mvelezce.utils.config.Options;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -33,9 +34,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
   private final ControlFlowStmtTaintAnalysis controlFlowStmtTaintsAnalysis;
   private final ControlFlowStmtPartitioningAnalysis controlFlowStmtPartitioningAnalysis;
 
-  private final ConfigConstraintAnalyzer configConstraintAnalyzer;
-  private final DTAConstraintCalculator DTAConstraintCalculator;
-  private final DTAConstraintAnalysis DTAConstraintAnalysis;
+  private final IDTAPartitionsAnalysis IDTAPartitionsAnalysis;
 
   public IDTA(
       String programName, String workloadSize, List<String> options, Set<String> initialConfig) {
@@ -48,27 +47,23 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
     this.controlFlowStmtPartitioningAnalysis =
         new ControlFlowStmtPartitioningAnalysis(programName, workloadSize, options);
 
-    this.configConstraintAnalyzer = new ConfigConstraintAnalyzer(new HashSet<>(options));
-    this.DTAConstraintCalculator = new DTAConstraintCalculator(options);
-    this.DTAConstraintAnalysis = new DTAConstraintAnalysis(programName, workloadSize);
+    this.IDTAPartitionsAnalysis = new IDTAPartitionsAnalysis(programName, workloadSize);
   }
 
-  @Nullable
   @Override
   public Void analyze() throws IOException, InterruptedException {
     this.runProgramAnalysis();
 
-    Set<ConfigConstraint> constraints = this.DTAConstraintAnalysis.analyze();
-    this.DTAConstraintAnalysis.writeToFile(constraints);
-
-    System.err.println("Might want to save the constraints per decision, not the taints");
-    Set<ControlFlowStmtTaints> controlFlowStatementInfos =
+    Set<ControlFlowStmtTaints> controlFlowStmtTaintInfos =
         this.controlFlowStmtTaintsAnalysis.analyze();
-    this.controlFlowStmtTaintsAnalysis.writeToFile(controlFlowStatementInfos);
+    this.controlFlowStmtTaintsAnalysis.writeToFile(controlFlowStmtTaintInfos);
 
-    Set<ControlFlowStmtPartitioning> dataFlowConstraints =
+    Set<ControlFlowStmtPartitioning> controlFlowStmtPartitioningsInfo =
         this.controlFlowStmtPartitioningAnalysis.analyze();
-    this.controlFlowStmtPartitioningAnalysis.writeToFile(dataFlowConstraints);
+    this.controlFlowStmtPartitioningAnalysis.writeToFile(controlFlowStmtPartitioningsInfo);
+
+    Set<ConfigConstraint> constraints = this.IDTAPartitionsAnalysis.analyze();
+    this.IDTAPartitionsAnalysis.writeToFile(constraints);
 
     return null;
   }
@@ -90,14 +85,8 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
   private void runProgramAnalysis() throws IOException, InterruptedException {
     int sampleConfigs = 0;
-
     Set<String> config = this.getInitialConfig();
-
     Set<Constraint> exploredConstraints = new HashSet<>();
-
-    Set<ConfigConstraint> configConstraintsToSatisfy = new HashSet<>();
-    Set<ConfigConstraint> satisfiedConfigConstraints = new HashSet<>();
-    Set<ConfigConstraint> exploredConfigConstraints = new HashSet<>();
 
     while (config != null) {
       String stringConstraint = ConstraintUtils.parseAsConstraint(config, this.getOptions());
@@ -111,45 +100,44 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
       this.controlFlowStmtTaintsAnalysis.saveTaints(config, decisionTaints);
       this.controlFlowStmtPartitioningAnalysis.savePartitions(config, decisionTaints);
+      //      Set<ConfigConstraint> analysisConstraints = new HashSet<>();
+      //
+      //      for (Set<ConfigConstraint> entry : constraintsSet) {
+      //        analysisConstraints.addAll(entry);
+      //      }
+      //
+      //      this.IDTAPartitionsAnalysis.addConstraints(analysisConstraints);
 
-      System.err.println("CHECK LOGIC BELOW");
-      System.err.println("Get the constraints from the control flow constraints");
-      Collection<Set<ConfigConstraint>> constraintsSet =
-          this.DTAConstraintCalculator.deriveConstraints(decisionTaints, config).values();
-      Set<ConfigConstraint> analysisConstraints = new HashSet<>();
+      Set<Constraint> currentConstraints =
+          DTAConstraintCalculator.deriveIDTAConstraints(
+              this.controlFlowStmtPartitioningAnalysis.getStatementsToData().values());
+      Set<Constraint> constraintsToExplore =
+          DTAConstraintCalculator.getConstraintsToExplore(exploredConstraints, currentConstraints);
+      System.out.println("Constraints yet to explore " + constraintsToExplore.size());
 
-      for (Set<ConfigConstraint> entry : constraintsSet) {
-        analysisConstraints.addAll(entry);
-      }
-
-      this.DTAConstraintAnalysis.addConstraints(analysisConstraints);
-
-      configConstraintsToSatisfy.addAll(analysisConstraints);
-      configConstraintsToSatisfy.removeAll(satisfiedConfigConstraints);
-
-      System.out.println("Constraints yet to explore " + configConstraintsToSatisfy.size());
-
-      Set<Set<String>> configsToRun =
-          this.configConstraintAnalyzer.getConfigsThatSatisfyConfigConstraints(
-              configConstraintsToSatisfy, exploredConfigConstraints);
-
-      config = this.getNextConfig(configsToRun);
-      /////// CHECK
-
+      config = this.getNextGreedyConfig(constraintsToExplore);
       sampleConfigs++;
-      break;
     }
 
     System.out.println("Configs sampled by IDTA: " + sampleConfigs);
   }
 
   @Nullable
-  private Set<String> getNextConfig(Set<Set<String>> configsToRun) {
-    if (configsToRun.isEmpty()) {
+  private Set<String> getNextGreedyConfig(Set<Constraint> constraintsToExplore) {
+    if (constraintsToExplore.isEmpty()) {
       return null;
     }
 
-    // Optimize
-    return configsToRun.iterator().next();
+    FeatureExpr formula = SATFeatureExprFactory.True();
+
+    for (Constraint constraint : constraintsToExplore) {
+      if (formula.mex(constraint.getFeatureExpr()).isTautology()) {
+        continue;
+      }
+
+      formula = formula.and(constraint.getFeatureExpr());
+    }
+
+    return ConstraintUtils.toConfig(formula, this.getOptions());
   }
 }

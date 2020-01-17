@@ -7,7 +7,7 @@ import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrdere
 import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
-import edu.cmu.cs.mvelezce.explorer.idta.results.dta.constraints.DTAConstraintAnalysis;
+import edu.cmu.cs.mvelezce.explorer.idta.results.partitions.IDTAPartitionsAnalysis;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -18,7 +18,8 @@ public class IDTAConstraintsAnalyzerTest {
 
   private void analyzeInteractions(String programName, String workloadSize, Set<String> options)
       throws Exception {
-    DTAConstraintAnalysis constraintAnalysis = new DTAConstraintAnalysis(programName, workloadSize);
+    IDTAPartitionsAnalysis constraintAnalysis =
+        new IDTAPartitionsAnalysis(programName, workloadSize);
     String[] args = new String[0];
     Set<ConfigConstraint> constraints = constraintAnalysis.analyze(args);
     IDTAConstraintsAnalyzer analysis =

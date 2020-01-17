@@ -1,4 +1,4 @@
-package edu.cmu.cs.mvelezce.explorer.idta.results.dta.constraints;
+package edu.cmu.cs.mvelezce.explorer.idta.results.partitions;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class DTAConstraintAnalysis extends BaseDynamicAnalysis<Set<ConfigConstraint>> {
+public class IDTAPartitionsAnalysis extends BaseDynamicAnalysis<Set<ConfigConstraint>> {
 
   static {
     System.err.println("Is this a dynamic analysis?");
@@ -22,7 +22,7 @@ public class DTAConstraintAnalysis extends BaseDynamicAnalysis<Set<ConfigConstra
   private final Set<ConfigConstraint> constraints = new HashSet<>();
   private final String workloadSize;
 
-  public DTAConstraintAnalysis(String programName, String workloadSize) {
+  public IDTAPartitionsAnalysis(String programName, String workloadSize) {
     super(programName, new HashSet<>(), new HashSet<>());
 
     this.workloadSize = workloadSize;
