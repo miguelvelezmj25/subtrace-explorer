@@ -1,25 +1,22 @@
 package edu.cmu.cs.mvelezce.explorer.idta.results.partitions;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
+import edu.cmu.cs.mvelezce.explorer.idta.partition.Partition;
+import edu.cmu.cs.mvelezce.explorer.idta.partition.Partitioning;
 import edu.cmu.cs.mvelezce.utils.config.Options;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class IDTAPartitionsAnalysis extends BaseDynamicAnalysis<Set<ConfigConstraint>> {
+public class IDTAPartitionsAnalysis extends BaseDynamicAnalysis<Set<Partition>> {
 
-  static {
-    System.err.println("Is this a dynamic analysis?");
-  }
-
-  // TODO how do we handle unsoundness of taint analysis?
-  private final Set<ConfigConstraint> constraints = new HashSet<>();
+  private final Set<Partition> partitions = new HashSet<>();
   private final String workloadSize;
 
   public IDTAPartitionsAnalysis(String programName, String workloadSize) {
@@ -29,16 +26,18 @@ public class IDTAPartitionsAnalysis extends BaseDynamicAnalysis<Set<ConfigConstr
   }
 
   @Override
-  public Set<ConfigConstraint> analyze() throws IOException, InterruptedException {
+  public Set<Partition> analyze() throws IOException, InterruptedException {
     System.err.println("Possibly use the feature expr library");
     System.err.println(
         "Do we want to just return the constraints we found in the analysis? Or do some simplification");
     //    return this.getSimplifiedConstraints(this.constraints);
-    return this.constraints;
+    return this.partitions;
   }
 
-  public void addConstraints(Set<ConfigConstraint> constraints) {
-    this.constraints.addAll(constraints);
+  public void savePartitions(Collection<Partitioning> partitionings) {
+    for (Partitioning partitioning : partitionings) {
+      this.partitions.addAll(partitioning.getPartitions());
+    }
   }
 
   private Set<ConfigConstraint> getSimplifiedConstraints(Set<ConfigConstraint> constraints) {
@@ -67,19 +66,27 @@ public class IDTAPartitionsAnalysis extends BaseDynamicAnalysis<Set<ConfigConstr
   }
 
   @Override
-  public void writeToFile(Set<ConfigConstraint> constraints) throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
+  public void writeToFile(Set<Partition> partitions) throws IOException {
     String outputFile = this.outputDir() + "/" + this.getProgramName() + Options.DOT_JSON;
     File file = new File(outputFile);
     file.getParentFile().mkdirs();
-    mapper.writeValue(file, constraints);
+
+    Set<String> prettyPartitions = new HashSet<>();
+
+    for (Partition partition : partitions) {
+      prettyPartitions.add(partition.getPrettyPartition());
+    }
+
+    ObjectMapper mapper = new ObjectMapper();
+    mapper.writeValue(file, prettyPartitions);
   }
 
   @Override
-  public Set<ConfigConstraint> readFromFile(File file) throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
-
-    return mapper.readValue(file, new TypeReference<Set<ConfigConstraint>>() {});
+  public Set<Partition> readFromFile(File file) throws IOException {
+    throw new UnsupportedOperationException("implement");
+    //    ObjectMapper mapper = new ObjectMapper();
+    //
+    //    return mapper.readValue(file, new TypeReference<Set<Partition>>() {});
   }
 
   @Override

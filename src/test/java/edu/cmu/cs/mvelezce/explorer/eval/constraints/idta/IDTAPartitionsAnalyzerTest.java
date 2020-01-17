@@ -6,7 +6,7 @@ import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
-import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
+import edu.cmu.cs.mvelezce.explorer.idta.partition.Partition;
 import edu.cmu.cs.mvelezce.explorer.idta.results.partitions.IDTAPartitionsAnalysis;
 import org.junit.Assert;
 import org.junit.Test;
@@ -14,23 +14,23 @@ import org.junit.Test;
 import java.util.HashSet;
 import java.util.Set;
 
-public class IDTAConstraintsAnalyzerTest {
+public class IDTAPartitionsAnalyzerTest {
 
   private void analyzeInteractions(String programName, String workloadSize, Set<String> options)
       throws Exception {
-    IDTAPartitionsAnalysis constraintAnalysis =
+    IDTAPartitionsAnalysis partitionsAnalysis =
         new IDTAPartitionsAnalysis(programName, workloadSize);
     String[] args = new String[0];
-    Set<ConfigConstraint> constraints = constraintAnalysis.analyze(args);
-    IDTAConstraintsAnalyzer analysis =
-        new IDTAConstraintsAnalyzer(programName, constraints, options);
+    Set<Partition> partitions = partitionsAnalysis.analyze(args);
+    IDTAPartitionsAnalyzer analysis =
+        new IDTAPartitionsAnalyzer(programName, partitions, options);
 
     args = new String[2];
     args[0] = "-delres";
     args[1] = "-saveres";
     Set<FeatureExpr> write = analysis.analyze(args);
 
-    analysis = new IDTAConstraintsAnalyzer(programName);
+    analysis = new IDTAPartitionsAnalyzer(programName);
     args = new String[0];
     Set<FeatureExpr> read = analysis.analyze(args);
 

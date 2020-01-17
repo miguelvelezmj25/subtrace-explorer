@@ -4,9 +4,9 @@ import de.fosd.typechef.featureexpr.FeatureExpr;
 import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
 import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
-import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
 import edu.cmu.cs.mvelezce.explorer.idta.constraint.Constraint;
 import edu.cmu.cs.mvelezce.explorer.idta.execute.DynamicAnalysisExecutor;
+import edu.cmu.cs.mvelezce.explorer.idta.partition.Partition;
 import edu.cmu.cs.mvelezce.explorer.idta.results.constraints.DTAConstraintCalculator;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DynamicAnalysisResultsParser;
@@ -62,8 +62,8 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
         this.controlFlowStmtPartitioningAnalysis.analyze();
     this.controlFlowStmtPartitioningAnalysis.writeToFile(controlFlowStmtPartitioningsInfo);
 
-    Set<ConfigConstraint> constraints = this.IDTAPartitionsAnalysis.analyze();
-    this.IDTAPartitionsAnalysis.writeToFile(constraints);
+    Set<Partition> partitions = this.IDTAPartitionsAnalysis.analyze();
+    this.IDTAPartitionsAnalysis.writeToFile(partitions);
 
     return null;
   }
@@ -100,13 +100,8 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
       this.controlFlowStmtTaintsAnalysis.saveTaints(config, decisionTaints);
       this.controlFlowStmtPartitioningAnalysis.savePartitions(config, decisionTaints);
-      //      Set<ConfigConstraint> analysisConstraints = new HashSet<>();
-      //
-      //      for (Set<ConfigConstraint> entry : constraintsSet) {
-      //        analysisConstraints.addAll(entry);
-      //      }
-      //
-      //      this.IDTAPartitionsAnalysis.addConstraints(analysisConstraints);
+      this.IDTAPartitionsAnalysis.savePartitions(
+          this.controlFlowStmtPartitioningAnalysis.getStatementsToData().values());
 
       Set<Constraint> currentConstraints =
           DTAConstraintCalculator.deriveIDTAConstraints(

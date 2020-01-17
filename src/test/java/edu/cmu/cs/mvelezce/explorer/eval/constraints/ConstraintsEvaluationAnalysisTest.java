@@ -7,7 +7,7 @@ import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
-import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.IDTAConstraintsAnalyzer;
+import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.IDTAPartitionsAnalyzer;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.subtraces.SubtraceOutcomeConstraint;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.subtraces.SubtracesConstraintsAnalyzer;
 import org.junit.Test;
@@ -63,10 +63,10 @@ public class ConstraintsEvaluationAnalysisTest {
   private Set<FeatureExpr> getIDTAConstraints(String programName) throws Exception {
     System.err.println(
         "Might want to change how to get the IDTA constraints to a map from statements to constraints");
-    IDTAConstraintsAnalyzer idtaConstraintsAnalyzer = new IDTAConstraintsAnalyzer(programName);
+    IDTAPartitionsAnalyzer idtaPartitionsAnalyzer = new IDTAPartitionsAnalyzer(programName);
     String[] args = new String[0];
 
-    Set<FeatureExpr> idtaConstraints = idtaConstraintsAnalyzer.analyze(args);
+    Set<FeatureExpr> idtaConstraints = idtaPartitionsAnalyzer.analyze(args);
 
     if (idtaConstraints.isEmpty()) {
       throw new RuntimeException("The IDTA constraints are empty");
