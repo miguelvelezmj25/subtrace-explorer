@@ -4,9 +4,9 @@ import edu.cmu.cs.mvelezce.explorer.idta.taint.InfluencingTaints;
 
 import java.util.Set;
 
-public class ControlFlowStatementTaints extends ControlFlowStatementInfo<InfluencingTaints> {
+public class ControlFlowStmtTaints extends ControlFlowStmtInfo<Set<InfluencingTaints>> {
 
-  public ControlFlowStatementTaints(
+  public ControlFlowStmtTaints(
       String packageName,
       String className,
       String methodSignature,

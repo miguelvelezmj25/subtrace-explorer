@@ -12,7 +12,7 @@ public class DTAConstraintCalculator {
   private final List<String> options;
 
   public DTAConstraintCalculator(List<String> options) {
-    System.err.println("Weird that the package name is 'other'");
+    System.err.println("Weird that the package name of this class is 'other'");
     this.options = options;
   }
 

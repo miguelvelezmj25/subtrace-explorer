@@ -89,6 +89,6 @@ public class DTAConstraintAnalysis extends BaseDynamicAnalysis<Set<ConfigConstra
         + this.getProgramName()
         + "/cc/"
         + this.workloadSize
-        + "/constraints";
+        + "/allPartitions";
   }
 }

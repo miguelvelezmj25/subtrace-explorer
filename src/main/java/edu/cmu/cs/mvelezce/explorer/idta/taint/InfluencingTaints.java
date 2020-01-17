@@ -1,54 +1,53 @@
 package edu.cmu.cs.mvelezce.explorer.idta.taint;
 
+import com.google.common.base.Objects;
+
 import java.util.HashSet;
 import java.util.Set;
 
 public class InfluencingTaints {
 
-  private final Set<String> context = new HashSet<>();
-  private final Set<String> condition = new HashSet<>();
+  private final Set<String> config = new HashSet<>();
+  private final Set<String> controlTaints = new HashSet<>();
+  private final Set<String> dataTaints = new HashSet<>();
 
   private InfluencingTaints() {}
 
-  public InfluencingTaints(Set<String> context, Set<String> condition) {
-    this.context.addAll(context);
-    this.condition.addAll(condition);
+  public InfluencingTaints(Set<String> config, Set<String> controlTaints, Set<String> dataTaints) {
+    this.config.addAll(config);
+    this.controlTaints.addAll(controlTaints);
+    this.dataTaints.addAll(dataTaints);
   }
 
-  public Set<String> getContext() {
-    return context;
+  public Set<String> getConfig() {
+    return config;
   }
 
-  public Set<String> getCondition() {
-    return condition;
+  public Set<String> getControlTaints() {
+    return controlTaints;
+  }
+
+  public Set<String> getDataTaints() {
+    return dataTaints;
   }
 
   @Override
   public boolean equals(Object o) {
-    if (this == o) {
-      return true;
-    }
-    if (o == null || getClass() != o.getClass()) {
-      return false;
-    }
-
-    InfluencingTaints taints = (InfluencingTaints) o;
-
-    if (!context.equals(taints.context)) {
-      return false;
-    }
-    return condition.equals(taints.condition);
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    InfluencingTaints that = (InfluencingTaints) o;
+    return Objects.equal(config, that.config)
+        && Objects.equal(controlTaints, that.controlTaints)
+        && Objects.equal(dataTaints, that.dataTaints);
   }
 
   @Override
   public int hashCode() {
-    int result = context.hashCode();
-    result = 31 * result + condition.hashCode();
-    return result;
+    return Objects.hashCode(config, controlTaints, dataTaints);
   }
 
   @Override
   public String toString() {
-    return this.context + " , " + this.condition;
+    return this.config + " , " + this.controlTaints + " , " + this.dataTaints;
   }
 }

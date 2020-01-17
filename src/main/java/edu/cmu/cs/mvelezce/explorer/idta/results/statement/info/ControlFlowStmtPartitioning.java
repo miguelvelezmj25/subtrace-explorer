@@ -1,16 +1,14 @@
 package edu.cmu.cs.mvelezce.explorer.idta.results.statement.info;
 
-import de.fosd.typechef.featureexpr.FeatureExpr;
+import edu.cmu.cs.mvelezce.explorer.idta.partition.Partitioning;
 
-import java.util.Set;
-
-public class ControlFlowStatementConstraints extends ControlFlowStatementInfo<FeatureExpr> {
-  public ControlFlowStatementConstraints(
+public class ControlFlowStmtPartitioning extends ControlFlowStmtInfo<Partitioning> {
+  public ControlFlowStmtPartitioning(
       String packageName,
       String className,
       String methodSignature,
       int decisionIndex,
-      Set<FeatureExpr> info) {
+      Partitioning info) {
     super(packageName, className, methodSignature, decisionIndex, info);
   }
 }

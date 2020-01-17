@@ -52,10 +52,10 @@ public class DynamicAnalysisResultsParser {
     BufferedReader reader = new BufferedReader(new FileReader(file));
     String line;
     while ((line = reader.readLine()) != null) {
-      Taint contextTaints = this.getTaints(reader.readLine());
-      Taint conditionTaints = this.getTaints(reader.readLine());
+      Taint controlTaints = this.getTaints(reader.readLine());
+      Taint dataTaints = this.getTaints(reader.readLine());
 
-      DecisionTaints decisionTaints = new DecisionTaints(line, contextTaints, conditionTaints);
+      DecisionTaints decisionTaints = new DecisionTaints(line, controlTaints, dataTaints);
       results.add(decisionTaints);
     }
 

@@ -2,18 +2,16 @@ package edu.cmu.cs.mvelezce.explorer.idta.results.statement.info;
 
 import com.google.common.base.Objects;
 
-import java.util.Set;
-
-public class ControlFlowStatementInfo<T> {
+public class ControlFlowStmtInfo<T> {
 
   private final String packageName;
   private final String className;
   private final String methodSignature;
   private final int decisionIndex;
-  private final Set<T> info;
+  private final T info;
 
   // Dummy constructor for fasterxml
-  private ControlFlowStatementInfo() {
+  private ControlFlowStmtInfo() {
     this.packageName = null;
     this.className = null;
     this.methodSignature = null;
@@ -21,12 +19,8 @@ public class ControlFlowStatementInfo<T> {
     this.info = null;
   }
 
-  public ControlFlowStatementInfo(
-      String packageName,
-      String className,
-      String methodSignature,
-      int decisionIndex,
-      Set<T> info) {
+  public ControlFlowStmtInfo(
+      String packageName, String className, String methodSignature, int decisionIndex, T info) {
     this.packageName = packageName;
     this.className = className;
     this.methodSignature = methodSignature;
@@ -50,7 +44,7 @@ public class ControlFlowStatementInfo<T> {
     return decisionIndex;
   }
 
-  public Set<T> getInfo() {
+  public T getInfo() {
     return info;
   }
 
@@ -58,7 +52,7 @@ public class ControlFlowStatementInfo<T> {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    ControlFlowStatementInfo<?> that = (ControlFlowStatementInfo<?>) o;
+    ControlFlowStmtInfo<?> that = (ControlFlowStmtInfo<?>) o;
     return decisionIndex == that.decisionIndex
         && Objects.equal(packageName, that.packageName)
         && Objects.equal(className, that.className)

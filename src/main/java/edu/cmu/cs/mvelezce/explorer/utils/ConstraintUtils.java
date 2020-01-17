@@ -3,7 +3,10 @@ package edu.cmu.cs.mvelezce.explorer.utils;
 import de.fosd.typechef.featureexpr.FeatureExpr;
 import edu.cmu.cs.mvelezce.utils.configurations.ConfigHelper;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.Set;
 
 public final class ConstraintUtils {
 
@@ -54,20 +57,20 @@ public final class ConstraintUtils {
     return stringBuilder.toString();
   }
 
-  public static List<String> getStringConstraints(
-      Set<String> context, Set<String> condition, Set<String> config) {
-    Set<String> activatedContextOptions = new HashSet<>(context);
-    activatedContextOptions.retainAll(config);
+  public static Set<String> getStringConstraints(
+      Set<String> control, Set<String> data, Set<String> config) {
+    Set<String> activatedControlOptions = new HashSet<>(control);
+    activatedControlOptions.retainAll(config);
 
-    Set<String> constraintOptions = new HashSet<>(context);
-    constraintOptions.addAll(condition);
+    Set<String> constraintOptions = new HashSet<>(control);
+    constraintOptions.addAll(data);
 
-    List<String> stringConstraints = new ArrayList<>();
-    Set<Set<String>> combos = ConfigHelper.getConfigurations(condition);
+    Set<String> stringConstraints = new HashSet<>();
+    Set<Set<String>> combos = ConfigHelper.getConfigurations(data);
 
     for (Set<String> combo : combos) {
       Set<String> activatedOptions = new HashSet<>(combo);
-      activatedOptions.addAll(activatedContextOptions);
+      activatedOptions.addAll(activatedControlOptions);
 
       String stringConstraint =
           ConstraintUtils.parseAsConstraint(activatedOptions, constraintOptions);
