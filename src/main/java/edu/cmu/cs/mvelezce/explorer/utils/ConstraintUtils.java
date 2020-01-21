@@ -81,6 +81,12 @@ public final class ConstraintUtils {
   }
 
   public static String prettyPrintFeatureExpr(FeatureExpr featureExpr, Collection<String> options) {
+    String stringRep = featureExpr.toString();
+
+    if (stringRep.equals("True") || stringRep.equals("False")) {
+      return stringRep;
+    }
+
     String stringInteraction = featureExpr.toTextExpr().replaceAll("definedEx\\(", "");
 
     for (String option : options) {
