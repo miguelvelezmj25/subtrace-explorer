@@ -74,7 +74,8 @@ public class IDTAPartitionsAnalysis extends BaseDynamicAnalysis<Set<Partition>> 
     Set<String> prettyPartitions = new HashSet<>();
 
     for (Partition partition : partitions) {
-      prettyPartitions.add(partition.getPrettyPartition());
+      throw new UnsupportedOperationException("Do we need the pretty partition right now?");
+      //      prettyPartitions.add(partition.getPrettyPartition());
     }
 
     ObjectMapper mapper = new ObjectMapper();

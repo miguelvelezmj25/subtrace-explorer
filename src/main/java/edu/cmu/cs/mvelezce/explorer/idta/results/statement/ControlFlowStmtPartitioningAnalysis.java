@@ -1,6 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.idta.results.statement;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.fosd.typechef.featureexpr.FeatureExpr;
 import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
 import edu.cmu.cs.mvelezce.explorer.idta.partition.Partition;
@@ -15,7 +16,10 @@ import edu.cmu.cs.mvelezce.utils.config.Options;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 public class ControlFlowStmtPartitioningAnalysis
     extends ControlFlowStmtAnalysis<Set<ControlFlowStmtPartitioning>, Partitioning> {
@@ -49,7 +53,7 @@ public class ControlFlowStmtPartitioningAnalysis
   }
 
   public void savePartitions(Set<String> config, Set<DecisionTaints> decisionTaints) {
-    this.addStatements(decisionTaints, new TotalPartition(this.getOptions()));
+    this.addStatements(decisionTaints, new TotalPartition());
     this.addData(config, decisionTaints);
   }
 
@@ -63,8 +67,7 @@ public class ControlFlowStmtPartitioningAnalysis
 
       Set<String> stringPartitions =
           ConstraintUtils.getStringConstraints(controlTaints, dataTaints, config);
-      Partitioning partitioning =
-          this.parseStringPartitionsAsPartitioning(stringPartitions, this.getOptions());
+      Partitioning partitioning = this.parseStringPartitionsAsPartitioning(stringPartitions);
 
       String statement = decisionTaints.getDecision();
       Partitioning currentPartitioning = this.getStatementsToData().get(statement);
@@ -73,23 +76,21 @@ public class ControlFlowStmtPartitioningAnalysis
     }
   }
 
-  private Partitioning parseStringPartitionsAsPartitioning(
-      Set<String> stringPartitions, Collection<String> options) {
+  private Partitioning parseStringPartitionsAsPartitioning(Set<String> stringPartitions) {
     Set<Partition> partitions = new HashSet<>();
 
     for (String stringPartition : stringPartitions) {
-      Partition partition =
-          new Partition(MinConfigsGenerator.parseAsFeatureExpr(stringPartition), stringPartition);
+      Partition partition = new Partition(MinConfigsGenerator.parseAsFeatureExpr(stringPartition));
       partitions.add(partition);
     }
 
-    Partition remainingPartition = Partition.getRemainingPartition(partitions, options);
+    Partition remainingPartition = Partition.getRemainingPartition(partitions);
 
     if (remainingPartition != null) {
       partitions.add(remainingPartition);
     }
 
-    return new TotalPartition(this.getOptions(), partitions);
+    return new TotalPartition(partitions);
   }
 
   @Override
@@ -107,6 +108,8 @@ public class ControlFlowStmtPartitioningAnalysis
       for (Partition partition : partitions.getPartitions()) {
         String prettyPartition =
             ConstraintUtils.prettyPrintFeatureExpr(partition.getFeatureExpr(), this.getOptions());
+        FeatureExpr featureExpr = MinConfigsGenerator.parseAsFeatureExpr(prettyPartition);
+        prettyPartition = ConstraintUtils.prettyPrintFeatureExpr(featureExpr, this.getOptions());
         prettyPartitions.add(prettyPartition);
       }
 

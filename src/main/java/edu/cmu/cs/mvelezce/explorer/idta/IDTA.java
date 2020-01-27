@@ -1,7 +1,11 @@
 package edu.cmu.cs.mvelezce.explorer.idta;
 
+import com.mijecu25.meme.utils.monitor.memory.MemoryMonitor;
 import de.fosd.typechef.featureexpr.FeatureExpr;
+import de.fosd.typechef.featureexpr.FeatureModel;
+import de.fosd.typechef.featureexpr.SingleFeatureExpr;
 import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
+import de.fosd.typechef.featureexpr.sat.SATFeatureModel;
 import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.constraint.Constraint;
@@ -17,6 +21,9 @@ import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtP
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtTaints;
 import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
 import edu.cmu.cs.mvelezce.utils.config.Options;
+import scala.Option;
+import scala.Tuple2;
+import scala.collection.JavaConverters;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -28,7 +35,8 @@ import java.util.Set;
 public class IDTA extends BaseDynamicAnalysis<Void> {
 
   public static final String OUTPUT_DIR = Options.DIRECTORY + "/idta";
-
+  private static final FeatureModel EMPTY_FM = SATFeatureModel.empty();
+  private final Set<SingleFeatureExpr> featureExprs = new HashSet<>();
   private final DynamicAnalysisExecutor dynamicAnalysisExecutor;
   private final DynamicAnalysisResultsParser dynamicAnalysisResultsParser;
   private final ControlFlowStmtTaintAnalysis controlFlowStmtTaintsAnalysis;
@@ -39,6 +47,10 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
   public IDTA(
       String programName, String workloadSize, List<String> options, Set<String> initialConfig) {
     super(programName, new HashSet<>(options), initialConfig);
+
+    for (String option : this.getOptions()) {
+      featureExprs.add(SATFeatureExprFactory.createDefinedExternal(option));
+    }
 
     this.dynamicAnalysisExecutor = new DynamicAnalysisExecutor(programName);
     this.dynamicAnalysisResultsParser = new DynamicAnalysisResultsParser(programName);
@@ -99,19 +111,35 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
       //      System.out.println(results.size());
 
       this.controlFlowStmtTaintsAnalysis.saveTaints(config, decisionTaints);
+      long start = System.nanoTime();
       this.controlFlowStmtPartitioningAnalysis.savePartitions(config, decisionTaints);
+      long end = System.nanoTime();
+      System.out.println("Save partitions: " + (end - start) / 1E9);
+
       this.IDTAPartitionsAnalysis.savePartitions(
           this.controlFlowStmtPartitioningAnalysis.getStatementsToData().values());
 
+      start = System.nanoTime();
       Set<Constraint> currentConstraints =
           DTAConstraintCalculator.deriveIDTAConstraints(
               this.controlFlowStmtPartitioningAnalysis.getStatementsToData().values());
+      end = System.nanoTime();
+      System.out.println("Current constraints: " + (end - start) / 1E9);
+
+      start = System.nanoTime();
       Set<Constraint> constraintsToExplore =
           DTAConstraintCalculator.getConstraintsToExplore(exploredConstraints, currentConstraints);
+      end = System.nanoTime();
+      System.out.println("Constraints to explore: " + (end - start) / 1E9);
       System.out.println("Constraints yet to explore " + constraintsToExplore.size());
 
+      start = System.nanoTime();
       config = this.getNextGreedyConfig(constraintsToExplore);
+      end = System.nanoTime();
+      System.out.println("Next constraint: " + (end - start) / 1E9);
+
       sampleConfigs++;
+      MemoryMonitor.printMemoryUsage("Memory: ");
     }
 
     System.out.println("Configs sampled by IDTA: " + sampleConfigs);
@@ -126,13 +154,24 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
     FeatureExpr formula = SATFeatureExprFactory.True();
 
     for (Constraint constraint : constraintsToExplore) {
-      if (formula.mex(constraint.getFeatureExpr()).isTautology()) {
+      FeatureExpr andedFormula = formula.and(constraint.getFeatureExpr());
+
+      if (andedFormula.isContradiction()) {
         continue;
       }
 
-      formula = formula.and(constraint.getFeatureExpr());
+      formula = andedFormula;
     }
 
-    return ConstraintUtils.toConfig(formula, this.getOptions());
+    Option<
+            Tuple2<
+                scala.collection.immutable.List<SingleFeatureExpr>,
+                scala.collection.immutable.List<SingleFeatureExpr>>>
+        solution =
+            formula.getSatisfiableAssignment(
+                EMPTY_FM, JavaConverters.asScalaSet(this.featureExprs).toSet(), true);
+
+    return ConstraintUtils.toConfig(
+        JavaConverters.asJavaCollection(solution.get()._1), this.getOptions());
   }
 }

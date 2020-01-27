@@ -1,17 +1,16 @@
 package edu.cmu.cs.mvelezce.explorer.idta.partition;
 
-import java.util.Collection;
 import java.util.Set;
 
 /** Does not cover the entire configuration space */
 public class PartialPartition extends Partitioning {
 
-  public PartialPartition(Collection<String> options, Set<Partition> partitions) {
-    super(options, partitions);
+  public PartialPartition(Set<Partition> partitions) {
+    super(partitions);
   }
 
-  public PartialPartition(Collection<String> options) {
-    super(options);
+  public PartialPartition() {
+    super();
   }
 
   @Override

@@ -26,8 +26,9 @@ public class IDTAPartitionsAnalyzer extends ConstraintAnalyzer {
     List<String> stringConstraints = new ArrayList<>();
 
     for (Partition partition : this.partitions) {
-      String constraint = partition.getPrettyPartition();
-      stringConstraints.add(constraint);
+      throw new UnsupportedOperationException("Do we need the pretty partition right now?");
+      //      String constraint = partition.getPrettyPartition();
+      //      stringConstraints.add(constraint);
     }
 
     return stringConstraints;

@@ -1,6 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.utils;
 
 import de.fosd.typechef.featureexpr.FeatureExpr;
+import de.fosd.typechef.featureexpr.SingleFeatureExpr;
 import edu.cmu.cs.mvelezce.utils.configurations.ConfigHelper;
 
 import java.util.Collection;
@@ -94,6 +95,17 @@ public final class ConstraintUtils {
     }
 
     return stringInteraction;
+  }
+
+  public static Set<String> toConfig(
+      Collection<SingleFeatureExpr> enabledFeatures, Collection<String> options) {
+    Set<String> config = new HashSet<>();
+
+    for (SingleFeatureExpr featureExpr : enabledFeatures) {
+      config.add(featureExpr.feature());
+    }
+
+    return config;
   }
 
   public static Set<String> toConfig(FeatureExpr featureExpr, Collection<String> options) {
