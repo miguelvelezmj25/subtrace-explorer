@@ -259,3 +259,4 @@ $RECYCLE.BIN/
 /src/main/resources/explorer/labeler/subtraces/java/programs/indexFiles/indexFiles.json
 /src/main/resources/explorer/value/analysis/java/programs/indexFiles/
 /src/main/resources/evaluation/idta/constraints/java/programs/subtraces/indexFiles/
+/src/main/resources/idta/analysis/MeasureDiskOrderedScan/cc/small/taints/MeasureDiskOrderedScan.json
