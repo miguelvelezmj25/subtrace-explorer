@@ -109,10 +109,14 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
       this.dynamicAnalysisExecutor.runAnalysis(config);
       Set<DecisionTaints> decisionTaints = this.dynamicAnalysisResultsParser.parseResults();
 
-      this.controlFlowStmtTaintsAnalysis.saveTaints(config, decisionTaints);
       long start = System.nanoTime();
-      this.controlFlowStmtPartitioningAnalysis.savePartitions(config, decisionTaints);
+      this.controlFlowStmtTaintsAnalysis.saveTaints(config, decisionTaints);
       long end = System.nanoTime();
+      System.out.println("Save taints: " + (end - start) / 1E9);
+
+      start = System.nanoTime();
+      this.controlFlowStmtPartitioningAnalysis.savePartitions(config, decisionTaints);
+      end = System.nanoTime();
       System.out.println("Save partitions: " + (end - start) / 1E9);
 
       this.IDTAPartitionsAnalysis.savePartitions(

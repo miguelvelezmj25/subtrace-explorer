@@ -16,13 +16,12 @@ import edu.cmu.cs.mvelezce.utils.config.Options;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class ControlFlowStmtPartitioningAnalysis
     extends ControlFlowStmtAnalysis<Set<ControlFlowStmtPartitioning>, Partitioning> {
+
+  private static final Map<String, FeatureExpr> PARSED_FEATURE_EXPR = new HashMap<>();
 
   public ControlFlowStmtPartitioningAnalysis(
       String programName, String workloadSize, List<String> options) {
@@ -59,6 +58,8 @@ public class ControlFlowStmtPartitioningAnalysis
 
   @Override
   void addData(Set<String> config, Set<DecisionTaints> results) {
+    long time = 0;
+
     for (DecisionTaints decisionTaints : results) {
       Set<String> controlTaints =
           TaintHelper.getControlTaints(decisionTaints, this.getOptionsList());
@@ -67,13 +68,18 @@ public class ControlFlowStmtPartitioningAnalysis
 
       Set<String> stringPartitions =
           ConstraintUtils.getStringConstraints(controlTaints, dataTaints, config);
+      long start = System.nanoTime();
       Partitioning partitioning = this.parseStringPartitionsAsPartitioning(stringPartitions);
+      long end = System.nanoTime();
+      time += (end - start);
 
       String statement = decisionTaints.getDecision();
       Partitioning currentPartitioning = this.getStatementsToData().get(statement);
       partitioning = currentPartitioning.merge(partitioning);
       this.getStatementsToData().put(statement, partitioning);
     }
+
+    System.out.println("Inner loop: " + (time / 1E9));
   }
 
   @Override
@@ -88,7 +94,7 @@ public class ControlFlowStmtPartitioningAnalysis
     Set<Partition> partitions = new HashSet<>();
 
     for (String stringPartition : stringPartitions) {
-      Partition partition = new Partition(MinConfigsGenerator.parseAsFeatureExpr(stringPartition));
+      Partition partition = new Partition(this.parseStringPartition(stringPartition));
       partitions.add(partition);
     }
 
@@ -99,6 +105,19 @@ public class ControlFlowStmtPartitioningAnalysis
     }
 
     return new TotalPartition(partitions);
+  }
+
+  private FeatureExpr parseStringPartition(String stringPartition) {
+    FeatureExpr parsedString = PARSED_FEATURE_EXPR.get(stringPartition);
+
+    if (parsedString != null) {
+      return parsedString;
+    }
+
+    parsedString = MinConfigsGenerator.parseAsFeatureExpr(stringPartition);
+    PARSED_FEATURE_EXPR.put(stringPartition, parsedString);
+
+    return parsedString;
   }
 
   @Override
