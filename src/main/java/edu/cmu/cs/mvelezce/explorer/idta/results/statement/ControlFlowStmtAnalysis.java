@@ -36,15 +36,10 @@ abstract class ControlFlowStmtAnalysis<T, E> extends BaseDynamicAnalysis<T> {
 
   abstract void addData(Set<String> config, Set<DecisionTaints> results);
 
+  abstract void addStatements(Set<DecisionTaints> results);
+
   public Map<String, E> getStatementsToData() {
     return statementsToData;
-  }
-
-  void addStatements(Set<DecisionTaints> results, E defaultData) {
-    for (DecisionTaints decisionTaints : results) {
-      String statement = decisionTaints.getDecision();
-      this.statementsToData.putIfAbsent(statement, defaultData);
-    }
   }
 
   public String getWorkloadSize() {

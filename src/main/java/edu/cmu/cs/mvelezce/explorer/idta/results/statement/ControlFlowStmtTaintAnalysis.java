@@ -50,7 +50,7 @@ public class ControlFlowStmtTaintAnalysis
   }
 
   public void saveTaints(Set<String> config, Set<DecisionTaints> decisionTaints) {
-    this.addStatements(decisionTaints, new HashSet<>());
+    this.addStatements(decisionTaints);
     this.addData(config, decisionTaints);
   }
 
@@ -65,6 +65,14 @@ public class ControlFlowStmtTaintAnalysis
 
       String statement = decisionTaints.getDecision();
       this.getStatementsToData().get(statement).add(influencingTaints);
+    }
+  }
+
+  @Override
+  void addStatements(Set<DecisionTaints> results) {
+    for (DecisionTaints decisionTaints : results) {
+      String statement = decisionTaints.getDecision();
+      this.getStatementsToData().putIfAbsent(statement, new HashSet<>());
     }
   }
 

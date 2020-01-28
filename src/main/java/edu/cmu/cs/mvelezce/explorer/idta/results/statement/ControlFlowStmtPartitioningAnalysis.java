@@ -53,7 +53,7 @@ public class ControlFlowStmtPartitioningAnalysis
   }
 
   public void savePartitions(Set<String> config, Set<DecisionTaints> decisionTaints) {
-    this.addStatements(decisionTaints, new TotalPartition());
+    this.addStatements(decisionTaints);
     this.addData(config, decisionTaints);
   }
 
@@ -73,6 +73,14 @@ public class ControlFlowStmtPartitioningAnalysis
       Partitioning currentPartitioning = this.getStatementsToData().get(statement);
       partitioning = currentPartitioning.merge(partitioning);
       this.getStatementsToData().put(statement, partitioning);
+    }
+  }
+
+  @Override
+  void addStatements(Set<DecisionTaints> results) {
+    for (DecisionTaints decisionTaints : results) {
+      String statement = decisionTaints.getDecision();
+      this.getStatementsToData().putIfAbsent(statement, new TotalPartition());
     }
   }
 

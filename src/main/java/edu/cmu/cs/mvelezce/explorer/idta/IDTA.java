@@ -108,7 +108,6 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
       this.dynamicAnalysisExecutor.runAnalysis(config);
       Set<DecisionTaints> decisionTaints = this.dynamicAnalysisResultsParser.parseResults();
-      //      System.out.println(results.size());
 
       this.controlFlowStmtTaintsAnalysis.saveTaints(config, decisionTaints);
       long start = System.nanoTime();
