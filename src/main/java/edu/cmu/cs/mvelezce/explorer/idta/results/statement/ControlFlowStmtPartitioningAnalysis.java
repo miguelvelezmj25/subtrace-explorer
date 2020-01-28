@@ -1,6 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.idta.results.statement;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.common.base.Objects;
 import de.fosd.typechef.featureexpr.FeatureExpr;
 import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
@@ -21,7 +22,11 @@ import java.util.*;
 public class ControlFlowStmtPartitioningAnalysis
     extends ControlFlowStmtAnalysis<Set<ControlFlowStmtPartitioning>, Partitioning> {
 
+  private static final Map<PartitionsToMerge, Partitioning> MERGED_PARTITIONS = new HashMap<>();
   private static final Map<String, FeatureExpr> PARSED_FEATURE_EXPR = new HashMap<>();
+  private static int HITS = 0;
+  private static long TIME = 0;
+  private static int MISSES = 0;
 
   public ControlFlowStmtPartitioningAnalysis(
       String programName, String workloadSize, List<String> options) {
@@ -58,7 +63,10 @@ public class ControlFlowStmtPartitioningAnalysis
 
   @Override
   void addData(Set<String> config, Set<DecisionTaints> results) {
-    long time = 0;
+    HITS = 0;
+    MISSES = 0;
+    TIME = 0;
+    TotalPartition.EQUALS = 0;
 
     for (DecisionTaints decisionTaints : results) {
       Set<String> controlTaints =
@@ -68,18 +76,38 @@ public class ControlFlowStmtPartitioningAnalysis
 
       Set<String> stringPartitions =
           ConstraintUtils.getStringConstraints(controlTaints, dataTaints, config);
-      long start = System.nanoTime();
       Partitioning partitioning = this.parseStringPartitionsAsPartitioning(stringPartitions);
-      long end = System.nanoTime();
-      time += (end - start);
 
       String statement = decisionTaints.getDecision();
       Partitioning currentPartitioning = this.getStatementsToData().get(statement);
-      partitioning = currentPartitioning.merge(partitioning);
+      partitioning = this.merge(currentPartitioning, partitioning);
       this.getStatementsToData().put(statement, partitioning);
     }
 
-    System.out.println("Inner loop: " + (time / 1E9));
+    System.out.println("Inner loop: " + (TIME / 1E9));
+    System.out.println("HITS: " + HITS);
+    System.out.println("MISSES: " + MISSES);
+    System.out.println("Equals: " + TotalPartition.EQUALS);
+  }
+
+  private Partitioning merge(Partitioning currentPartitioning, Partitioning partitioning) {
+    PartitionsToMerge partitionsToMerge = new PartitionsToMerge(currentPartitioning, partitioning);
+
+    Partitioning mergedPartition = MERGED_PARTITIONS.get(partitionsToMerge);
+
+    if (mergedPartition != null) {
+      HITS++;
+      return mergedPartition;
+    }
+
+    MISSES++;
+    long start = System.nanoTime();
+    mergedPartition = currentPartitioning.merge(partitioning);
+    long end = System.nanoTime();
+    TIME += (end - start);
+    MERGED_PARTITIONS.put(partitionsToMerge, mergedPartition);
+
+    return mergedPartition;
   }
 
   @Override
@@ -170,5 +198,30 @@ public class ControlFlowStmtPartitioningAnalysis
         + "/cc/"
         + this.getWorkloadSize()
         + "/partitions";
+  }
+
+  private static class PartitionsToMerge {
+
+    private final Partitioning partitioningOne;
+    private final Partitioning partitioningTwo;
+
+    PartitionsToMerge(Partitioning partitioningOne, Partitioning partitioningTwo) {
+      this.partitioningOne = partitioningOne;
+      this.partitioningTwo = partitioningTwo;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+      PartitionsToMerge partitionsToMerge = (PartitionsToMerge) o;
+      return Objects.equal(partitioningOne, partitionsToMerge.partitioningOne)
+          && Objects.equal(partitioningTwo, partitionsToMerge.partitioningTwo);
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hashCode(partitioningOne, partitioningTwo);
+    }
   }
 }

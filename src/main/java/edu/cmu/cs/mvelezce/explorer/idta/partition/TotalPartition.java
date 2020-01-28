@@ -8,12 +8,17 @@ import java.util.Set;
 /** Covers the entire configuration space */
 public class TotalPartition extends Partitioning {
 
+  private static final Set<FeatureExpr> SAT = new HashSet<>();
+  private static final Set<FeatureExpr> UNSAT = new HashSet<>();
+
+  public static int EQUALS = 0;
+
   public TotalPartition(Set<Partition> partitions) {
     super(partitions);
 
-    if (!this.isTotalPartition()) {
-      throw new RuntimeException("Expected a total partition");
-    }
+    //    if (!this.isTotalPartition()) {
+    //      throw new RuntimeException("Expected a total partition");
+    //    }
   }
 
   public TotalPartition() {
@@ -28,26 +33,50 @@ public class TotalPartition extends Partitioning {
 
     Set<Partition> partitions = new HashSet<>();
 
-    for (Partition p1 : partitioning.getPartitions()) {
-      for (Partition p2 : this.getPartitions()) {
-        FeatureExpr formula = p1.getFeatureExpr().and(p2.getFeatureExpr());
+    //    for (Partition p1 : partitioning.getPartitions()) {
+    //      for (Partition p2 : this.getPartitions()) {
+    //        FeatureExpr formula = p1.getFeatureExpr().and(p2.getFeatureExpr());
+    //
+    //        if (!this.isSat(formula)) {
+    //          continue;
+    //        }
+    //
+    //        partitions.add(new Partition(formula));
+    //      }
+    //    }
 
-        if (formula.isContradiction()) {
-          continue;
-        }
-
-        partitions.add(new Partition(formula));
-      }
-    }
+    partitions.addAll(this.getPartitions());
+    partitions.addAll(partitioning.getPartitions());
 
     TotalPartition newPartition = new TotalPartition(partitions);
-    //    System.out.println(partitions.size());
+
+    //    if (newPartition.equals(this) || newPartition.equals(partitioning)) {
+    //      EQUALS++;
+    //    }
 
     //    if (!newPartition.isTotalPartition()) {
     //      throw new RuntimeException("The final partitioning is not a total partition");
     //    }
 
     return newPartition;
+  }
+
+  private boolean isSat(FeatureExpr formula) {
+    if (SAT.contains(formula)) {
+      return true;
+    }
+
+    if (UNSAT.contains(formula)) {
+      return false;
+    }
+
+    if (formula.isSatisfiable()) {
+      SAT.add(formula);
+      return true;
+    }
+
+    UNSAT.add(formula);
+    return false;
   }
 
   @Override
