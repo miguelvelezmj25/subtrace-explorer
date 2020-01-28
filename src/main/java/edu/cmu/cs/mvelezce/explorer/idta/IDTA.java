@@ -59,7 +59,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
     this.controlFlowStmtPartitioningAnalysis =
         new ControlFlowStmtPartitioningAnalysis(programName, workloadSize, options);
 
-    this.IDTAPartitionsAnalysis = new IDTAPartitionsAnalysis(programName, workloadSize);
+    this.IDTAPartitionsAnalysis = new IDTAPartitionsAnalysis(programName, workloadSize, options);
   }
 
   @Override
@@ -144,6 +144,38 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
       sampleConfigs++;
       MemoryMonitor.printMemoryUsage("Memory: ");
     }
+
+    // // Check if there are cross product constraints that we did not cover before
+    //    Collection<Partitioning> newPartitionings = new HashSet<>();
+    //
+    //    for (Partitioning partitioning :
+    //        this.controlFlowStmtPartitioningAnalysis.getStatementsToData().values()) {
+    //      Set<Partition> ps1 = partitioning.getPartitions();
+    //      Set<Partition> ps2 = partitioning.getPartitions();
+    //      Set<Partition> partitions = new HashSet<>();
+    //
+    //      for (Partition p1 : ps1) {
+    //        for (Partition p2 : ps2) {
+    //          FeatureExpr formula = p1.getFeatureExpr().and(p2.getFeatureExpr());
+    //
+    //          if (formula.isContradiction()) {
+    //            continue;
+    //          }
+    //
+    //          partitions.add(new Partition(formula));
+    //        }
+    //      }
+    //
+    //      TotalPartition newPartition = new TotalPartition(partitions);
+    //      newPartitionings.add(newPartition);
+    //    }
+    //
+    //    Set<Constraint> currentConstraints =
+    //        DTAConstraintCalculator.deriveIDTAConstraints(newPartitionings);
+    //    Set<Constraint> constraintsToExplore =
+    //        DTAConstraintCalculator.getConstraintsToExplore(exploredConstraints,
+    // currentConstraints);
+    //    System.out.println("Constraints not explored: " + constraintsToExplore.size());
 
     System.out.println("Configs sampled by IDTA: " + sampleConfigs);
   }

@@ -19,11 +19,10 @@ public class IDTAPartitionsAnalyzerTest {
   private void analyzeInteractions(String programName, String workloadSize, Set<String> options)
       throws Exception {
     IDTAPartitionsAnalysis partitionsAnalysis =
-        new IDTAPartitionsAnalysis(programName, workloadSize);
+        new IDTAPartitionsAnalysis(programName, workloadSize, options);
     String[] args = new String[0];
     Set<Partition> partitions = partitionsAnalysis.analyze(args);
-    IDTAPartitionsAnalyzer analysis =
-        new IDTAPartitionsAnalyzer(programName, partitions, options);
+    IDTAPartitionsAnalyzer analysis = new IDTAPartitionsAnalyzer(programName, partitions, options);
 
     args = new String[2];
     args[0] = "-delres";

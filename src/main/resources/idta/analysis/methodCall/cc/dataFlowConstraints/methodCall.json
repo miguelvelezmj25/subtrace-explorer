@@ -1,1 +1,0 @@
-[{"packageName":"edu.cmu.cs.mvelezce.analysis","className":"MethodCall","methodSignature":"foo(ZZ)V","decisionIndex":1,"info":[],"prettyConstraints":["!A","A"]},{"packageName":"edu.cmu.cs.mvelezce.analysis","className":"MethodCall","methodSignature":"bar(Z)V","decisionIndex":1,"info":[],"prettyConstraints":["(A && B)","(A && !B)"]}]

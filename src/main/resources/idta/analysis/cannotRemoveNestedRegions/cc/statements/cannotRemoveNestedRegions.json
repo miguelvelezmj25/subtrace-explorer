@@ -1,1 +1,0 @@
-[{"packageName":"edu.cmu.cs.mvelezce.analysis","className":"CannotRemoveNestedRegions","methodSignature":"foo(Z)V","decisionIndex":1,"info":[{"context":[],"condition":["A"]}]},{"packageName":"edu.cmu.cs.mvelezce.analysis","className":"CannotRemoveNestedRegions","methodSignature":"main([Ljava/lang/String;)V","decisionIndex":1,"info":[{"context":[],"condition":["B"]}]}]

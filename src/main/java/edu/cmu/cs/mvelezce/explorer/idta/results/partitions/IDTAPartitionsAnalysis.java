@@ -1,11 +1,14 @@
 package edu.cmu.cs.mvelezce.explorer.idta.results.partitions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.fosd.typechef.featureexpr.FeatureExpr;
+import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
 import edu.cmu.cs.mvelezce.explorer.idta.partition.Partition;
 import edu.cmu.cs.mvelezce.explorer.idta.partition.Partitioning;
+import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
 import edu.cmu.cs.mvelezce.utils.config.Options;
 
 import java.io.File;
@@ -19,19 +22,33 @@ public class IDTAPartitionsAnalysis extends BaseDynamicAnalysis<Set<Partition>> 
   private final Set<Partition> partitions = new HashSet<>();
   private final String workloadSize;
 
-  public IDTAPartitionsAnalysis(String programName, String workloadSize) {
-    super(programName, new HashSet<>(), new HashSet<>());
+  public IDTAPartitionsAnalysis(
+      String programName, String workloadSize, Collection<String> options) {
+    super(programName, new HashSet<>(options), new HashSet<>());
 
     this.workloadSize = workloadSize;
   }
 
   @Override
-  public Set<Partition> analyze() throws IOException, InterruptedException {
-    System.err.println("Possibly use the feature expr library");
+  public Set<Partition> analyze() {
     System.err.println(
         "Do we want to just return the constraints we found in the analysis? Or do some simplification");
+    this.removeTruePartitions();
     //    return this.getSimplifiedConstraints(this.constraints);
     return this.partitions;
+  }
+
+  private void removeTruePartitions() {
+    FeatureExpr trueFeatureExpr = SATFeatureExprFactory.True();
+    Set<Partition> partitionsToRemove = new HashSet<>();
+
+    for (Partition partition : this.partitions) {
+      if (partition.getFeatureExpr().equals(trueFeatureExpr)) {
+        partitionsToRemove.add(partition);
+      }
+    }
+
+    this.partitions.removeAll(partitionsToRemove);
   }
 
   public void savePartitions(Collection<Partitioning> partitionings) {
@@ -74,8 +91,9 @@ public class IDTAPartitionsAnalysis extends BaseDynamicAnalysis<Set<Partition>> 
     Set<String> prettyPartitions = new HashSet<>();
 
     for (Partition partition : partitions) {
-      throw new UnsupportedOperationException("Do we need the pretty partition right now?");
-      //      prettyPartitions.add(partition.getPrettyPartition());
+      String s =
+          ConstraintUtils.prettyPrintFeatureExpr(partition.getFeatureExpr(), this.getOptions());
+      prettyPartitions.add(s);
     }
 
     ObjectMapper mapper = new ObjectMapper();

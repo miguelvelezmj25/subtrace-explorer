@@ -3,6 +3,7 @@ package edu.cmu.cs.mvelezce.explorer.idta.results.statement;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Objects;
 import de.fosd.typechef.featureexpr.FeatureExpr;
+import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
 import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
 import edu.cmu.cs.mvelezce.explorer.idta.partition.Partition;
@@ -35,6 +36,8 @@ public class ControlFlowStmtPartitioningAnalysis
 
   @Override
   public Set<ControlFlowStmtPartitioning> analyze() {
+    this.removeTruePartitions();
+
     Set<ControlFlowStmtPartitioning> results = new HashSet<>();
     Map<String, Partitioning> statementsToPartitions = this.getStatementsToData();
 
@@ -54,6 +57,22 @@ public class ControlFlowStmtPartitioningAnalysis
     }
 
     return results;
+  }
+
+  private void removeTruePartitions() {
+    FeatureExpr trueFeatureExpr = SATFeatureExprFactory.True();
+
+    for (Partitioning partitioning : this.getStatementsToData().values()) {
+      Set<Partition> partitionsToRemove = new HashSet<>();
+
+      for (Partition partition : partitioning.getPartitions()) {
+        if (partition.getFeatureExpr().equals(trueFeatureExpr)) {
+          partitionsToRemove.add(partition);
+        }
+      }
+
+      partitioning.getPartitions().removeAll(partitionsToRemove);
+    }
   }
 
   public void savePartitions(Set<String> config, Set<DecisionTaints> decisionTaints) {
