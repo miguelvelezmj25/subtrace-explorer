@@ -8,6 +8,8 @@ import java.util.Set;
 /** Covers the entire configuration space */
 public class TotalPartition extends Partitioning {
 
+  private static final Set<Partitioning> TOTAL_PARTITIONS = new HashSet<>();
+
   private static final Set<FeatureExpr> SAT = new HashSet<>();
   private static final Set<FeatureExpr> UNSAT = new HashSet<>();
 
@@ -21,6 +23,20 @@ public class TotalPartition extends Partitioning {
 
   public TotalPartition() {
     super();
+  }
+
+  @Override
+  public boolean isTotalPartition() {
+    if (TOTAL_PARTITIONS.contains(this)) {
+      return true;
+    }
+
+    if (super.isTotalPartition()) {
+      TOTAL_PARTITIONS.add(this);
+      return true;
+    }
+
+    return false;
   }
 
   @Override
