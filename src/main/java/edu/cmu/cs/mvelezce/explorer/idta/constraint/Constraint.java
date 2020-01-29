@@ -27,4 +27,9 @@ public class Constraint {
   public int hashCode() {
     return Objects.hashCode(featureExpr);
   }
+
+  @Override
+  public String toString() {
+    return this.featureExpr.toString();
+  }
 }

@@ -103,6 +103,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
     while (config != null) {
       String stringConstraint = ConstraintUtils.parseAsConstraint(config, this.getOptions());
+      System.out.println("Executing config: " + stringConstraint);
       Constraint exploringConstraint =
           new Constraint(FeatureExprUtils.parseAsFeatureExpr(IDTA.USE_BDD, stringConstraint));
       exploredConstraints.add(exploringConstraint);
@@ -130,8 +131,10 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
       sampleConfigs++;
       MemoryMonitor.printMemoryUsage("Memory: ");
+      System.out.println();
     }
 
+    System.out.println();
     System.out.println("Configs sampled by IDTA: " + sampleConfigs);
   }
 

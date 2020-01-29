@@ -28,8 +28,6 @@ public class IDTAPartitionsAnalysis extends BaseDynamicAnalysis<Set<Partition>> 
 
   @Override
   public Set<Partition> analyze() {
-    System.err.println(
-        "Do we want to just return the constraints we found in the analysis? Or do some simplification");
     return this.partitions;
   }
 
