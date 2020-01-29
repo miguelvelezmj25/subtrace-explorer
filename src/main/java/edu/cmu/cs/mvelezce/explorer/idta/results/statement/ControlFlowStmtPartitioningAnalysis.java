@@ -3,17 +3,15 @@ package edu.cmu.cs.mvelezce.explorer.idta.results.statement;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Objects;
 import de.fosd.typechef.featureexpr.FeatureExpr;
-import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
-import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
 import edu.cmu.cs.mvelezce.explorer.idta.partition.Partition;
 import edu.cmu.cs.mvelezce.explorer.idta.partition.Partitioning;
-import edu.cmu.cs.mvelezce.explorer.idta.partition.TotalPartition;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtPartitioning;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtPartitioningPretty;
 import edu.cmu.cs.mvelezce.explorer.idta.taint.TaintHelper;
 import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
+import edu.cmu.cs.mvelezce.explorer.utils.FeatureExprUtils;
 import edu.cmu.cs.mvelezce.utils.config.Options;
 
 import java.io.File;
@@ -25,9 +23,6 @@ public class ControlFlowStmtPartitioningAnalysis
 
   private static final Map<PartitionsToMerge, Partitioning> MERGED_PARTITIONS = new HashMap<>();
   private static final Map<String, FeatureExpr> PARSED_FEATURE_EXPR = new HashMap<>();
-  private static int HITS = 0;
-  private static long TIME = 0;
-  private static int MISSES = 0;
 
   public ControlFlowStmtPartitioningAnalysis(
       String programName, String workloadSize, List<String> options) {
@@ -60,7 +55,7 @@ public class ControlFlowStmtPartitioningAnalysis
   }
 
   private void removeTruePartitions() {
-    FeatureExpr trueFeatureExpr = SATFeatureExprFactory.True();
+    FeatureExpr trueFeatureExpr = FeatureExprUtils.getTrue(IDTA.USE_BDD);
 
     for (Partitioning partitioning : this.getStatementsToData().values()) {
       Set<Partition> partitionsToRemove = new HashSet<>();
@@ -76,17 +71,15 @@ public class ControlFlowStmtPartitioningAnalysis
   }
 
   public void savePartitions(Set<String> config, Set<DecisionTaints> decisionTaints) {
+    long start = System.nanoTime();
     this.addStatements(decisionTaints);
     this.addData(config, decisionTaints);
+    long end = System.nanoTime();
+    System.out.println("Save partitions: " + (end - start) / 1E9);
   }
 
   @Override
   void addData(Set<String> config, Set<DecisionTaints> results) {
-    HITS = 0;
-    MISSES = 0;
-    TIME = 0;
-    TotalPartition.EQUALS = 0;
-
     for (DecisionTaints decisionTaints : results) {
       Set<String> controlTaints =
           TaintHelper.getControlTaints(decisionTaints, this.getOptionsList());
@@ -95,35 +88,26 @@ public class ControlFlowStmtPartitioningAnalysis
 
       Set<String> stringPartitions =
           ConstraintUtils.getStringConstraints(controlTaints, dataTaints, config);
-      Partitioning partitioning = this.parseStringPartitionsAsPartitioning(stringPartitions);
+      Partitioning newPartitioning = this.parseStringPartitionsAsPartitioning(stringPartitions);
 
       String statement = decisionTaints.getDecision();
       Partitioning currentPartitioning = this.getStatementsToData().get(statement);
-      partitioning = this.merge(currentPartitioning, partitioning);
-      this.getStatementsToData().put(statement, partitioning);
+      newPartitioning = this.merge(currentPartitioning, newPartitioning);
+      this.getStatementsToData().put(statement, newPartitioning);
     }
-
-    System.out.println("Inner loop: " + (TIME / 1E9));
-    System.out.println("HITS: " + HITS);
-    System.out.println("MISSES: " + MISSES);
-    System.out.println("Equals: " + TotalPartition.EQUALS);
   }
 
-  private Partitioning merge(Partitioning currentPartitioning, Partitioning partitioning) {
-    PartitionsToMerge partitionsToMerge = new PartitionsToMerge(currentPartitioning, partitioning);
+  private Partitioning merge(Partitioning currentPartitioning, Partitioning newPartitioning) {
+    PartitionsToMerge partitionsToMerge =
+        new PartitionsToMerge(currentPartitioning, newPartitioning);
 
     Partitioning mergedPartition = MERGED_PARTITIONS.get(partitionsToMerge);
 
     if (mergedPartition != null) {
-      HITS++;
       return mergedPartition;
     }
 
-    MISSES++;
-    long start = System.nanoTime();
-    mergedPartition = currentPartitioning.merge(partitioning);
-    long end = System.nanoTime();
-    TIME += (end - start);
+    mergedPartition = currentPartitioning.merge(newPartitioning);
     MERGED_PARTITIONS.put(partitionsToMerge, mergedPartition);
 
     return mergedPartition;
@@ -133,7 +117,7 @@ public class ControlFlowStmtPartitioningAnalysis
   void addStatements(Set<DecisionTaints> results) {
     for (DecisionTaints decisionTaints : results) {
       String statement = decisionTaints.getDecision();
-      this.getStatementsToData().putIfAbsent(statement, new TotalPartition());
+      this.getStatementsToData().putIfAbsent(statement, Partitioning.getPartitioning());
     }
   }
 
@@ -151,7 +135,7 @@ public class ControlFlowStmtPartitioningAnalysis
       partitions.add(remainingPartition);
     }
 
-    return new TotalPartition(partitions);
+    return Partitioning.getPartitioning(partitions);
   }
 
   private FeatureExpr parseStringPartition(String stringPartition) {
@@ -161,7 +145,7 @@ public class ControlFlowStmtPartitioningAnalysis
       return parsedString;
     }
 
-    parsedString = MinConfigsGenerator.parseAsFeatureExpr(stringPartition);
+    parsedString = FeatureExprUtils.parseAsFeatureExpr(IDTA.USE_BDD, stringPartition);
     PARSED_FEATURE_EXPR.put(stringPartition, parsedString);
 
     return parsedString;
@@ -182,7 +166,8 @@ public class ControlFlowStmtPartitioningAnalysis
       for (Partition partition : partitions.getPartitions()) {
         String prettyPartition =
             ConstraintUtils.prettyPrintFeatureExpr(partition.getFeatureExpr(), this.getOptions());
-        FeatureExpr featureExpr = MinConfigsGenerator.parseAsFeatureExpr(prettyPartition);
+        FeatureExpr featureExpr =
+            FeatureExprUtils.parseAsFeatureExpr(IDTA.USE_BDD, prettyPartition);
         prettyPartition = ConstraintUtils.prettyPrintFeatureExpr(featureExpr, this.getOptions());
         prettyPartitions.add(prettyPartition);
       }

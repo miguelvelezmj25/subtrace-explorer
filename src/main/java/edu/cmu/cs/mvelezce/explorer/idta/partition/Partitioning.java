@@ -7,6 +7,9 @@ import java.util.Set;
 
 public abstract class Partitioning {
 
+  private static final boolean USE_TOTAL_PARTITION = true;
+  private static final boolean MERGE_CROSS_PRODUCT = true;
+
   private final Set<Partition> partitions = new HashSet<>();
 
   Partitioning(Set<Partition> partitions) {
@@ -15,6 +18,22 @@ public abstract class Partitioning {
 
   Partitioning() {
     this.partitions.add(Partition.UNIVERSE);
+  }
+
+  public static Partitioning getPartitioning() {
+    if (USE_TOTAL_PARTITION) {
+      return new TotalPartition();
+    }
+
+    return new PartialPartition();
+  }
+
+  public static Partitioning getPartitioning(Set<Partition> partitions) {
+    if (USE_TOTAL_PARTITION) {
+      return new TotalPartition(partitions);
+    }
+
+    return new PartialPartition(partitions);
   }
 
   public abstract TotalPartition merge(Partitioning partitioning);

@@ -4,9 +4,6 @@ import com.mijecu25.meme.utils.monitor.memory.MemoryMonitor;
 import de.fosd.typechef.featureexpr.FeatureExpr;
 import de.fosd.typechef.featureexpr.FeatureModel;
 import de.fosd.typechef.featureexpr.SingleFeatureExpr;
-import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
-import de.fosd.typechef.featureexpr.sat.SATFeatureModel;
-import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.constraint.Constraint;
 import edu.cmu.cs.mvelezce.explorer.idta.execute.DynamicAnalysisExecutor;
@@ -20,6 +17,7 @@ import edu.cmu.cs.mvelezce.explorer.idta.results.statement.ControlFlowStmtTaintA
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtPartitioning;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtTaints;
 import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
+import edu.cmu.cs.mvelezce.explorer.utils.FeatureExprUtils;
 import edu.cmu.cs.mvelezce.utils.config.Options;
 import scala.Option;
 import scala.Tuple2;
@@ -34,14 +32,16 @@ import java.util.Set;
 
 public class IDTA extends BaseDynamicAnalysis<Void> {
 
+  public static final boolean USE_BDD = true;
+
   public static final String OUTPUT_DIR = Options.DIRECTORY + "/idta";
-  private static final FeatureModel EMPTY_FM = SATFeatureModel.empty();
+  private static final FeatureModel EMPTY_FM = FeatureExprUtils.getFeatureModel(USE_BDD);
   private final Set<SingleFeatureExpr> featureExprs = new HashSet<>();
   private final DynamicAnalysisExecutor dynamicAnalysisExecutor;
   private final DynamicAnalysisResultsParser dynamicAnalysisResultsParser;
   private final ControlFlowStmtTaintAnalysis controlFlowStmtTaintsAnalysis;
   private final ControlFlowStmtPartitioningAnalysis controlFlowStmtPartitioningAnalysis;
-
+  private final DTAConstraintCalculator dtaConstraintCalculator;
   private final IDTAPartitionsAnalysis IDTAPartitionsAnalysis;
 
   public IDTA(
@@ -49,7 +49,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
     super(programName, new HashSet<>(options), initialConfig);
 
     for (String option : this.getOptions()) {
-      featureExprs.add(SATFeatureExprFactory.createDefinedExternal(option));
+      featureExprs.add(FeatureExprUtils.createDefinedExternal(USE_BDD, option));
     }
 
     this.dynamicAnalysisExecutor = new DynamicAnalysisExecutor(programName);
@@ -58,6 +58,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
         new ControlFlowStmtTaintAnalysis(programName, workloadSize, options);
     this.controlFlowStmtPartitioningAnalysis =
         new ControlFlowStmtPartitioningAnalysis(programName, workloadSize, options);
+    this.dtaConstraintCalculator = new DTAConstraintCalculator(options);
 
     this.IDTAPartitionsAnalysis = new IDTAPartitionsAnalysis(programName, workloadSize, options);
   }
@@ -103,79 +104,33 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
     while (config != null) {
       String stringConstraint = ConstraintUtils.parseAsConstraint(config, this.getOptions());
       Constraint exploringConstraint =
-          new Constraint(MinConfigsGenerator.parseAsFeatureExpr(stringConstraint));
+          new Constraint(FeatureExprUtils.parseAsFeatureExpr(IDTA.USE_BDD, stringConstraint));
       exploredConstraints.add(exploringConstraint);
 
       this.dynamicAnalysisExecutor.runAnalysis(config);
       Set<DecisionTaints> decisionTaints = this.dynamicAnalysisResultsParser.parseResults();
 
-      long start = System.nanoTime();
       this.controlFlowStmtTaintsAnalysis.saveTaints(config, decisionTaints);
-      long end = System.nanoTime();
-      System.out.println("Save taints: " + (end - start) / 1E9);
-
-      start = System.nanoTime();
       this.controlFlowStmtPartitioningAnalysis.savePartitions(config, decisionTaints);
-      end = System.nanoTime();
-      System.out.println("Save partitions: " + (end - start) / 1E9);
-
       this.IDTAPartitionsAnalysis.savePartitions(
           this.controlFlowStmtPartitioningAnalysis.getStatementsToData().values());
 
-      start = System.nanoTime();
       Set<Constraint> currentConstraints =
           DTAConstraintCalculator.deriveIDTAConstraints(
               this.controlFlowStmtPartitioningAnalysis.getStatementsToData().values());
-      end = System.nanoTime();
-      System.out.println("Current constraints: " + (end - start) / 1E9);
-
-      start = System.nanoTime();
       Set<Constraint> constraintsToExplore =
-          DTAConstraintCalculator.getConstraintsToExplore(exploredConstraints, currentConstraints);
-      end = System.nanoTime();
-      System.out.println("Constraints to explore: " + (end - start) / 1E9);
+          this.dtaConstraintCalculator.getConstraintsToExplore(
+              exploredConstraints, currentConstraints);
       System.out.println("Constraints yet to explore " + constraintsToExplore.size());
 
-      start = System.nanoTime();
+      long start = System.nanoTime();
       config = this.getNextGreedyConfig(constraintsToExplore);
-      end = System.nanoTime();
-      System.out.println("Next constraint: " + (end - start) / 1E9);
+      long end = System.nanoTime();
+      System.out.println("Get next config: " + (end - start) / 1E9);
 
       sampleConfigs++;
       MemoryMonitor.printMemoryUsage("Memory: ");
     }
-
-    // // Check if there are cross product constraints that we did not cover before
-    //    Collection<Partitioning> newPartitionings = new HashSet<>();
-    //
-    //    for (Partitioning partitioning :
-    //        this.controlFlowStmtPartitioningAnalysis.getStatementsToData().values()) {
-    //      Set<Partition> ps1 = partitioning.getPartitions();
-    //      Set<Partition> ps2 = partitioning.getPartitions();
-    //      Set<Partition> partitions = new HashSet<>();
-    //
-    //      for (Partition p1 : ps1) {
-    //        for (Partition p2 : ps2) {
-    //          FeatureExpr formula = p1.getFeatureExpr().and(p2.getFeatureExpr());
-    //
-    //          if (formula.isContradiction()) {
-    //            continue;
-    //          }
-    //
-    //          partitions.add(new Partition(formula));
-    //        }
-    //      }
-    //
-    //      TotalPartition newPartition = new TotalPartition(partitions);
-    //      newPartitionings.add(newPartition);
-    //    }
-    //
-    //    Set<Constraint> currentConstraints =
-    //        DTAConstraintCalculator.deriveIDTAConstraints(newPartitionings);
-    //    Set<Constraint> constraintsToExplore =
-    //        DTAConstraintCalculator.getConstraintsToExplore(exploredConstraints,
-    // currentConstraints);
-    //    System.out.println("Constraints not explored: " + constraintsToExplore.size());
 
     System.out.println("Configs sampled by IDTA: " + sampleConfigs);
   }
@@ -186,7 +141,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
       return null;
     }
 
-    FeatureExpr formula = SATFeatureExprFactory.True();
+    FeatureExpr formula = FeatureExprUtils.getTrue(USE_BDD);
 
     for (Constraint constraint : constraintsToExplore) {
       FeatureExpr andedFormula = formula.and(constraint.getFeatureExpr());

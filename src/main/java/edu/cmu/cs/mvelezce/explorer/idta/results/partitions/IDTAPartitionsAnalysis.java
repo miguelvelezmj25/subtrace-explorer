@@ -1,10 +1,7 @@
 package edu.cmu.cs.mvelezce.explorer.idta.results.partitions;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.fosd.typechef.featureexpr.FeatureExpr;
-import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
-import edu.cmu.cs.mvelezce.explorer.eval.constraints.idta.constraint.ConfigConstraint;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
 import edu.cmu.cs.mvelezce.explorer.idta.partition.Partition;
 import edu.cmu.cs.mvelezce.explorer.idta.partition.Partitioning;
@@ -33,53 +30,13 @@ public class IDTAPartitionsAnalysis extends BaseDynamicAnalysis<Set<Partition>> 
   public Set<Partition> analyze() {
     System.err.println(
         "Do we want to just return the constraints we found in the analysis? Or do some simplification");
-    this.removeTruePartitions();
-    //    return this.getSimplifiedConstraints(this.constraints);
     return this.partitions;
-  }
-
-  private void removeTruePartitions() {
-    FeatureExpr trueFeatureExpr = SATFeatureExprFactory.True();
-    Set<Partition> partitionsToRemove = new HashSet<>();
-
-    for (Partition partition : this.partitions) {
-      if (partition.getFeatureExpr().equals(trueFeatureExpr)) {
-        partitionsToRemove.add(partition);
-      }
-    }
-
-    this.partitions.removeAll(partitionsToRemove);
   }
 
   public void savePartitions(Collection<Partitioning> partitionings) {
     for (Partitioning partitioning : partitionings) {
       this.partitions.addAll(partitioning.getPartitions());
     }
-  }
-
-  private Set<ConfigConstraint> getSimplifiedConstraints(Set<ConfigConstraint> constraints) {
-    Set<ConfigConstraint> simplifiedConstraints = new HashSet<>();
-
-    for (ConfigConstraint candidateConstraintToAdd : constraints) {
-      boolean add = true;
-
-      for (ConfigConstraint constraint : constraints) {
-        if (candidateConstraintToAdd.equals(constraint)) {
-          continue;
-        }
-
-        if (candidateConstraintToAdd.isSubConstraintOf(constraint)) {
-          add = false;
-          break;
-        }
-      }
-
-      if (add) {
-        simplifiedConstraints.add(candidateConstraintToAdd);
-      }
-    }
-
-    return simplifiedConstraints;
   }
 
   @Override
