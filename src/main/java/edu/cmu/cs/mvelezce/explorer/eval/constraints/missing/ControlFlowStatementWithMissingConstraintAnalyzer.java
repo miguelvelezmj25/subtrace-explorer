@@ -3,12 +3,13 @@ package edu.cmu.cs.mvelezce.explorer.eval.constraints.missing;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fosd.typechef.featureexpr.FeatureExpr;
-import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.analysis.Analysis;
 import edu.cmu.cs.mvelezce.explorer.eval.constraints.subtraces.SubtraceOutcomeConstraint;
 import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.ControlFlowStatement;
 import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.SubtraceLabel;
 import edu.cmu.cs.mvelezce.explorer.gt.labeler.subtrace.SubtraceManager;
+import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
+import edu.cmu.cs.mvelezce.explorer.utils.FeatureExprUtils;
 import edu.cmu.cs.mvelezce.utils.config.Options;
 
 import java.io.File;
@@ -65,7 +66,8 @@ class ControlFlowStatementWithMissingConstraintAnalyzer
 
   @Override
   public ControlFlowStatementsWithMissingConstraint analyze() throws IOException {
-    FeatureExpr constraint = MinConfigsGenerator.parseAsFeatureExpr(this.stringConstraint);
+    FeatureExpr constraint =
+        FeatureExprUtils.parseAsFeatureExpr(IDTA.USE_BDD, this.stringConstraint);
     Set<UUID> uuidsWithConstraint =
         this.getUUIDSWithConstraint(this.subtracesOutcomeConstraint, constraint);
 

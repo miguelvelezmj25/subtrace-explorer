@@ -3,11 +3,11 @@ package edu.cmu.cs.mvelezce.explorer.eval.constraints.subtraces;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.fosd.typechef.featureexpr.FeatureExpr;
-import de.fosd.typechef.featureexpr.sat.SATFeatureExprFactory;
-import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.analysis.Analysis;
 import edu.cmu.cs.mvelezce.explorer.gt.valueanalysis.SubtraceAnalysisInfo;
+import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
 import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
+import edu.cmu.cs.mvelezce.explorer.utils.FeatureExprUtils;
 import edu.cmu.cs.mvelezce.utils.config.Options;
 import org.apache.commons.io.FileUtils;
 
@@ -60,12 +60,13 @@ public class SubtracesConstraintsAnalyzer implements Analysis<Set<SubtraceOutcom
         String stringConstraints = ConstraintUtils.toStringConstraints(configs, this.options);
 
         if (stringConstraints.isEmpty()) {
-          outcomesToConstraints.put(entry.getKey(), SATFeatureExprFactory.False());
+          outcomesToConstraints.put(entry.getKey(), FeatureExprUtils.getFalse(IDTA.USE_BDD));
 
           continue;
         }
 
-        FeatureExpr featureExpr = MinConfigsGenerator.parseAsFeatureExpr(stringConstraints);
+        FeatureExpr featureExpr =
+            FeatureExprUtils.parseAsFeatureExpr(IDTA.USE_BDD, stringConstraints);
         outcomesToConstraints.put(entry.getKey(), featureExpr);
       }
 
@@ -165,11 +166,11 @@ public class SubtracesConstraintsAnalyzer implements Analysis<Set<SubtraceOutcom
         FeatureExpr featureExpr;
 
         if (stringConstraint.equals("0")) {
-          featureExpr = SATFeatureExprFactory.False();
+          featureExpr = FeatureExprUtils.getFalse(IDTA.USE_BDD);
         } else if (stringConstraint.equals("1")) {
-          featureExpr = SATFeatureExprFactory.True();
+          featureExpr = FeatureExprUtils.getTrue(IDTA.USE_BDD);
         } else {
-          featureExpr = MinConfigsGenerator.parseAsFeatureExpr(stringConstraint);
+          featureExpr = FeatureExprUtils.parseAsFeatureExpr(IDTA.USE_BDD, stringConstraint);
         }
 
         outcomesToConstraints.put(outcomeToStringConstraint.getKey(), featureExpr);
