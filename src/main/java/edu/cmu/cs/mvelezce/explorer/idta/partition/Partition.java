@@ -3,6 +3,7 @@ package edu.cmu.cs.mvelezce.explorer.idta.partition;
 import com.google.common.base.Objects;
 import de.fosd.typechef.featureexpr.FeatureExpr;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
+import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
 import edu.cmu.cs.mvelezce.explorer.utils.FeatureExprUtils;
 
 import javax.annotation.Nullable;
@@ -48,5 +49,10 @@ public class Partition {
 
   public FeatureExpr getFeatureExpr() {
     return featureExpr;
+  }
+
+  @Override
+  public String toString() {
+    return ConstraintUtils.prettyPrintFeatureExpr(this.featureExpr);
   }
 }

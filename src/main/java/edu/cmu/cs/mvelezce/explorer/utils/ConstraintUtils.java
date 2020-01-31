@@ -3,6 +3,7 @@ package edu.cmu.cs.mvelezce.explorer.utils;
 import de.fosd.typechef.featureexpr.FeatureExpr;
 import de.fosd.typechef.featureexpr.SingleFeatureExpr;
 import edu.cmu.cs.mvelezce.utils.configurations.ConfigHelper;
+import scala.collection.JavaConverters;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -125,5 +126,17 @@ public final class ConstraintUtils {
     }
 
     return config;
+  }
+
+  public static String prettyPrintFeatureExpr(FeatureExpr featureExpr) {
+    Set<SingleFeatureExpr> features =
+        JavaConverters.setAsJavaSet(featureExpr.collectDistinctFeatureObjects());
+    Set<String> options = new HashSet<>();
+
+    for (SingleFeatureExpr feature : features) {
+      options.add(feature.feature());
+    }
+
+    return prettyPrintFeatureExpr(featureExpr, options);
   }
 }
