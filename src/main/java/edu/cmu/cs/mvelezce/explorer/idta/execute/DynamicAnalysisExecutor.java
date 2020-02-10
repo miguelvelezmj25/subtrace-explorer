@@ -31,7 +31,7 @@ import java.util.Set;
 public class DynamicAnalysisExecutor {
 
   private static final String PHOSPHOR_SCRIPTS_DIR =
-      "../phosphor/Phosphor/scripts/run-instrumented/implicit-optimized";
+      "../phosphor/Phosphor/scripts/run-instrumented/control";
 
   private final String programName;
 
