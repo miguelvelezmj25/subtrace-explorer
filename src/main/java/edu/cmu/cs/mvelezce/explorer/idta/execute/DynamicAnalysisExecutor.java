@@ -9,6 +9,7 @@ import edu.cmu.cs.mvelezce.adapters.cannotRemoveNestedRegions.BaseCannotRemoveNe
 import edu.cmu.cs.mvelezce.adapters.cleanConstraints.BaseCleanConstraintsAdapter;
 import edu.cmu.cs.mvelezce.adapters.cleanConstraintsIssue.BaseCleanConstraintsIssueAdapter;
 import edu.cmu.cs.mvelezce.adapters.contextDataTaintsEqual.BaseContextDataTaintsEqualAdapter;
+import edu.cmu.cs.mvelezce.adapters.convert.BaseConvertAdapter;
 import edu.cmu.cs.mvelezce.adapters.iGen.BaseIGenAdapter;
 import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
@@ -268,6 +269,12 @@ public class DynamicAnalysisExecutor {
         adapter = new BaseIndexFilesAdapter();
         ((BaseIndexFilesAdapter) adapter).preProcess();
         mainClass = BaseIndexFilesAdapter.MAIN_CLASS;
+        break;
+      case BaseConvertAdapter.PROGRAM_NAME:
+        commandList.add("./convert.sh");
+        adapter = new BaseConvertAdapter();
+        ((BaseConvertAdapter) adapter).preProcess();
+        mainClass = BaseConvertAdapter.MAIN_CLASS;
         break;
         //      case NestingAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");

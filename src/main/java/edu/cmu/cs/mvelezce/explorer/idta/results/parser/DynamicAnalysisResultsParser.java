@@ -11,7 +11,6 @@ import edu.columbia.cs.psl.phosphor.runtime.Taint;
 import org.apache.commons.io.FileUtils;
 
 import java.io.*;
-import java.nio.ByteBuffer;
 import java.util.*;
 
 public class DynamicAnalysisResultsParser {
@@ -111,7 +110,6 @@ public class DynamicAnalysisResultsParser {
       }
 
       Taint<Integer> taint = Taint.emptyTaint();
-
       for (Taint<Integer> label : labels) {
         taint = Taint.combineTags(taint, label);
       }
@@ -138,6 +136,11 @@ public class DynamicAnalysisResultsParser {
       dis.read(SinkManager.NEW_LINE_BYTES);
 
       ControlStmt controlStmt = this.fieldsToControlStmts.get(fieldName);
+
+      if (control.isEmpty() && data.isEmpty()) {
+        continue;
+      }
+
       DecisionTaints decisionTaints =
           new DecisionTaints(
               controlStmt.getClassName()
@@ -158,7 +161,8 @@ public class DynamicAnalysisResultsParser {
     BufferedReader reader = new BufferedReader(new FileReader(file));
     String name;
     while ((name = reader.readLine()) != null) {
-      int index = ByteBuffer.wrap(reader.readLine().getBytes()).getInt();
+
+      int index = Integer.parseInt(reader.readLine());
       mapWithNames.put(index, name);
     }
 
