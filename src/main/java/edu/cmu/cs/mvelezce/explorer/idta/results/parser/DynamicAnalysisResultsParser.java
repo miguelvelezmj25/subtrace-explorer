@@ -21,19 +21,20 @@ public class DynamicAnalysisResultsParser {
   private static final String PHOSPHOR_INSTRUMENT_DIR =
       Executor.USER_HOME
           + "/Documents/Programming/Java/Projects/phosphor/Phosphor/scripts/instrument/control";
+  private static final Taint<Integer> NULL_TAINT = Taint.withLabel(SinkManager.NULL_TAINT_LABEL);
 
-  private final Map<Integer, String> fields = new HashMap<>();
-  private final Map<Integer, Taint<Integer>> taints = new HashMap<>();
+  private final Map<Integer, String> executedFields = new HashMap<>();
+  private final Map<Integer, Taint<Integer>> seenTaints = new HashMap<>();
 
   private final String programName;
-  private final Map<String, ControlStmt> fieldsToControlStmts;
+  private final Map<String, ControlStmt> allFieldsToControlStmts;
 
   public DynamicAnalysisResultsParser(String programName) {
     this.programName = programName;
-    this.fieldsToControlStmts = this.readControlStmtFields();
+    this.allFieldsToControlStmts = this.readAllControlStmtFields();
   }
 
-  private Map<String, ControlStmt> readControlStmtFields() {
+  private Map<String, ControlStmt> readAllControlStmtFields() {
     Set<ControlStmtField> instrumentedFields;
 
     try {
@@ -79,7 +80,7 @@ public class DynamicAnalysisResultsParser {
       }
 
       if (file.getName().endsWith(SinkManager.FIELDS_FILE)) {
-        this.readNames(file, this.fields);
+        this.readNames(file, this.executedFields);
       } else if (file.getName().endsWith(SinkManager.TAINTS_FILE)) {
         this.readTaints(file);
       } else {
@@ -110,6 +111,7 @@ public class DynamicAnalysisResultsParser {
       }
 
       Taint<Integer> taint = Taint.emptyTaint();
+
       for (Taint<Integer> label : labels) {
         taint = Taint.combineTags(taint, label);
       }
@@ -118,7 +120,7 @@ public class DynamicAnalysisResultsParser {
       int index = dis.readInt();
       dis.read(SinkManager.NEW_LINE_BYTES);
 
-      this.taints.put(index, taint);
+      this.seenTaints.put(index, taint);
     }
   }
 
@@ -128,19 +130,25 @@ public class DynamicAnalysisResultsParser {
 
     while (dis.available() > 0) {
       String fieldName =
-          this.fields.get(dis.readInt()).replaceAll(SinkInstrumenter.STATIC_FIELD_PREFIX_CC, "");
+          this.executedFields
+              .get(dis.readInt())
+              .replaceAll(SinkInstrumenter.STATIC_FIELD_PREFIX_CC, "");
       dis.read(SinkManager.NEW_LINE_BYTES);
-      Taint<Integer> control = this.taints.get(dis.readInt());
+      Taint<Integer> control = this.seenTaints.get(dis.readInt());
       dis.read(SinkManager.NEW_LINE_BYTES);
-      Taint<Integer> data = this.taints.get(dis.readInt());
+      Taint<Integer> data = this.seenTaints.get(dis.readInt());
       dis.read(SinkManager.NEW_LINE_BYTES);
 
-      ControlStmt controlStmt = this.fieldsToControlStmts.get(fieldName);
+      // Ignoring null data taints
+      if (NULL_TAINT.equals(data)) {
+        continue;
+      }
 
       if (control.isEmpty() && data.isEmpty()) {
         continue;
       }
 
+      ControlStmt controlStmt = this.allFieldsToControlStmts.get(fieldName);
       DecisionTaints decisionTaints =
           new DecisionTaints(
               controlStmt.getClassName()
@@ -161,7 +169,6 @@ public class DynamicAnalysisResultsParser {
     BufferedReader reader = new BufferedReader(new FileReader(file));
     String name;
     while ((name = reader.readLine()) != null) {
-
       int index = Integer.parseInt(reader.readLine());
       mapWithNames.put(index, name);
     }
