@@ -27,16 +27,20 @@ public class TotalPartition extends Partitioning {
 
   @Override
   public boolean isTotalPartition() {
-    if (TOTAL_PARTITIONS.contains(this)) {
-      return true;
+    if (Partitioning.CHECK_TOTAL_PARTITIONS) {
+      if (TOTAL_PARTITIONS.contains(this)) {
+        return true;
+      }
+
+      if (super.isTotalPartition()) {
+        TOTAL_PARTITIONS.add(this);
+        return true;
+      }
+
+      return false;
     }
 
-    if (super.isTotalPartition()) {
-      TOTAL_PARTITIONS.add(this);
-      return true;
-    }
-
-    return false;
+    return true;
   }
 
   @Override
