@@ -36,6 +36,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
   public static final String OUTPUT_DIR = Options.DIRECTORY + "/idta";
   private static final FeatureModel EMPTY_FM = FeatureExprUtils.getFeatureModel(USE_BDD);
+
   private final Set<SingleFeatureExpr> featureExprs = new HashSet<>();
   private final DynamicAnalysisExecutor dynamicAnalysisExecutor;
   private final DynamicAnalysisResultsParser dynamicAnalysisResultsParser;
@@ -109,6 +110,9 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
       exploredConstraints.add(exploringConstraint);
 
       this.dynamicAnalysisExecutor.runAnalysis(config);
+      System.out.println();
+      System.out.println("Done running program");
+      System.out.println();
       Set<DecisionTaints> decisionTaints = this.dynamicAnalysisResultsParser.parseResults();
 
       this.controlFlowStmtTaintsAnalysis.saveTaints(config, decisionTaints);
