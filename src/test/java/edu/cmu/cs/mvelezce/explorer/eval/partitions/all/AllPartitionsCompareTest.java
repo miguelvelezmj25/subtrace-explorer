@@ -23,6 +23,7 @@ public class AllPartitionsCompareTest {
     analysis = new IDTAPartitionsAnalysis(programName, workloadSize);
     Set<Partition> largeResults = analysis.analyze(args);
 
-    AllPartitionsCompare.compareResults(smallResults, largeResults);
+    AllPartitionsCompare compare = new AllPartitionsCompare(programName);
+    compare.compareResults(smallResults, largeResults);
   }
 }

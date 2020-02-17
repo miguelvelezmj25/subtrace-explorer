@@ -24,6 +24,7 @@ public class StmtPartitionsCompareTest {
     analysis = new ControlFlowStmtPartitioningAnalysis(programName, workloadSize);
     Set<ControlFlowStmtPartitioning> largeResults = analysis.analyze(args);
 
-    StmtPartitionsCompare.compare(smallResults, largeResults);
+    StmtPartitionsCompare compare = new StmtPartitionsCompare(programName);
+    compare.compare(smallResults, largeResults);
   }
 }
