@@ -1,5 +1,6 @@
 package edu.cmu.cs.mvelezce.explorer.idta.results.statement;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.common.base.Objects;
 import de.fosd.typechef.featureexpr.FeatureExpr;
@@ -27,6 +28,10 @@ public class ControlFlowStmtPartitioningAnalysis
   public ControlFlowStmtPartitioningAnalysis(
       String programName, String workloadSize, List<String> options) {
     super(programName, workloadSize, options);
+  }
+
+  public ControlFlowStmtPartitioningAnalysis(String programName, String workloadSize) {
+    this(programName, workloadSize, new ArrayList<>());
   }
 
   @Override
@@ -188,10 +193,24 @@ public class ControlFlowStmtPartitioningAnalysis
 
   @Override
   public Set<ControlFlowStmtPartitioning> readFromFile(File file) throws IOException {
-    //    ObjectMapper mapper = new ObjectMapper();
-    //
-    //    return mapper.readValue(file, new TypeReference<Set<ControlFlowStmtInfo>>() {});
-    throw new UnsupportedOperationException("implement");
+    ObjectMapper mapper = new ObjectMapper();
+    List<ControlFlowStmtPartitioningPretty> prettyResults =
+        mapper.readValue(file, new TypeReference<List<ControlFlowStmtPartitioningPretty>>() {});
+
+    Set<ControlFlowStmtPartitioning> results = new HashSet<>();
+
+    for (ControlFlowStmtPartitioningPretty prettyResult : prettyResults) {
+      ControlFlowStmtPartitioning stmtPartitioning =
+          new ControlFlowStmtPartitioning(
+              prettyResult.getPackageName(),
+              prettyResult.getClassName(),
+              prettyResult.getMethodSignature(),
+              prettyResult.getDecisionIndex(),
+              Partitioning.getPartitioning(Partition.getPartitions(prettyResult.getInfo())));
+      results.add(stmtPartitioning);
+    }
+
+    return results;
   }
 
   @Override

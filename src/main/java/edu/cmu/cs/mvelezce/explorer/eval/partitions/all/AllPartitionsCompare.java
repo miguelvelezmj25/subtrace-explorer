@@ -7,7 +7,14 @@ import java.util.Set;
 
 public final class AllPartitionsCompare {
 
-  public static void compare(Set<Partition> baseResults, Set<Partition> newResults) {
+  public static void compareResults(Set<Partition> baseResults, Set<Partition> newResults) {
+    System.err.println(
+        "CHANGE LOGIC OF CHECKING FOR '|' TO CHECKING IF THE PARTITION IS THE REMAINING ONE");
+    System.out.println(comparePartitions(baseResults, newResults));
+  }
+
+  public static String comparePartitions(Set<Partition> baseResults, Set<Partition> newResults) {
+    StringBuilder results = new StringBuilder();
     Set<Partition> equivalentPartitions = getEquivalentPartitions(baseResults, newResults);
 
     for (Partition newPartition : newResults) {
@@ -22,14 +29,20 @@ public final class AllPartitionsCompare {
 
         if (newPartition.getFeatureExpr().implies(basePartition.getFeatureExpr()).isTautology()) {
           if (!basePartition.getFeatureExpr().toString().contains("|")) {
-            System.out.println(newPartition + " -> " + basePartition);
+            results.append("\t");
+            results.append(newPartition);
+            results.append(" -> ");
+            results.append(basePartition);
+            results.append("\n");
           }
         }
       }
     }
+
+    return results.toString();
   }
 
-  private static Set<Partition> getEquivalentPartitions(
+  public static Set<Partition> getEquivalentPartitions(
       Set<Partition> baseResults, Set<Partition> newResults) {
     Set<Partition> equivalentPartitions = new HashSet<>();
 
