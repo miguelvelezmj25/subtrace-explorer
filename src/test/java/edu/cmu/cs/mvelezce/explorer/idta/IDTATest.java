@@ -261,6 +261,21 @@ public class IDTATest {
   }
 
   @Test
+  public void indexFilesLarge() throws IOException, InterruptedException {
+    String programName = BaseIndexFilesAdapter.PROGRAM_NAME;
+    String workloadSize = "large";
+    List<String> options = BaseIndexFilesAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
   public void contextDataTaintsEqualSmall() throws IOException, InterruptedException {
     String programName = BaseContextDataTaintsEqualAdapter.PROGRAM_NAME;
     String workloadSize = "small";
