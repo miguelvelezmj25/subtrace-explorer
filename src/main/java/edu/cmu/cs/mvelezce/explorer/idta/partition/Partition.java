@@ -7,6 +7,7 @@ import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
 import edu.cmu.cs.mvelezce.explorer.utils.FeatureExprUtils;
 
 import javax.annotation.Nullable;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Partition {
@@ -17,6 +18,18 @@ public class Partition {
 
   public Partition(FeatureExpr featureExpr) {
     this.featureExpr = featureExpr;
+  }
+
+  public static Set<Partition> getPartitions(Set<String> prettyPartitions) {
+    Set<Partition> partitions = new HashSet<>();
+
+    for (String prettyPartition : prettyPartitions) {
+      Partition partition =
+          new Partition(FeatureExprUtils.parseAsFeatureExpr(IDTA.USE_BDD, prettyPartition));
+      partitions.add(partition);
+    }
+
+    return partitions;
   }
 
   @Nullable

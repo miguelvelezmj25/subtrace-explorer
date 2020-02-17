@@ -11,7 +11,8 @@ import java.util.Set;
 public abstract class Partitioning {
 
   public static final boolean CHECK_TOTAL_PARTITIONS = false;
-  private static final boolean USE_TOTAL_PARTITION = true;
+  public static final boolean USE_TOTAL_PARTITION = true;
+
   private static final boolean MERGE_CROSS_PRODUCT = true;
   private final Set<Partition> partitions = new HashSet<>();
 
