@@ -7,12 +7,15 @@ import de.fosd.typechef.featureexpr.SingleFeatureExpr;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.constraint.Constraint;
 import edu.cmu.cs.mvelezce.explorer.idta.execute.DynamicAnalysisExecutor;
+import edu.cmu.cs.mvelezce.explorer.idta.partition.Partition;
 import edu.cmu.cs.mvelezce.explorer.idta.results.constraints.DTAConstraintCalculator;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DynamicAnalysisResultsParser;
 import edu.cmu.cs.mvelezce.explorer.idta.results.partitions.IDTAPartitionsAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.ControlFlowStmtPartitioningAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.ControlFlowStmtTaintAnalysis;
+import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtPartitioning;
+import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtTaints;
 import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
 import edu.cmu.cs.mvelezce.explorer.utils.FeatureExprUtils;
 import edu.cmu.cs.mvelezce.utils.config.Options;
@@ -63,22 +66,20 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
   @Override
   public Void analyze() throws IOException, InterruptedException {
-    throw new UnsupportedOperationException(
-        "Add flag in partition to tell if it is the remaining partition");
-    //    this.runProgramAnalysis();
-    //
-    //    Set<ControlFlowStmtTaints> controlFlowStmtTaintInfos =
-    //        this.controlFlowStmtTaintsAnalysis.analyze();
-    //    this.controlFlowStmtTaintsAnalysis.writeToFile(controlFlowStmtTaintInfos);
-    //
-    //    Set<ControlFlowStmtPartitioning> controlFlowStmtPartitioningsInfo =
-    //        this.controlFlowStmtPartitioningAnalysis.analyze();
-    //    this.controlFlowStmtPartitioningAnalysis.writeToFile(controlFlowStmtPartitioningsInfo);
-    //
-    //    Set<Partition> partitions = this.IDTAPartitionsAnalysis.analyze();
-    //    this.IDTAPartitionsAnalysis.writeToFile(partitions);
-    //
-    //    return null;
+    this.runProgramAnalysis();
+
+    Set<ControlFlowStmtTaints> controlFlowStmtTaintInfos =
+        this.controlFlowStmtTaintsAnalysis.analyze();
+    this.controlFlowStmtTaintsAnalysis.writeToFile(controlFlowStmtTaintInfos);
+
+    Set<ControlFlowStmtPartitioning> controlFlowStmtPartitioningsInfo =
+        this.controlFlowStmtPartitioningAnalysis.analyze();
+    this.controlFlowStmtPartitioningAnalysis.writeToFile(controlFlowStmtPartitioningsInfo);
+
+    Set<Partition> partitions = this.IDTAPartitionsAnalysis.analyze();
+    this.IDTAPartitionsAnalysis.writeToFile(partitions);
+
+    return null;
   }
 
   @Override

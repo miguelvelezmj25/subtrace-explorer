@@ -15,9 +15,15 @@ public class Partition {
   public static final Partition UNIVERSE = new Partition(FeatureExprUtils.getTrue(IDTA.USE_BDD));
 
   private final FeatureExpr featureExpr;
+  private final boolean isRemaining;
 
   public Partition(FeatureExpr featureExpr) {
+    this(featureExpr, true);
+  }
+
+  private Partition(FeatureExpr featureExpr, boolean isRemaining) {
     this.featureExpr = featureExpr;
+    this.isRemaining = isRemaining;
   }
 
   public static Set<Partition> getPartitions(Set<String> prettyPartitions) {
@@ -44,7 +50,7 @@ public class Partition {
       return null;
     }
 
-    return new Partition(formula.not());
+    return new Partition(formula.not(), true);
   }
 
   @Override
