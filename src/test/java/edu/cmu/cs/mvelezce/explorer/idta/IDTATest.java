@@ -19,6 +19,7 @@ import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapters.subtraces.BaseSubtracesAdapter;
 import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
+import org.junit.Before;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -27,6 +28,12 @@ import java.util.List;
 import java.util.Set;
 
 public class IDTATest {
+
+  @Before
+  public void setBDD() {
+    System.setProperty("bddCacheSize", Integer.toString(1_000_000));
+    System.setProperty("bddValNum", Integer.toString(60_000_000));
+  }
 
   @Test
   public void TrivialSmall() throws IOException, InterruptedException {
