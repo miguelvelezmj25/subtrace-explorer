@@ -13,6 +13,7 @@ import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapters.methodCall.BaseMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapters.multipleReturns.BaseMultipleReturnsAdapter;
+import edu.cmu.cs.mvelezce.adapters.multithread.BaseMultithreadAdapter;
 import edu.cmu.cs.mvelezce.adapters.overrideJREMethod.BaseOverrideJREMethodAdapter;
 import edu.cmu.cs.mvelezce.adapters.performance.BasePerformanceAdapter;
 import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
@@ -340,6 +341,21 @@ public class IDTATest {
     String programName = BaseConvertAdapter.PROGRAM_NAME;
     String workloadSize = "small";
     List<String> options = BaseConvertAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void MultithreadSmall() throws IOException, InterruptedException {
+    String programName = BaseMultithreadAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    List<String> options = BaseMultithreadAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
     String[] args = new String[2];

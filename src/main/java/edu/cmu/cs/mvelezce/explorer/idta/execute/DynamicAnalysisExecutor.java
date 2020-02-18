@@ -15,6 +15,7 @@ import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
 import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapters.methodCall.BaseMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapters.multipleReturns.BaseMultipleReturnsAdapter;
+import edu.cmu.cs.mvelezce.adapters.multithread.BaseMultithreadAdapter;
 import edu.cmu.cs.mvelezce.adapters.overrideJREMethod.BaseOverrideJREMethodAdapter;
 import edu.cmu.cs.mvelezce.adapters.performance.BasePerformanceAdapter;
 import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
@@ -275,6 +276,11 @@ public class DynamicAnalysisExecutor {
         adapter = new BaseConvertAdapter();
         ((BaseConvertAdapter) adapter).preProcess();
         mainClass = BaseConvertAdapter.MAIN_CLASS;
+        break;
+      case BaseMultithreadAdapter.PROGRAM_NAME:
+        commandList.add("./multithread.sh");
+        adapter = new BaseMultithreadAdapter();
+        mainClass = BaseMultithreadAdapter.MAIN_CLASS;
         break;
         //      case NestingAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");

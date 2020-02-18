@@ -1,0 +1,34 @@
+[
+  {
+    "packageName": "edu.cmu.cs.mvelezce.worker",
+    "className": "PrimeNumberChecker",
+    "methodSignature": "run()V",
+    "decisionIndex": 1,
+    "info": [
+      "(B && !C && !A)",
+      "(B && !C && A)",
+      "(!B && !C && !A)",
+      "(B && C && A)",
+      "(!B && C && !A)",
+      "(!B && C && A)",
+      "(!B && !C && A)",
+      "(B && C && !A)"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.worker",
+    "className": "PrimeNumberChecker",
+    "methodSignature": "<init>(Z)V",
+    "decisionIndex": 1,
+    "info": [
+      "(B && !C && !A)",
+      "(B && !C && A)",
+      "(!B && !C && !A)",
+      "(B && C && A)",
+      "(!B && C && !A)",
+      "(!B && C && A)",
+      "(!B && !C && A)",
+      "(B && C && !A)"
+    ]
+  }
+]

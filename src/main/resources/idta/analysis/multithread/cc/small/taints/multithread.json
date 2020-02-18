@@ -1,0 +1,468 @@
+[
+  {
+    "packageName": "edu.cmu.cs.mvelezce.worker",
+    "className": "PrimeNumberChecker",
+    "methodSignature": "run()V",
+    "decisionIndex": 1,
+    "info": [
+      {
+        "config": [],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [
+          "A"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "B"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "A"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [
+          "B"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "A"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "B"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "B",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "B",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "B",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [
+          "B",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "B"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "B"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "B"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "B",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "B",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      }
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.worker",
+    "className": "PrimeNumberChecker",
+    "methodSignature": "<init>(Z)V",
+    "decisionIndex": 1,
+    "info": [
+      {
+        "config": [],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [
+          "A"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "B"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "A"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [
+          "B"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "A"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "B"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "B",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "B",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "B",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [
+          "B",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "B"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "B"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "B"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "B"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      },
+      {
+        "config": [
+          "B",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "A"
+        ]
+      },
+      {
+        "config": [
+          "A",
+          "B",
+          "C"
+        ],
+        "controlTaints": [],
+        "dataTaints": [
+          "C"
+        ]
+      }
+    ]
+  }
+]
