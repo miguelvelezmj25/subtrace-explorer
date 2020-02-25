@@ -19,6 +19,7 @@ import edu.cmu.cs.mvelezce.adapters.multithread.BaseMultithreadAdapter;
 import edu.cmu.cs.mvelezce.adapters.overrideJREMethod.BaseOverrideJREMethodAdapter;
 import edu.cmu.cs.mvelezce.adapters.performance.BasePerformanceAdapter;
 import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
+import edu.cmu.cs.mvelezce.adapters.runBenchC.BaseRunBenchCAdapter;
 import edu.cmu.cs.mvelezce.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapters.subtraces.BaseSubtracesAdapter;
 import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
@@ -281,6 +282,11 @@ public class DynamicAnalysisExecutor {
         commandList.add("./multithread.sh");
         adapter = new BaseMultithreadAdapter();
         mainClass = BaseMultithreadAdapter.MAIN_CLASS;
+        break;
+      case BaseRunBenchCAdapter.PROGRAM_NAME:
+        commandList.add("./runBenchC.sh");
+        adapter = new BaseRunBenchCAdapter();
+        mainClass = BaseRunBenchCAdapter.MAIN_CLASS;
         break;
         //      case NestingAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");
