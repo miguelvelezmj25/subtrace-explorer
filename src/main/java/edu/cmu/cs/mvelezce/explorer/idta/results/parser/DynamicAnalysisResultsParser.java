@@ -17,10 +17,10 @@ public class DynamicAnalysisResultsParser {
 
   private static final String PHOSPHOR_OUTPUT_DIR =
       Executor.USER_HOME
-          + "/Documents/Programming/Java/Projects/phosphor/Phosphor/examples/control";
+          + "/Documents/programming/java/projects/phosphor/Phosphor/examples/control";
   private static final String PHOSPHOR_INSTRUMENT_DIR =
       Executor.USER_HOME
-          + "/Documents/Programming/Java/Projects/phosphor/Phosphor/scripts/instrument/control";
+          + "/Documents/programming/java/projects/phosphor/Phosphor/scripts/instrument/control";
   private static final Taint<Integer> NULL_TAINT = Taint.withLabel(SinkManager.NULL_TAINT_LABEL);
 
   private final Map<Integer, String> executedFields = new HashMap<>();
