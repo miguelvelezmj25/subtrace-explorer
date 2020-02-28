@@ -94,7 +94,7 @@ public class ControlFlowStmtTaintAnalysis
     for (int i = 0; savedStmts != controlFlowInfos.size(); i++) {
       Set<ControlFlowStmtTaints> controlFlowInfosToSave = new HashSet<>();
 
-      for (int j = 0; controlFlowInfosIter.hasNext() && j < 500; j++) {
+      for (int j = 0; controlFlowInfosIter.hasNext() && j < 100; j++) {
         controlFlowInfosToSave.add(controlFlowInfosIter.next());
         savedStmts++;
       }

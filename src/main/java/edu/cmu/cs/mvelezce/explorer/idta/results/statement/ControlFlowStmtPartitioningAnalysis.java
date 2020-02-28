@@ -14,6 +14,7 @@ import edu.cmu.cs.mvelezce.explorer.idta.taint.TaintHelper;
 import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
 import edu.cmu.cs.mvelezce.explorer.utils.FeatureExprUtils;
 import edu.cmu.cs.mvelezce.utils.config.Options;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -158,37 +159,56 @@ public class ControlFlowStmtPartitioningAnalysis
 
   @Override
   public void writeToFile(Set<ControlFlowStmtPartitioning> results) throws IOException {
-    String outputFile = this.outputDir() + "/" + this.getProgramName() + Options.DOT_JSON;
-    File file = new File(outputFile);
-    file.getParentFile().mkdirs();
+    File file = new File(this.outputDir());
 
-    Set<ControlFlowStmtPartitioningPretty> prettyResults = new HashSet<>();
-
-    for (ControlFlowStmtPartitioning entry : results) {
-      Set<String> prettyPartitions = new HashSet<>();
-      Partitioning partitions = entry.getInfo();
-
-      for (Partition partition : partitions.getPartitions()) {
-        String prettyPartition =
-            ConstraintUtils.prettyPrintFeatureExpr(partition.getFeatureExpr(), this.getOptions());
-        FeatureExpr featureExpr =
-            FeatureExprUtils.parseAsFeatureExpr(IDTA.USE_BDD, prettyPartition);
-        prettyPartition = ConstraintUtils.prettyPrintFeatureExpr(featureExpr, this.getOptions());
-        prettyPartitions.add(prettyPartition);
-      }
-
-      ControlFlowStmtPartitioningPretty prettyResult =
-          new ControlFlowStmtPartitioningPretty(
-              entry.getPackageName(),
-              entry.getClassName(),
-              entry.getMethodSignature(),
-              entry.getDecisionIndex(),
-              prettyPartitions);
-      prettyResults.add(prettyResult);
+    if (file.exists()) {
+      FileUtils.forceDelete(file);
     }
 
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.writeValue(file, prettyResults);
+    int savedStmts = 0;
+    Iterator<ControlFlowStmtPartitioning> controlFlowStmtPartitioningIter = results.iterator();
+
+    for (int i = 0; savedStmts != results.size(); i++) {
+      Set<ControlFlowStmtPartitioning> controlFlowStmtsToSave = new HashSet<>();
+
+      for (int j = 0; controlFlowStmtPartitioningIter.hasNext() && j < 100; j++) {
+        controlFlowStmtsToSave.add(controlFlowStmtPartitioningIter.next());
+        savedStmts++;
+      }
+
+      String outputFile =
+          this.outputDir() + "/" + this.getProgramName() + "_" + i + Options.DOT_JSON;
+      file = new File(outputFile);
+      file.getParentFile().mkdirs();
+
+      Set<ControlFlowStmtPartitioningPretty> prettyResults = new HashSet<>();
+
+      for (ControlFlowStmtPartitioning entry : controlFlowStmtsToSave) {
+        Set<String> prettyPartitions = new HashSet<>();
+        Partitioning partitions = entry.getInfo();
+
+        for (Partition partition : partitions.getPartitions()) {
+          String prettyPartition =
+              ConstraintUtils.prettyPrintFeatureExpr(partition.getFeatureExpr(), this.getOptions());
+          FeatureExpr featureExpr =
+              FeatureExprUtils.parseAsFeatureExpr(IDTA.USE_BDD, prettyPartition);
+          prettyPartition = ConstraintUtils.prettyPrintFeatureExpr(featureExpr, this.getOptions());
+          prettyPartitions.add(prettyPartition);
+        }
+
+        ControlFlowStmtPartitioningPretty prettyResult =
+            new ControlFlowStmtPartitioningPretty(
+                entry.getPackageName(),
+                entry.getClassName(),
+                entry.getMethodSignature(),
+                entry.getDecisionIndex(),
+                prettyPartitions);
+        prettyResults.add(prettyResult);
+      }
+
+      ObjectMapper mapper = new ObjectMapper();
+      mapper.writeValue(file, prettyResults);
+    }
   }
 
   @Override
