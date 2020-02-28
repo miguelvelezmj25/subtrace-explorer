@@ -1,10 +1,8 @@
 package edu.cmu.cs.mvelezce.explorer.idta;
 
 import com.mijecu25.meme.utils.monitor.memory.MemoryMonitor;
-import de.fosd.typechef.featureexpr.FeatureExpr;
-import de.fosd.typechef.featureexpr.FeatureModel;
-import de.fosd.typechef.featureexpr.SingleFeatureExpr;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
+import edu.cmu.cs.mvelezce.explorer.idta.config.ConfigAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.constraint.Constraint;
 import edu.cmu.cs.mvelezce.explorer.idta.execute.DynamicAnalysisExecutor;
 import edu.cmu.cs.mvelezce.explorer.idta.partition.Partition;
@@ -19,11 +17,7 @@ import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtT
 import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
 import edu.cmu.cs.mvelezce.explorer.utils.FeatureExprUtils;
 import edu.cmu.cs.mvelezce.utils.config.Options;
-import scala.Option;
-import scala.Tuple2;
-import scala.collection.JavaConverters;
 
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashSet;
@@ -35,23 +29,18 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
   public static final boolean USE_BDD = true;
 
   public static final String OUTPUT_DIR = Options.DIRECTORY + "/idta";
-  private static final FeatureModel EMPTY_FM = FeatureExprUtils.getFeatureModel(USE_BDD);
 
-  private final Set<SingleFeatureExpr> featureExprs = new HashSet<>();
   private final DynamicAnalysisExecutor dynamicAnalysisExecutor;
   private final DynamicAnalysisResultsParser dynamicAnalysisResultsParser;
   private final ControlFlowStmtTaintAnalysis controlFlowStmtTaintsAnalysis;
   private final ControlFlowStmtPartitioningAnalysis controlFlowStmtPartitioningAnalysis;
   private final DTAConstraintCalculator dtaConstraintCalculator;
   private final IDTAPartitionsAnalysis IDTAPartitionsAnalysis;
+  private final ConfigAnalysis configAnalysis;
 
   public IDTA(
       String programName, String workloadSize, List<String> options, Set<String> initialConfig) {
     super(programName, new HashSet<>(options), initialConfig);
-
-    for (String option : this.getOptions()) {
-      featureExprs.add(FeatureExprUtils.createDefinedExternal(USE_BDD, option));
-    }
 
     this.dynamicAnalysisExecutor = new DynamicAnalysisExecutor(programName);
     this.dynamicAnalysisResultsParser = new DynamicAnalysisResultsParser(programName);
@@ -60,8 +49,8 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
     this.controlFlowStmtPartitioningAnalysis =
         new ControlFlowStmtPartitioningAnalysis(programName, workloadSize, options);
     this.dtaConstraintCalculator = new DTAConstraintCalculator(options);
-
     this.IDTAPartitionsAnalysis = new IDTAPartitionsAnalysis(programName, workloadSize, options);
+    this.configAnalysis = new ConfigAnalysis(programName, workloadSize, options);
   }
 
   @Override
@@ -78,6 +67,9 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
     Set<Partition> partitions = this.IDTAPartitionsAnalysis.analyze();
     this.IDTAPartitionsAnalysis.writeToFile(partitions);
+
+    Set<Set<String>> executedConfigs = this.configAnalysis.analyze();
+    this.configAnalysis.writeToFile(executedConfigs);
 
     return null;
   }
@@ -103,6 +95,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
     Set<Constraint> exploredConstraints = new HashSet<>();
 
     while (config != null) {
+      this.configAnalysis.saveExecutedConfig(config);
       String stringConstraint = ConstraintUtils.parseAsConstraint(config, this.getOptions());
       System.out.println("Executing config: " + stringConstraint);
       Constraint exploringConstraint =
@@ -129,7 +122,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
       System.out.println("Constraints yet to explore " + constraintsToExplore.size());
 
       long start = System.nanoTime();
-      config = this.getNextGreedyConfig(constraintsToExplore);
+      config = this.configAnalysis.getNextGreedyConfig(constraintsToExplore);
       long end = System.nanoTime();
       System.out.println("Get next config: " + (end - start) / 1E9);
 
@@ -140,35 +133,5 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
     System.out.println();
     System.out.println("Configs sampled by IDTA: " + sampleConfigs);
-  }
-
-  @Nullable
-  private Set<String> getNextGreedyConfig(Set<Constraint> constraintsToExplore) {
-    if (constraintsToExplore.isEmpty()) {
-      return null;
-    }
-
-    FeatureExpr formula = FeatureExprUtils.getTrue(USE_BDD);
-
-    for (Constraint constraint : constraintsToExplore) {
-      FeatureExpr andedFormula = formula.and(constraint.getFeatureExpr());
-
-      if (andedFormula.isContradiction()) {
-        continue;
-      }
-
-      formula = andedFormula;
-    }
-
-    Option<
-            Tuple2<
-                scala.collection.immutable.List<SingleFeatureExpr>,
-                scala.collection.immutable.List<SingleFeatureExpr>>>
-        solution =
-            formula.getSatisfiableAssignment(
-                EMPTY_FM, JavaConverters.asScalaSet(this.featureExprs).toSet(), true);
-
-    return ConstraintUtils.toConfig(
-        JavaConverters.asJavaCollection(solution.get()._1), this.getOptions());
   }
 }
