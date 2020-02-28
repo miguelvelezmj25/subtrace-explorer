@@ -2,18 +2,10 @@ package edu.cmu.cs.mvelezce.explorer.idta.config;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.fosd.typechef.featureexpr.FeatureExpr;
-import de.fosd.typechef.featureexpr.FeatureModel;
-import de.fosd.typechef.featureexpr.SingleFeatureExpr;
 import edu.cmu.cs.mvelezce.analysis.BaseAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
 import edu.cmu.cs.mvelezce.explorer.idta.constraint.Constraint;
-import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
-import edu.cmu.cs.mvelezce.explorer.utils.FeatureExprUtils;
 import edu.cmu.cs.mvelezce.utils.config.Options;
-import scala.Option;
-import scala.Tuple2;
-import scala.collection.JavaConverters;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -22,13 +14,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ConfigAnalysis extends BaseAnalysis<Set<Set<String>>> {
-
-  private static final FeatureModel EMPTY_FM = FeatureExprUtils.getFeatureModel(IDTA.USE_BDD);
+public abstract class ConfigAnalysis extends BaseAnalysis<Set<Set<String>>> {
 
   private final String workloadSize;
   private final List<String> options;
-  private final Set<SingleFeatureExpr> featureExprs = new HashSet<>();
   private final Set<Set<String>> executedConfigs = new HashSet<>();
 
   public ConfigAnalysis(String programName, String workloadSize, List<String> options) {
@@ -36,10 +25,6 @@ public class ConfigAnalysis extends BaseAnalysis<Set<Set<String>>> {
 
     this.workloadSize = workloadSize;
     this.options = options;
-
-    for (String option : this.options) {
-      featureExprs.add(FeatureExprUtils.createDefinedExternal(IDTA.USE_BDD, option));
-    }
   }
 
   public void saveExecutedConfig(Set<String> config) {
@@ -47,34 +32,9 @@ public class ConfigAnalysis extends BaseAnalysis<Set<Set<String>>> {
   }
 
   @Nullable
-  public Set<String> getNextGreedyConfig(Set<Constraint> constraintsToExplore) {
-    if (constraintsToExplore.isEmpty()) {
-      return null;
-    }
+  public abstract Set<String> getNextConfig(Set<Constraint> constraintsToExplore);
 
-    FeatureExpr formula = FeatureExprUtils.getTrue(IDTA.USE_BDD);
-
-    for (Constraint constraint : constraintsToExplore) {
-      FeatureExpr andedFormula = formula.and(constraint.getFeatureExpr());
-
-      if (andedFormula.isContradiction()) {
-        continue;
-      }
-
-      formula = andedFormula;
-    }
-
-    Option<
-            Tuple2<
-                scala.collection.immutable.List<SingleFeatureExpr>,
-                scala.collection.immutable.List<SingleFeatureExpr>>>
-        solution =
-            formula.getSatisfiableAssignment(
-                EMPTY_FM, JavaConverters.asScalaSet(this.featureExprs).toSet(), true);
-
-    return ConstraintUtils.toConfig(
-        JavaConverters.asJavaCollection(solution.get()._1), this.options);
-  }
+  public abstract Set<String> getInitialConfig();
 
   @Override
   public Set<Set<String>> analyze() {
@@ -106,5 +66,9 @@ public class ConfigAnalysis extends BaseAnalysis<Set<Set<String>>> {
         + "/cc/"
         + this.workloadSize
         + "/configs";
+  }
+
+  public List<String> getOptions() {
+    return options;
   }
 }

@@ -3,6 +3,8 @@ package edu.cmu.cs.mvelezce.explorer.idta;
 import com.mijecu25.meme.utils.monitor.memory.MemoryMonitor;
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.config.ConfigAnalysis;
+import edu.cmu.cs.mvelezce.explorer.idta.config.IDTAConfigAnalysis;
+import edu.cmu.cs.mvelezce.explorer.idta.config.SpecificConfigsAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.constraint.Constraint;
 import edu.cmu.cs.mvelezce.explorer.idta.execute.DynamicAnalysisExecutor;
 import edu.cmu.cs.mvelezce.explorer.idta.partition.Partition;
@@ -50,7 +52,26 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
         new ControlFlowStmtPartitioningAnalysis(programName, workloadSize, options);
     this.dtaConstraintCalculator = new DTAConstraintCalculator(options);
     this.IDTAPartitionsAnalysis = new IDTAPartitionsAnalysis(programName, workloadSize, options);
-    this.configAnalysis = new ConfigAnalysis(programName, workloadSize, options);
+    this.configAnalysis = new IDTAConfigAnalysis(programName, workloadSize, options, initialConfig);
+  }
+
+  public IDTA(
+      String programName,
+      String workloadSize,
+      Set<Set<String>> configsToExecute,
+      List<String> options) {
+    super(programName, new HashSet<>(options), configsToExecute.iterator().next());
+
+    this.dynamicAnalysisExecutor = new DynamicAnalysisExecutor(programName);
+    this.dynamicAnalysisResultsParser = new DynamicAnalysisResultsParser(programName);
+    this.controlFlowStmtTaintsAnalysis =
+        new ControlFlowStmtTaintAnalysis(programName, workloadSize, options);
+    this.controlFlowStmtPartitioningAnalysis =
+        new ControlFlowStmtPartitioningAnalysis(programName, workloadSize, options);
+    this.dtaConstraintCalculator = new DTAConstraintCalculator(options);
+    this.IDTAPartitionsAnalysis = new IDTAPartitionsAnalysis(programName, workloadSize, options);
+    this.configAnalysis =
+        new SpecificConfigsAnalysis(programName, workloadSize, options, configsToExecute);
   }
 
   @Override
@@ -91,7 +112,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
 
   private void runProgramAnalysis() throws IOException, InterruptedException {
     int sampleConfigs = 0;
-    Set<String> config = this.getInitialConfig();
+    Set<String> config = this.configAnalysis.getInitialConfig();
     Set<Constraint> exploredConstraints = new HashSet<>();
 
     while (config != null) {
@@ -122,7 +143,7 @@ public class IDTA extends BaseDynamicAnalysis<Void> {
       System.out.println("Constraints yet to explore " + constraintsToExplore.size());
 
       long start = System.nanoTime();
-      config = this.configAnalysis.getNextGreedyConfig(constraintsToExplore);
+      config = this.configAnalysis.getNextConfig(constraintsToExplore);
       long end = System.nanoTime();
       System.out.println("Get next config: " + (end - start) / 1E9);
 
