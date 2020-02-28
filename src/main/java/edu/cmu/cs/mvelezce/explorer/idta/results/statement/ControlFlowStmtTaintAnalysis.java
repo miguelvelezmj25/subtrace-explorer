@@ -1,14 +1,13 @@
 package edu.cmu.cs.mvelezce.explorer.idta.results.statement;
 
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
-import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtInfo;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.taint.InfluencingTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.taint.TaintHelper;
 import edu.cmu.cs.mvelezce.utils.config.Options;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,8 +21,13 @@ public class ControlFlowStmtTaintAnalysis
     super(programName, workloadSize, options);
   }
 
-  ControlFlowStmtTaintAnalysis(String programName) {
-    this(programName, "", new ArrayList<>());
+  public ControlFlowStmtTaintAnalysis(String programName, String workloadSize) {
+    this(programName, workloadSize, new ArrayList<>());
+  }
+
+  @Override
+  public Set<ControlFlowStmtTaints> analyze(String[] args) {
+    throw new UnsupportedOperationException("This method might not need to be called");
   }
 
   @Override
@@ -78,20 +82,39 @@ public class ControlFlowStmtTaintAnalysis
 
   @Override
   public void writeToFile(Set<ControlFlowStmtTaints> controlFlowInfos) throws IOException {
-    String outputFile = this.outputDir() + "/" + this.getProgramName() + Options.DOT_JSON;
-    File file = new File(outputFile);
-    file.getParentFile().mkdirs();
+    File file = new File(this.outputDir());
 
-    ObjectMapper mapper = new ObjectMapper();
-    mapper.writeValue(file, controlFlowInfos);
+    if (file.exists()) {
+      FileUtils.forceDelete(file);
+    }
+
+    int savedStmts = 0;
+    Iterator<ControlFlowStmtTaints> controlFlowInfosIter = controlFlowInfos.iterator();
+
+    for (int i = 0; savedStmts != controlFlowInfos.size(); i++) {
+      Set<ControlFlowStmtTaints> controlFlowInfosToSave = new HashSet<>();
+
+      for (int j = 0; controlFlowInfosIter.hasNext() && j < 500; j++) {
+        controlFlowInfosToSave.add(controlFlowInfosIter.next());
+        savedStmts++;
+      }
+
+      String outputFile =
+          this.outputDir() + "/" + this.getProgramName() + "_" + i + Options.DOT_JSON;
+      file = new File(outputFile);
+      file.getParentFile().mkdirs();
+
+      ObjectMapper mapper = new ObjectMapper();
+      mapper.writeValue(file, controlFlowInfosToSave);
+    }
   }
 
   @Override
   public Set<ControlFlowStmtTaints> readFromFile(File file) throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
-
-    return mapper.readValue(
-        file, new TypeReference<Set<ControlFlowStmtInfo<ControlFlowStmtTaints>>>() {});
+    throw new UnsupportedOperationException("implement reading multiple files");
+    //    ObjectMapper mapper = new ObjectMapper();
+    //
+    //    return mapper.readValue(file, new TypeReference<Set<ControlFlowStmtTaints>>() {});
   }
 
   @Override
