@@ -1,4 +1,4 @@
-package edu.cmu.cs.mvelezce.explorer.eval.partitions.all;
+package edu.cmu.cs.mvelezce.explorer.eval.compare.partitions.all;
 
 import edu.cmu.cs.mvelezce.MinConfigsGenerator;
 import edu.cmu.cs.mvelezce.explorer.idta.partition.Partition;

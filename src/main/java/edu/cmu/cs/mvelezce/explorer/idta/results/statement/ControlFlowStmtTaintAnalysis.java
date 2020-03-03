@@ -1,5 +1,6 @@
 package edu.cmu.cs.mvelezce.explorer.idta.results.statement;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
@@ -23,11 +24,6 @@ public class ControlFlowStmtTaintAnalysis
 
   public ControlFlowStmtTaintAnalysis(String programName, String workloadSize) {
     this(programName, workloadSize, new ArrayList<>());
-  }
-
-  @Override
-  public Set<ControlFlowStmtTaints> analyze(String[] args) {
-    throw new UnsupportedOperationException("This method might not need to be called");
   }
 
   @Override
@@ -110,11 +106,22 @@ public class ControlFlowStmtTaintAnalysis
   }
 
   @Override
-  public Set<ControlFlowStmtTaints> readFromFile(File file) throws IOException {
-    throw new UnsupportedOperationException("implement reading multiple files");
-    //    ObjectMapper mapper = new ObjectMapper();
-    //
-    //    return mapper.readValue(file, new TypeReference<Set<ControlFlowStmtTaints>>() {});
+  public Set<ControlFlowStmtTaints> readFromFile(File resultsDir) throws IOException {
+    Collection<File> results = FileUtils.listFiles(resultsDir, new String[] {"json"}, false);
+
+    if (results.isEmpty()) {
+      throw new RuntimeException("There are no idta results for " + this.getProgramName());
+    }
+
+    Set<ControlFlowStmtTaints> stmtTaints = new HashSet<>();
+
+    for (File file : results) {
+      ObjectMapper mapper = new ObjectMapper();
+      stmtTaints.addAll(
+          mapper.readValue(file, new TypeReference<List<ControlFlowStmtTaints>>() {}));
+    }
+
+    return stmtTaints;
   }
 
   @Override

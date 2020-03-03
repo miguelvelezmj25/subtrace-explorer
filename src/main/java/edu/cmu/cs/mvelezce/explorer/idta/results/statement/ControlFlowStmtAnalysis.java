@@ -2,7 +2,10 @@ package edu.cmu.cs.mvelezce.explorer.idta.results.statement;
 
 import edu.cmu.cs.mvelezce.analysis.dynamic.BaseDynamicAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
+import edu.cmu.cs.mvelezce.utils.config.Options;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -32,6 +35,26 @@ abstract class ControlFlowStmtAnalysis<T, E> extends BaseDynamicAnalysis<T> {
     statementComponent = statementComponent.substring(0, indexOfLastSlash);
 
     return statementComponent.replaceAll("/", ".");
+  }
+
+  public T analyze(String[] args) throws IOException, InterruptedException {
+    Options.getCommandLine(args);
+    String outputFile = this.outputDir();
+    File file = new File(outputFile);
+    Options.checkIfDeleteResult(file);
+
+    if (file.exists()) {
+      return this.readFromFile(file);
+
+    } else {
+      T analysisResults = this.analyze();
+
+      if (Options.checkIfSave()) {
+        this.writeToFile(analysisResults);
+      }
+
+      return analysisResults;
+    }
   }
 
   abstract void addData(Set<String> config, Set<DecisionTaints> results);

@@ -139,4 +139,18 @@ public final class ConstraintUtils {
 
     return prettyPrintFeatureExpr(featureExpr, options);
   }
+
+  public static Set<String> getEntries(String prettyConstraint) {
+    prettyConstraint = prettyConstraint.replaceAll("\\(", "");
+    prettyConstraint = prettyConstraint.replaceAll("\\)", "");
+    String[] x = prettyConstraint.split("&&");
+
+    Set<String> entries = new HashSet<>();
+
+    for (String y : x) {
+      entries.add(y.trim());
+    }
+
+    return entries;
+  }
 }

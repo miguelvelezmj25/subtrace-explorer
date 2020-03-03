@@ -1,6 +1,8 @@
-package edu.cmu.cs.mvelezce.explorer.eval.partitions.all;
+package edu.cmu.cs.mvelezce.explorer.eval.compare.partitions.all;
 
+import edu.cmu.cs.mvelezce.explorer.eval.compare.AbstractCompare;
 import edu.cmu.cs.mvelezce.explorer.idta.partition.Partition;
+import edu.cmu.cs.mvelezce.explorer.utils.ConstraintUtils;
 import edu.cmu.cs.mvelezce.utils.config.Options;
 import org.apache.commons.io.FileUtils;
 
@@ -10,16 +12,14 @@ import java.io.PrintWriter;
 import java.util.HashSet;
 import java.util.Set;
 
-public final class AllPartitionsCompare {
+public final class AllPartitionsCompare extends AbstractCompare<Partition> {
 
   public static final String DOT_TXT = ".txt";
 
   private static final String OUTPUT_DIR = Options.DIRECTORY + "/eval/java/programs/partitions/all";
 
-  private final String programName;
-
   AllPartitionsCompare(String programName) {
-    this.programName = programName;
+    super(programName);
   }
 
   public static String comparePartitions(Set<Partition> baseResults, Set<Partition> newResults) {
@@ -37,13 +37,24 @@ public final class AllPartitionsCompare {
         }
 
         if (newPartition.getFeatureExpr().implies(basePartition.getFeatureExpr()).isTautology()) {
-          if (!basePartition.getFeatureExpr().toString().contains("|")) {
-            results.append("\t");
-            results.append(newPartition);
-            results.append(" -> ");
-            results.append(basePartition);
-            results.append("\n");
+          if (basePartition.getFeatureExpr().toString().contains("|")
+              || newPartition.getFeatureExpr().toString().contains("|")) {
+            continue;
           }
+
+          Set<String> newPartitionEntries =
+              ConstraintUtils.getEntries(
+                  ConstraintUtils.prettyPrintFeatureExpr(newPartition.getFeatureExpr()));
+          Set<String> basePartitionEntries =
+              ConstraintUtils.getEntries(
+                  ConstraintUtils.prettyPrintFeatureExpr(basePartition.getFeatureExpr()));
+          newPartitionEntries.removeAll(basePartitionEntries);
+
+          results.append("\t");
+          results.append(newPartitionEntries);
+          results.append(" -> ");
+          results.append(basePartition);
+          results.append("\n");
         }
       }
     }
@@ -51,7 +62,7 @@ public final class AllPartitionsCompare {
     return results.toString();
   }
 
-  public static Set<Partition> getEquivalentPartitions(
+  private static Set<Partition> getEquivalentPartitions(
       Set<Partition> baseResults, Set<Partition> newResults) {
     Set<Partition> equivalentPartitions = new HashSet<>();
 
@@ -73,11 +84,11 @@ public final class AllPartitionsCompare {
     return equivalentPartitions;
   }
 
-  public void compareResults(Set<Partition> baseResults, Set<Partition> newResults)
-      throws IOException {
+  @Override
+  public void compare(Set<Partition> baseResults, Set<Partition> newResults) throws IOException {
     System.err.println(
         "CHANGE LOGIC OF CHECKING FOR '|' TO CHECKING IF THE PARTITION IS THE REMAINING ONE");
-    File outputFile = new File(OUTPUT_DIR + "/compare/" + this.programName + DOT_TXT);
+    File outputFile = new File(OUTPUT_DIR + "/compare/" + this.getProgramName() + DOT_TXT);
     outputFile.getParentFile().mkdirs();
 
     if (outputFile.exists()) {

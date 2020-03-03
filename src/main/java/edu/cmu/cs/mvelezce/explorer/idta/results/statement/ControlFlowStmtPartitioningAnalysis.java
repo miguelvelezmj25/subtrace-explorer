@@ -212,25 +212,33 @@ public class ControlFlowStmtPartitioningAnalysis
   }
 
   @Override
-  public Set<ControlFlowStmtPartitioning> readFromFile(File file) throws IOException {
-    ObjectMapper mapper = new ObjectMapper();
-    List<ControlFlowStmtPartitioningPretty> prettyResults =
-        mapper.readValue(file, new TypeReference<List<ControlFlowStmtPartitioningPretty>>() {});
+  public Set<ControlFlowStmtPartitioning> readFromFile(File resultsDir) throws IOException {
+    Collection<File> results = FileUtils.listFiles(resultsDir, new String[] {"json"}, false);
 
-    Set<ControlFlowStmtPartitioning> results = new HashSet<>();
-
-    for (ControlFlowStmtPartitioningPretty prettyResult : prettyResults) {
-      ControlFlowStmtPartitioning stmtPartitioning =
-          new ControlFlowStmtPartitioning(
-              prettyResult.getPackageName(),
-              prettyResult.getClassName(),
-              prettyResult.getMethodSignature(),
-              prettyResult.getDecisionIndex(),
-              Partitioning.getPartitioning(Partition.getPartitions(prettyResult.getInfo())));
-      results.add(stmtPartitioning);
+    if (results.isEmpty()) {
+      throw new RuntimeException("There are no idta results for " + this.getProgramName());
     }
 
-    return results;
+    Set<ControlFlowStmtPartitioning> stmtPartitionings = new HashSet<>();
+
+    for (File file : results) {
+      ObjectMapper mapper = new ObjectMapper();
+      List<ControlFlowStmtPartitioningPretty> prettyResults =
+          mapper.readValue(file, new TypeReference<List<ControlFlowStmtPartitioningPretty>>() {});
+
+      for (ControlFlowStmtPartitioningPretty prettyResult : prettyResults) {
+        ControlFlowStmtPartitioning stmtPartitioning =
+            new ControlFlowStmtPartitioning(
+                prettyResult.getPackageName(),
+                prettyResult.getClassName(),
+                prettyResult.getMethodSignature(),
+                prettyResult.getDecisionIndex(),
+                Partitioning.getPartitioning(Partition.getPartitions(prettyResult.getInfo())));
+        stmtPartitionings.add(stmtPartitioning);
+      }
+    }
+
+    return stmtPartitionings;
   }
 
   @Override
