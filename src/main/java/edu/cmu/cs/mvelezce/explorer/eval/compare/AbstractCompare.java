@@ -12,9 +12,16 @@ public abstract class AbstractCompare<T> {
   public static final DecimalFormat DECIMAL_FORMAT = new DecimalFormat("#.###");
 
   private final String programName;
+  private final Set<Set<String>> configs;
 
   public AbstractCompare(String programName) {
     this.programName = programName;
+    this.configs = new HashSet<>();
+  }
+
+  public AbstractCompare(String programName, Set<Set<String>> configs) {
+    this.programName = programName;
+    this.configs = configs;
   }
 
   public static Set<? extends ControlFlowStmtInfo> getExtraStmts(
@@ -48,5 +55,9 @@ public abstract class AbstractCompare<T> {
 
   public String getProgramName() {
     return programName;
+  }
+
+  public Set<Set<String>> getConfigs() {
+    return configs;
   }
 }

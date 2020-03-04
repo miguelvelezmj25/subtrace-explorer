@@ -1,6 +1,8 @@
 package edu.cmu.cs.mvelezce.explorer.eval.compare.taints.stmt;
 
 import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
+import edu.cmu.cs.mvelezce.explorer.idta.config.ConfigAnalysis;
+import edu.cmu.cs.mvelezce.explorer.idta.config.IDTAConfigAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.ControlFlowStmtTaintAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtTaints;
 import org.junit.Test;
@@ -45,6 +47,27 @@ public class StmtTaintsCompareTest {
     Set<ControlFlowStmtTaints> largeResults = analysis.analyze(args);
 
     StmtTaintsCompare stmtTaintsCompare = new StmtTaintsCompare(programName);
+    stmtTaintsCompare.compare(smallResults, largeResults);
+  }
+
+  @Test
+  public void lucene_small_large_taints() throws IOException, InterruptedException {
+    String programName = BaseIndexFilesAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    ControlFlowStmtTaintAnalysis analysis =
+        new ControlFlowStmtTaintAnalysis(programName, workloadSize);
+
+    String[] args = new String[0];
+    Set<ControlFlowStmtTaints> smallResults = analysis.analyze(args);
+
+    workloadSize = "specific/large";
+    analysis = new ControlFlowStmtTaintAnalysis(programName, workloadSize);
+    Set<ControlFlowStmtTaints> largeResults = analysis.analyze(args);
+
+    ConfigAnalysis configsAnalysis = new IDTAConfigAnalysis(programName, workloadSize);
+    Set<Set<String>> configs = configsAnalysis.analyze(args);
+
+    StmtTaintsCompare stmtTaintsCompare = new StmtTaintsCompare(programName, configs);
     stmtTaintsCompare.compare(smallResults, largeResults);
   }
 

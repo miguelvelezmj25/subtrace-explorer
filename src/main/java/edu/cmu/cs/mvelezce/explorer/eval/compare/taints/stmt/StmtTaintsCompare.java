@@ -1,15 +1,21 @@
 package edu.cmu.cs.mvelezce.explorer.eval.compare.taints.stmt;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.cmu.cs.mvelezce.explorer.eval.compare.AbstractCompare;
 import edu.cmu.cs.mvelezce.explorer.eval.compare.partitions.all.AllPartitionsCompare;
+import edu.cmu.cs.mvelezce.explorer.eval.stmt.ControlFlowStmt;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.taint.InfluencingTaints;
 import edu.cmu.cs.mvelezce.utils.config.Options;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.math3.util.Pair;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 public final class StmtTaintsCompare extends AbstractCompare<ControlFlowStmtTaints> {
@@ -18,6 +24,10 @@ public final class StmtTaintsCompare extends AbstractCompare<ControlFlowStmtTain
 
   public StmtTaintsCompare(String programName) {
     super(programName);
+  }
+
+  public StmtTaintsCompare(String programName, Set<Set<String>> configs) {
+    super(programName, configs);
   }
 
   //  public static void compare(
@@ -109,13 +119,205 @@ public final class StmtTaintsCompare extends AbstractCompare<ControlFlowStmtTain
     return result.toString();
   }
 
+  //  @Override
+  //  public void compare(Set<ControlFlowStmtTaints> baseResults, Set<ControlFlowStmtTaints>
+  // newResults)
+  //      throws IOException {
+  //    Set<ControlFlowStmtTaints> extraStmts =
+  //        (Set<ControlFlowStmtTaints>) AbstractCompare.getExtraStmts(baseResults, newResults);
+  //    this.saveExtraStmts(extraStmts);
+  //    this.saveDiffStmts(baseResults, newResults, extraStmts);
+  //  }
+
   @Override
   public void compare(Set<ControlFlowStmtTaints> baseResults, Set<ControlFlowStmtTaints> newResults)
       throws IOException {
-    Set<ControlFlowStmtTaints> extraStmts =
-        (Set<ControlFlowStmtTaints>) AbstractCompare.getExtraStmts(baseResults, newResults);
-    this.saveExtraStmts(extraStmts);
-    this.saveDiffStmts(baseResults, newResults, extraStmts);
+    for (Set<String> config : this.getConfigs()) {
+      File outputFile = new File(OUTPUT_DIR + "/" + this.getProgramName() + "/" + config);
+
+      if (outputFile.exists()) {
+        FileUtils.forceDelete(outputFile);
+      }
+
+      Set<ControlFlowStmtTaints> baseStmtTaintsForConfig = this.getStmtTaints(config, baseResults);
+      Set<ControlFlowStmtTaints> newStmtTaintsForConfig = this.getStmtTaints(config, newResults);
+
+      Set<ControlFlowStmt> controlFlowStmts =
+          this.getUniqueControlFlowStmts(baseStmtTaintsForConfig);
+      controlFlowStmts.addAll(this.getUniqueControlFlowStmts(newStmtTaintsForConfig));
+      Map<ControlFlowStmt, ControlFlowStmtTaints> baseStmtsToTaints =
+          this.mapStmtsToTaints(baseStmtTaintsForConfig);
+      Map<ControlFlowStmt, ControlFlowStmtTaints> newStmtsToTaints =
+          this.mapStmtsToTaints(newStmtTaintsForConfig);
+
+      for (ControlFlowStmt controlFlowStmt : controlFlowStmts) {
+        this.compareTaints(config, controlFlowStmt, baseStmtsToTaints, newStmtsToTaints);
+      }
+    }
+  }
+
+  private void compareTaints(
+      Set<String> config,
+      ControlFlowStmt controlFlowStmt,
+      Map<ControlFlowStmt, ControlFlowStmtTaints> baseStmtsToTaints,
+      Map<ControlFlowStmt, ControlFlowStmtTaints> newStmtsToTaints)
+      throws IOException {
+
+    Set<InfluencingTaints> baseTaints =
+        this.getInfluencingTaints(baseStmtsToTaints, controlFlowStmt);
+    Set<InfluencingTaints> newTaints = this.getInfluencingTaints(newStmtsToTaints, controlFlowStmt);
+
+    StringBuilder data = new StringBuilder();
+    data.append(",Control,Data");
+    data.append("\n");
+
+    Set<InfluencingTaints> taints = new HashSet<>(baseTaints);
+    taints.addAll(new HashSet<>(newTaints));
+
+    Set<Pair<Set<String>, Set<String>>> equalTaints =
+        this.getEqualTaints(baseTaints, newTaints, taints);
+    //    data.append("\n");
+    //    data.append(this.getDiffTaints(baseTaints, newTaints, taints, "Extra new taints"));
+    //    data.append("\n");
+    //    data.append(this.getDiffTaints(newTaints, baseTaints, taints, "Extra base taints"));
+    //    data.append("\n");
+
+    File outputFile = new File(OUTPUT_DIR + "/" + this.getProgramName() + ".json");
+
+    if (outputFile.exists()) {
+      FileUtils.forceDelete(outputFile);
+    }
+
+    ObjectMapper mapper = new ObjectMapper();
+    //    mapper.writeValue(outputFile, );
+  }
+
+  private Set<InfluencingTaints> getInfluencingTaints(
+      Map<ControlFlowStmt, ControlFlowStmtTaints> stmtsToTaints, ControlFlowStmt controlFlowStmt) {
+    ControlFlowStmtTaints stmtTaints = stmtsToTaints.get(controlFlowStmt);
+
+    if (stmtTaints == null) {
+      return new HashSet<>();
+    }
+
+    return stmtTaints.getInfo();
+  }
+
+  private String getDiffTaints(
+      Set<InfluencingTaints> baseTaints,
+      Set<InfluencingTaints> newTaints,
+      Set<InfluencingTaints> taints,
+      String header) {
+    StringBuilder data = new StringBuilder();
+    data.append(header);
+    data.append(",,");
+    data.append("\n");
+
+    for (InfluencingTaints taint : taints) {
+      if (baseTaints.contains(taint) && newTaints.contains(taint)) {
+        continue;
+      }
+
+      if (!newTaints.contains(taint)) {
+        continue;
+      }
+
+      data.append(",");
+      data.append('"');
+      data.append(taint.getControlTaints());
+      data.append('"');
+      data.append(",");
+      data.append('"');
+      data.append(taint.getDataTaints());
+      data.append('"');
+      data.append("\n");
+    }
+
+    return data.toString();
+  }
+
+  private Set<Pair<Set<String>, Set<String>>> getEqualTaints(
+      Set<InfluencingTaints> baseTaints,
+      Set<InfluencingTaints> newTaints,
+      Set<InfluencingTaints> taints) {
+    Set<Pair<Set<String>, Set<String>>> equalTaints = new HashSet<>();
+
+    for (InfluencingTaints taint : taints) {
+      if (!baseTaints.contains(taint) || !newTaints.contains(taint)) {
+        continue;
+      }
+
+      Pair<Set<String>, Set<String>> x =
+          Pair.create(taint.getControlTaints(), taint.getDataTaints());
+      equalTaints.add(x);
+    }
+
+    return equalTaints;
+  }
+
+  private Map<ControlFlowStmt, ControlFlowStmtTaints> mapStmtsToTaints(
+      Set<ControlFlowStmtTaints> stmtTaints) {
+    Map<ControlFlowStmt, ControlFlowStmtTaints> map = new HashMap<>();
+
+    for (ControlFlowStmtTaints stmtTaint : stmtTaints) {
+      ControlFlowStmt stmt =
+          new ControlFlowStmt(
+              stmtTaint.getPackageName(),
+              stmtTaint.getClassName(),
+              stmtTaint.getMethodSignature(),
+              stmtTaint.getDecisionIndex());
+      map.put(stmt, stmtTaint);
+    }
+
+    return map;
+  }
+
+  private Set<ControlFlowStmt> getUniqueControlFlowStmts(Set<ControlFlowStmtTaints> stmtTaints) {
+    Set<ControlFlowStmt> stmts = new HashSet<>();
+
+    for (ControlFlowStmtTaints stmtTaint : stmtTaints) {
+      ControlFlowStmt stmt =
+          new ControlFlowStmt(
+              stmtTaint.getPackageName(),
+              stmtTaint.getClassName(),
+              stmtTaint.getMethodSignature(),
+              stmtTaint.getDecisionIndex());
+      stmts.add(stmt);
+    }
+
+    return stmts;
+  }
+
+  private Set<ControlFlowStmtTaints> getStmtTaints(
+      Set<String> config, Set<ControlFlowStmtTaints> results) {
+    Set<ControlFlowStmtTaints> stmtTaintsForConfig = new HashSet<>();
+
+    for (ControlFlowStmtTaints stmtTaints : results) {
+      Set<InfluencingTaints> influencingTaintsForConfig = new HashSet<>();
+      ControlFlowStmtTaints stmtTaintForConfig =
+          new ControlFlowStmtTaints(
+              stmtTaints.getPackageName(),
+              stmtTaints.getClassName(),
+              stmtTaints.getMethodSignature(),
+              stmtTaints.getDecisionIndex(),
+              influencingTaintsForConfig);
+      boolean hasTaintsInConfig = false;
+
+      for (InfluencingTaints influencingTaint : stmtTaints.getInfo()) {
+        if (!influencingTaint.getConfig().equals(config)) {
+          continue;
+        }
+
+        hasTaintsInConfig = true;
+        stmtTaintForConfig.getInfo().add(influencingTaint);
+      }
+
+      if (hasTaintsInConfig) {
+        stmtTaintsForConfig.add(stmtTaintForConfig);
+      }
+    }
+
+    return stmtTaintsForConfig;
   }
 
   private void saveDiffStmts(
