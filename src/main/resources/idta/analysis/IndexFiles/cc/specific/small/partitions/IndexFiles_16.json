@@ -1,0 +1,850 @@
+[
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "IndexFileDeleter$RefCount",
+    "methodSignature": "DecRef()I",
+    "decisionIndex": 1,
+    "info": [
+      "!COMMIT_ON_CLOSE",
+      "COMMIT_ON_CLOSE"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util.packed",
+    "className": "PackedInts",
+    "methodSignature": "numBlocks(JI)I",
+    "decisionIndex": 2,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.codecs.blocktree",
+    "className": "BlockTreeTermsWriter",
+    "methodSignature": "write(Lorg/apache/lucene/core/index/Fields;)V",
+    "decisionIndex": 2,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "IndexWriter",
+    "methodSignature": "publishFlushedSegment(Lorg/apache/lucene/core/index/SegmentCommitInfo;Lorg/apache/lucene/core/index/FieldInfos;Lorg/apache/lucene/core/index/FrozenBufferedUpdates;Lorg/apache/lucene/core/index/FrozenBufferedUpdates;Lorg/apache/lucene/core/index/Sorter$DocMap;)V",
+    "decisionIndex": 14,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util",
+    "className": "BytesRefHash",
+    "methodSignature": "add(Lorg/apache/lucene/core/util/BytesRef;)I",
+    "decisionIndex": 14,
+    "info": [
+      "!MAX_TOKEN_LENGTH",
+      "MAX_TOKEN_LENGTH"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util.bkd",
+    "className": "BKDWriter",
+    "methodSignature": "writeLeafBlockPackedValuesRange(Lorg/apache/lucene/core/store/DataOutput;[IIILjava/util/function/IntFunction;)V",
+    "decisionIndex": 4,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.analysis.standard",
+    "className": "StandardTokenizerImpl",
+    "methodSignature": "getNextToken()I",
+    "decisionIndex": 10,
+    "info": [
+      "!MAX_TOKEN_LENGTH",
+      "MAX_TOKEN_LENGTH"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.store",
+    "className": "DataOutput",
+    "methodSignature": "copyBytes(Lorg/apache/lucene/core/store/DataInput;J)V",
+    "decisionIndex": 1,
+    "info": [
+      "(MAX_BUFFERED_DOCS && USE_COMPOUND_FILE && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && USE_COMPOUND_FILE && COMMIT_ON_CLOSE)",
+      "((RAM_BUFFER_SIZE_MB && ((COMMIT_ON_CLOSE && !USE_COMPOUND_FILE) || (!COMMIT_ON_CLOSE && (!MAX_BUFFERED_DOCS || !USE_COMPOUND_FILE)))) || (!RAM_BUFFER_SIZE_MB && !USE_COMPOUND_FILE))",
+      "(!MAX_BUFFERED_DOCS && USE_COMPOUND_FILE && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB && !MAX_TOKEN_LENGTH && USE_COMPOUND_FILE)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !RAM_BUFFER_SIZE_MB && USE_COMPOUND_FILE && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB && USE_COMPOUND_FILE)",
+      "(!MAX_BUFFERED_DOCS && !RAM_BUFFER_SIZE_MB && !MAX_TOKEN_LENGTH && USE_COMPOUND_FILE && !COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.codecs.lucene50",
+    "className": "ForUtil",
+    "methodSignature": "isAllEqual([I)Z",
+    "decisionIndex": 2,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util.fst",
+    "className": "Builder",
+    "methodSignature": "compileNode(Lorg/apache/lucene/core/util/fst/Builder$UnCompiledNode;I)Lorg/apache/lucene/core/util/fst/Builder$CompiledNode;",
+    "decisionIndex": 8,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.codecs.blocktree",
+    "className": "BlockTreeTermsWriter$TermsWriter",
+    "methodSignature": "writeBlock(IZIIIZZ)Lorg/apache/lucene/core/codecs/blocktree/BlockTreeTermsWriter$PendingBlock;",
+    "decisionIndex": 12,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util.packed",
+    "className": "PackedInts",
+    "methodSignature": "numBlocks(JI)I",
+    "decisionIndex": 1,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "DocumentsWriterDeleteQueue$DeleteSlice",
+    "methodSignature": "isEmpty()Z",
+    "decisionIndex": 1,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "!COMMIT_ON_CLOSE",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.analysis.standard",
+    "className": "StandardTokenizerImpl",
+    "methodSignature": "getNextToken()I",
+    "decisionIndex": 7,
+    "info": [
+      "!MAX_TOKEN_LENGTH",
+      "MAX_TOKEN_LENGTH"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "IndexFileDeleter",
+    "methodSignature": "incRef(Lorg/apache/lucene/core/index/SegmentInfos;Z)V",
+    "decisionIndex": 3,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util.fst",
+    "className": "ByteSequenceOutputs",
+    "methodSignature": "write(Lorg/apache/lucene/core/util/BytesRef;Lorg/apache/lucene/core/store/DataOutput;)V",
+    "decisionIndex": 1,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "DocumentsWriterFlushQueue",
+    "methodSignature": "innerPurge(Lorg/apache/lucene/core/util/IOUtils$IOConsumer;)V",
+    "decisionIndex": 3,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util.fst",
+    "className": "Builder",
+    "methodSignature": "compileNode(Lorg/apache/lucene/core/util/fst/Builder$UnCompiledNode;I)Lorg/apache/lucene/core/util/fst/Builder$CompiledNode;",
+    "decisionIndex": 9,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util.fst",
+    "className": "BytesStore",
+    "methodSignature": "getReverseReader(Z)Lorg/apache/lucene/core/util/fst/FST$BytesReader;",
+    "decisionIndex": 1,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.store",
+    "className": "FSDirectory",
+    "methodSignature": "createOutput(Ljava/lang/String;Lorg/apache/lucene/core/store/IOContext;)Lorg/apache/lucene/core/store/IndexOutput;",
+    "decisionIndex": 1,
+    "info": [
+      "(!USE_COMPOUND_FILE && !MAX_TOKEN_LENGTH && MAX_BUFFERED_DOCS && !COMMIT_ON_CLOSE)",
+      "(USE_COMPOUND_FILE && !MAX_TOKEN_LENGTH && MAX_BUFFERED_DOCS && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB && COMMIT_ON_CLOSE && !MAX_TOKEN_LENGTH && !USE_COMPOUND_FILE)",
+      "(!MAX_BUFFERED_DOCS && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB && !MAX_TOKEN_LENGTH && !USE_COMPOUND_FILE)",
+      "(!MAX_BUFFERED_DOCS && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB && !MAX_TOKEN_LENGTH && USE_COMPOUND_FILE)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && RAM_BUFFER_SIZE_MB && COMMIT_ON_CLOSE && !USE_COMPOUND_FILE)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && RAM_BUFFER_SIZE_MB && COMMIT_ON_CLOSE && USE_COMPOUND_FILE)",
+      "(!USE_COMPOUND_FILE && !MAX_TOKEN_LENGTH && MAX_BUFFERED_DOCS && COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !RAM_BUFFER_SIZE_MB && !MAX_TOKEN_LENGTH && !USE_COMPOUND_FILE && !COMMIT_ON_CLOSE)",
+      "(!USE_COMPOUND_FILE && MAX_TOKEN_LENGTH && MAX_BUFFERED_DOCS && COMMIT_ON_CLOSE)",
+      "(USE_COMPOUND_FILE && !MAX_TOKEN_LENGTH && MAX_BUFFERED_DOCS && COMMIT_ON_CLOSE)",
+      "(!USE_COMPOUND_FILE && MAX_TOKEN_LENGTH && MAX_BUFFERED_DOCS && !COMMIT_ON_CLOSE)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB && !USE_COMPOUND_FILE)",
+      "(!MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB && COMMIT_ON_CLOSE && !MAX_TOKEN_LENGTH && USE_COMPOUND_FILE)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !RAM_BUFFER_SIZE_MB && USE_COMPOUND_FILE && !COMMIT_ON_CLOSE)",
+      "(USE_COMPOUND_FILE && MAX_TOKEN_LENGTH && MAX_BUFFERED_DOCS && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !RAM_BUFFER_SIZE_MB && !USE_COMPOUND_FILE && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB && USE_COMPOUND_FILE)",
+      "(USE_COMPOUND_FILE && MAX_TOKEN_LENGTH && MAX_BUFFERED_DOCS && COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !RAM_BUFFER_SIZE_MB && !MAX_TOKEN_LENGTH && USE_COMPOUND_FILE && !COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util.fst",
+    "className": "ByteSequenceOutputs",
+    "methodSignature": "subtract(Lorg/apache/lucene/core/util/BytesRef;Lorg/apache/lucene/core/util/BytesRef;)Lorg/apache/lucene/core/util/BytesRef;",
+    "decisionIndex": 8,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util",
+    "className": "BytesRefHash",
+    "methodSignature": "add(Lorg/apache/lucene/core/util/BytesRef;)I",
+    "decisionIndex": 12,
+    "info": [
+      "!MAX_TOKEN_LENGTH",
+      "MAX_TOKEN_LENGTH"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.codecs.lucene50",
+    "className": "Lucene50PostingsWriter",
+    "methodSignature": "encodeTerm([JLorg/apache/lucene/core/store/DataOutput;Lorg/apache/lucene/core/index/FieldInfo;Lorg/apache/lucene/core/codecs/BlockTermState;Z)V",
+    "decisionIndex": 8,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "IndexWriter",
+    "methodSignature": "rollbackInternalNoCommit()V",
+    "decisionIndex": 1,
+    "info": [
+      "!COMMIT_ON_CLOSE",
+      "COMMIT_ON_CLOSE"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.analysis.standard",
+    "className": "StandardTokenizer",
+    "methodSignature": "incrementToken()Z",
+    "decisionIndex": 2,
+    "info": [
+      "!MAX_TOKEN_LENGTH",
+      "MAX_TOKEN_LENGTH"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "DocumentsWriterFlushControl",
+    "methodSignature": "markForFullFlush()J",
+    "decisionIndex": 6,
+    "info": [
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "!COMMIT_ON_CLOSE",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.analysis.standard",
+    "className": "StandardTokenizerImpl",
+    "methodSignature": "getNextToken()I",
+    "decisionIndex": 8,
+    "info": [
+      "!MAX_TOKEN_LENGTH",
+      "MAX_TOKEN_LENGTH"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.codecs.lucene70",
+    "className": "Lucene70NormsConsumer",
+    "methodSignature": "writeValues(Lorg/apache/lucene/core/index/NumericDocValues;ILorg/apache/lucene/core/store/IndexOutput;)V",
+    "decisionIndex": 1,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.store",
+    "className": "DataOutput",
+    "methodSignature": "copyBytes(Lorg/apache/lucene/core/store/DataInput;J)V",
+    "decisionIndex": 3,
+    "info": [
+      "(MAX_BUFFERED_DOCS && USE_COMPOUND_FILE && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && USE_COMPOUND_FILE && COMMIT_ON_CLOSE)",
+      "((RAM_BUFFER_SIZE_MB && ((COMMIT_ON_CLOSE && !USE_COMPOUND_FILE) || (!COMMIT_ON_CLOSE && (!MAX_BUFFERED_DOCS || !USE_COMPOUND_FILE)))) || (!RAM_BUFFER_SIZE_MB && !USE_COMPOUND_FILE))",
+      "(!MAX_BUFFERED_DOCS && USE_COMPOUND_FILE && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB && !MAX_TOKEN_LENGTH && USE_COMPOUND_FILE)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !RAM_BUFFER_SIZE_MB && USE_COMPOUND_FILE && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB && USE_COMPOUND_FILE)",
+      "(!MAX_BUFFERED_DOCS && !RAM_BUFFER_SIZE_MB && !MAX_TOKEN_LENGTH && USE_COMPOUND_FILE && !COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.codecs.compressing",
+    "className": "LZ4",
+    "methodSignature": "compress([BIILorg/apache/lucene/core/store/DataOutput;Lorg/apache/lucene/core/codecs/compressing/LZ4$HashTable;)V",
+    "decisionIndex": 1,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util.fst",
+    "className": "ByteSequenceOutputs",
+    "methodSignature": "subtract(Lorg/apache/lucene/core/util/BytesRef;Lorg/apache/lucene/core/util/BytesRef;)Lorg/apache/lucene/core/util/BytesRef;",
+    "decisionIndex": 5,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "IndexWriter",
+    "methodSignature": "rollbackInternalNoCommit()V",
+    "decisionIndex": 2,
+    "info": [
+      "!COMMIT_ON_CLOSE",
+      "COMMIT_ON_CLOSE"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "IndexFileDeleter",
+    "methodSignature": "deleteNewFiles(Ljava/util/Collection;)V",
+    "decisionIndex": 6,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.analysis.tokenattributes",
+    "className": "PackedTokenAttributeImpl",
+    "methodSignature": "setOffset(II)V",
+    "decisionIndex": 1,
+    "info": [
+      "!MAX_TOKEN_LENGTH",
+      "MAX_TOKEN_LENGTH"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.codecs.lucene50",
+    "className": "Lucene50PostingsWriter",
+    "methodSignature": "encodeTerm([JLorg/apache/lucene/core/store/DataOutput;Lorg/apache/lucene/core/index/FieldInfo;Lorg/apache/lucene/core/codecs/BlockTermState;Z)V",
+    "decisionIndex": 7,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.codecs.blocktree",
+    "className": "BlockTreeTermsWriter$TermsWriter",
+    "methodSignature": "writeBlock(IZIIIZZ)Lorg/apache/lucene/core/codecs/blocktree/BlockTreeTermsWriter$PendingBlock;",
+    "decisionIndex": 10,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "IndexWriter",
+    "methodSignature": "numDeletesToMerge(Lorg/apache/lucene/core/index/SegmentCommitInfo;)I",
+    "decisionIndex": 2,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util",
+    "className": "BytesRefHash",
+    "methodSignature": "findHash(Lorg/apache/lucene/core/util/BytesRef;)I",
+    "decisionIndex": 5,
+    "info": [
+      "!MAX_TOKEN_LENGTH",
+      "MAX_TOKEN_LENGTH"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "IndexWriter",
+    "methodSignature": "publishFlushedSegment(Lorg/apache/lucene/core/index/SegmentCommitInfo;Lorg/apache/lucene/core/index/FieldInfos;Lorg/apache/lucene/core/index/FrozenBufferedUpdates;Lorg/apache/lucene/core/index/FrozenBufferedUpdates;Lorg/apache/lucene/core/index/Sorter$DocMap;)V",
+    "decisionIndex": 13,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.codecs.blocktree",
+    "className": "BlockTreeTermsWriter",
+    "methodSignature": "write(Lorg/apache/lucene/core/index/Fields;)V",
+    "decisionIndex": 1,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.analysis.standard",
+    "className": "StandardTokenizerImpl",
+    "methodSignature": "getNextToken()I",
+    "decisionIndex": 9,
+    "info": [
+      "!MAX_TOKEN_LENGTH",
+      "MAX_TOKEN_LENGTH"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "DocumentsWriter",
+    "methodSignature": "anyChanges()Z",
+    "decisionIndex": 3,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "!COMMIT_ON_CLOSE",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "DocumentsWriterFlushQueue",
+    "methodSignature": "innerPurge(Lorg/apache/lucene/core/util/IOUtils$IOConsumer;)V",
+    "decisionIndex": 1,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "DocumentsWriter",
+    "methodSignature": "anyChanges()Z",
+    "decisionIndex": 4,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "!COMMIT_ON_CLOSE",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util.fst",
+    "className": "ByteSequenceOutputs",
+    "methodSignature": "subtract(Lorg/apache/lucene/core/util/BytesRef;Lorg/apache/lucene/core/util/BytesRef;)Lorg/apache/lucene/core/util/BytesRef;",
+    "decisionIndex": 6,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.codecs.lucene50",
+    "className": "ForUtil",
+    "methodSignature": "encodedSize(Lorg/apache/lucene/core/util/packed/PackedInts$Format;II)I",
+    "decisionIndex": 1,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "IndexWriter",
+    "methodSignature": "numDeletesToMerge(Lorg/apache/lucene/core/index/SegmentCommitInfo;)I",
+    "decisionIndex": 1,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.analysis.tokenattributes",
+    "className": "PackedTokenAttributeImpl",
+    "methodSignature": "setOffset(II)V",
+    "decisionIndex": 2,
+    "info": [
+      "!MAX_TOKEN_LENGTH",
+      "MAX_TOKEN_LENGTH"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "FreqProxTermsWriter",
+    "methodSignature": "flush(Ljava/util/Map;Lorg/apache/lucene/core/index/SegmentWriteState;Lorg/apache/lucene/core/index/Sorter$DocMap;)V",
+    "decisionIndex": 1,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util.fst",
+    "className": "FST",
+    "methodSignature": "ramBytesUsed([Lorg/apache/lucene/core/util/fst/FST$Arc;)J",
+    "decisionIndex": 7,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.codecs.lucene50",
+    "className": "Lucene50PostingsWriter",
+    "methodSignature": "encodeTerm([JLorg/apache/lucene/core/store/DataOutput;Lorg/apache/lucene/core/index/FieldInfo;Lorg/apache/lucene/core/codecs/BlockTermState;Z)V",
+    "decisionIndex": 6,
+    "info": [
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE)",
+      "(MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util",
+    "className": "OfflineSorter$BufferSize",
+    "methodSignature": "<init>(J)V",
+    "decisionIndex": 2,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.util",
+    "className": "RamUsageEstimator",
+    "methodSignature": "sizeOf([Lorg/apache/lucene/core/util/Accountable;)J",
+    "decisionIndex": 1,
+    "info": [
+      "(COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && !COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && !MAX_BUFFERED_DOCS && RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!MAX_BUFFERED_DOCS && !MAX_TOKEN_LENGTH && COMMIT_ON_CLOSE && !RAM_BUFFER_SIZE_MB)",
+      "(!COMMIT_ON_CLOSE && MAX_BUFFERED_DOCS)"
+    ]
+  },
+  {
+    "packageName": "org.apache.lucene.core.index",
+    "className": "IndexWriter",
+    "methodSignature": "rollbackInternalNoCommit()V",
+    "decisionIndex": 3,
+    "info": [
+      "!COMMIT_ON_CLOSE",
+      "COMMIT_ON_CLOSE"
+    ]
+  }
+]
