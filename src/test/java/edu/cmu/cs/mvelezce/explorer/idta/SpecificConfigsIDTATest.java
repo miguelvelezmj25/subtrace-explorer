@@ -1,9 +1,11 @@
 package edu.cmu.cs.mvelezce.explorer.idta;
 
 import edu.cmu.cs.mvelezce.adapters.indexFiles.BaseIndexFilesAdapter;
+import edu.cmu.cs.mvelezce.adapters.measureDiskOrderedScan.BaseMeasureDiskOrderedScanAdapter;
 import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
 import edu.cmu.cs.mvelezce.explorer.idta.config.ConfigAnalysis;
 import edu.cmu.cs.mvelezce.explorer.idta.config.IDTAConfigAnalysis;
+import edu.cmu.cs.mvelezce.explorer.idta.config.SpecificConfigsGetter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -30,6 +32,22 @@ public class SpecificConfigsIDTATest {
     Set<Set<String>> configs = configAnalysis.analyze(args);
 
     IDTA analysis = new SpecificConfigsIDTA(programName, workloadSize, options, configs);
+
+    args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void MeasureDiskOrderedScanSmall() throws IOException, InterruptedException {
+    String programName = BaseMeasureDiskOrderedScanAdapter.PROGRAM_NAME;
+    SpecificConfigsGetter specificConfigsGetter = new SpecificConfigsGetter(programName);
+    String[] args = new String[0];
+    Set<Set<String>> configs = specificConfigsGetter.analyze(args);
+
+    List<String> options = BaseMeasureDiskOrderedScanAdapter.getListOfOptions();
+    IDTA analysis = new SpecificConfigsIDTA(programName, "small", options, configs);
 
     args = new String[2];
     args[0] = "-delres";
