@@ -203,6 +203,20 @@ public class IDTATest {
   }
 
   @Test
+  public void MeasureDiskOrderedScanMedium() throws IOException, InterruptedException {
+    String programName = BaseMeasureDiskOrderedScanAdapter.PROGRAM_NAME;
+    String workloadSize = "medium";
+    List<String> options = BaseMeasureDiskOrderedScanAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+    analysis.analyze(args);
+  }
+
+  @Test
   public void PerformanceSmall() throws IOException, InterruptedException {
     String programName = BasePerformanceAdapter.PROGRAM_NAME;
     String workloadSize = "small";
