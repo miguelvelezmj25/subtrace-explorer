@@ -202,6 +202,7 @@ public class IDTATest {
     analysis.analyze(args);
   }
 
+  // 117 configs in 24 hour timeout
   @Test
   public void MeasureDiskOrderedScanMedium() throws IOException, InterruptedException {
     String programName = BaseMeasureDiskOrderedScanAdapter.PROGRAM_NAME;
