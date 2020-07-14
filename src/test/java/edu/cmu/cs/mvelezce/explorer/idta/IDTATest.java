@@ -425,4 +425,19 @@ public class IDTATest {
     IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
+
+  @Test
+  public void RunBenchCMedium() throws IOException, InterruptedException {
+    String programName = BaseRunBenchCAdapter.PROGRAM_NAME;
+    String workloadSize = "medium";
+    List<String> options = BaseRunBenchCAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
 }
