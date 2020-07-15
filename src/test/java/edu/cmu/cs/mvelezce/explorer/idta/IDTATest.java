@@ -455,4 +455,20 @@ public class IDTATest {
     IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
     analysis.analyze(args);
   }
+
+  // 24h timeout (5000, 70) 147 configs, ~192 constraints to go
+  @Test
+  public void RunBenchCLarge() throws IOException, InterruptedException {
+    String programName = BaseRunBenchCAdapter.PROGRAM_NAME;
+    String workloadSize = "large";
+    List<String> options = BaseRunBenchCAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
 }
