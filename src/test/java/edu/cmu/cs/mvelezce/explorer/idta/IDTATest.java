@@ -396,6 +396,7 @@ public class IDTATest {
     analysis.analyze(args);
   }
 
+  // Used https://www.reduceimages.com/
   @Test
   public void ConvertSmall() throws IOException, InterruptedException {
     String programName = BaseConvertAdapter.PROGRAM_NAME;
