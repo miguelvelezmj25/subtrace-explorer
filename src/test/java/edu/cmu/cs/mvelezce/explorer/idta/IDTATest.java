@@ -443,6 +443,7 @@ public class IDTATest {
     analysis.analyze(args);
   }
 
+  // 24h timeout (100%) 38 configs, ~43 constraints to go
   @Test
   public void ConvertLarge() throws IOException, InterruptedException {
     String programName = BaseConvertAdapter.PROGRAM_NAME;
