@@ -1,0 +1,62 @@
+[
+  {
+    "packageName": "edu.cmu.cs.mvelezce.perf",
+    "className": "BarInfluence2",
+    "methodSignature": "checkProgress()V",
+    "decisionIndex": 1,
+    "info": [
+      "!A",
+      "A"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.perf",
+    "className": "BarInfluence2",
+    "methodSignature": "bar(I)V",
+    "decisionIndex": 1,
+    "info": [
+      "!A",
+      "A"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.perf",
+    "className": "ExpensiveCalls",
+    "methodSignature": "getFactors()V",
+    "decisionIndex": 3,
+    "info": [
+      "!A",
+      "A"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.perf",
+    "className": "BarInfluence2",
+    "methodSignature": "foo(Z)V",
+    "decisionIndex": 1,
+    "info": [
+      "!A",
+      "A"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.perf",
+    "className": "ExpensiveCalls",
+    "methodSignature": "getFactors()V",
+    "decisionIndex": 2,
+    "info": [
+      "!A",
+      "A"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.perf",
+    "className": "ExpensiveCalls",
+    "methodSignature": "getFactors()V",
+    "decisionIndex": 1,
+    "info": [
+      "!A",
+      "A"
+    ]
+  }
+]

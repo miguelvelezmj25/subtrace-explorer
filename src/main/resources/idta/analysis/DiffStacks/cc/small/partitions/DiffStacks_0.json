@@ -1,0 +1,72 @@
+[
+  {
+    "packageName": "edu.cmu.cs.mvelezce.perf",
+    "className": "DiffStacks",
+    "methodSignature": "foo(Z)V",
+    "decisionIndex": 1,
+    "info": [
+      "!A",
+      "A"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.perf",
+    "className": "DiffStacks",
+    "methodSignature": "bar()V",
+    "decisionIndex": 1,
+    "info": [
+      "!A",
+      "A"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.perf",
+    "className": "DiffStacks",
+    "methodSignature": "checkProgress()V",
+    "decisionIndex": 1,
+    "info": [
+      "!A",
+      "A"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.perf",
+    "className": "DiffStacks",
+    "methodSignature": "moo()V",
+    "decisionIndex": 1,
+    "info": [
+      "!A",
+      "A"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.perf",
+    "className": "ExpensiveCalls",
+    "methodSignature": "getFactors()V",
+    "decisionIndex": 3,
+    "info": [
+      "!A",
+      "A"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.perf",
+    "className": "ExpensiveCalls",
+    "methodSignature": "getFactors()V",
+    "decisionIndex": 2,
+    "info": [
+      "!A",
+      "A"
+    ]
+  },
+  {
+    "packageName": "edu.cmu.cs.mvelezce.perf",
+    "className": "ExpensiveCalls",
+    "methodSignature": "getFactors()V",
+    "decisionIndex": 1,
+    "info": [
+      "!A",
+      "A"
+    ]
+  }
+]

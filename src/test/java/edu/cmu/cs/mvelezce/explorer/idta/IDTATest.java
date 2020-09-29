@@ -21,6 +21,14 @@ import edu.cmu.cs.mvelezce.adapters.runBenchC.BaseRunBenchCAdapter;
 import edu.cmu.cs.mvelezce.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapters.subtraces.BaseSubtracesAdapter;
 import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.barInfluence.BaseBarInfluenceAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.barInfluence2.BaseBarInfluence2Adapter;
+import edu.cmu.cs.mvelezce.lc.adapters.diffStacks.BaseDiffStacksAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.dummyRegion.BaseDummyRegionAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.earlyReturn.BaseEarlyReturnAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.mooInfluence.BaseMooInfluenceAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.multiplePaths.BaseMultiplePathsAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.needSlicing.BaseNeedSlicingAdapter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -42,6 +50,126 @@ public class IDTATest {
     String programName = BaseTrivialAdapter.PROGRAM_NAME;
     String workloadSize = "small";
     List<String> options = BaseTrivialAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void BarInfluenceSmall() throws IOException, InterruptedException {
+    String programName = BaseBarInfluenceAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    List<String> options = BaseBarInfluenceAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void BarInfluence2Small() throws IOException, InterruptedException {
+    String programName = BaseBarInfluence2Adapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    List<String> options = BaseBarInfluence2Adapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void DiffStacksSmall() throws IOException, InterruptedException {
+    String programName = BaseDiffStacksAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    List<String> options = BaseDiffStacksAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void DummyRegionSmall() throws IOException, InterruptedException {
+    String programName = BaseDummyRegionAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    List<String> options = BaseDummyRegionAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void EarlyReturnSmall() throws IOException, InterruptedException {
+    String programName = BaseEarlyReturnAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    List<String> options = BaseEarlyReturnAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void MooInfluenceSmall() throws IOException, InterruptedException {
+    String programName = BaseMooInfluenceAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    List<String> options = BaseMooInfluenceAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void MultiplePathsSmall() throws IOException, InterruptedException {
+    String programName = BaseMultiplePathsAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    List<String> options = BaseMultiplePathsAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void NeedSlicingSmall() throws IOException, InterruptedException {
+    String programName = BaseNeedSlicingAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    List<String> options = BaseNeedSlicingAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
     String[] args = new String[2];

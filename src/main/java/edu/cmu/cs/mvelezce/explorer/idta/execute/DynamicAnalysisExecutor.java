@@ -23,6 +23,14 @@ import edu.cmu.cs.mvelezce.adapters.runBenchC.BaseRunBenchCAdapter;
 import edu.cmu.cs.mvelezce.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapters.subtraces.BaseSubtracesAdapter;
 import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.barInfluence.BaseBarInfluenceAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.barInfluence2.BaseBarInfluence2Adapter;
+import edu.cmu.cs.mvelezce.lc.adapters.diffStacks.BaseDiffStacksAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.dummyRegion.BaseDummyRegionAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.earlyReturn.BaseEarlyReturnAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.mooInfluence.BaseMooInfluenceAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.multiplePaths.BaseMultiplePathsAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.needSlicing.BaseNeedSlicingAdapter;
 
 import java.io.File;
 import java.io.IOException;
@@ -242,6 +250,46 @@ public class DynamicAnalysisExecutor {
         commandList.add("./examples.sh");
         adapter = new BasePerformanceAdapter();
         mainClass = BasePerformanceAdapter.MAIN_CLASS;
+        break;
+      case BaseBarInfluenceAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseBarInfluenceAdapter();
+        mainClass = BaseBarInfluenceAdapter.MAIN_CLASS;
+        break;
+      case BaseBarInfluence2Adapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseBarInfluence2Adapter();
+        mainClass = BaseBarInfluence2Adapter.MAIN_CLASS;
+        break;
+      case BaseDiffStacksAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseDiffStacksAdapter();
+        mainClass = BaseDiffStacksAdapter.MAIN_CLASS;
+        break;
+      case BaseDummyRegionAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseDummyRegionAdapter();
+        mainClass = BaseDummyRegionAdapter.MAIN_CLASS;
+        break;
+      case BaseEarlyReturnAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseEarlyReturnAdapter();
+        mainClass = BaseEarlyReturnAdapter.MAIN_CLASS;
+        break;
+      case BaseMooInfluenceAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseMooInfluenceAdapter();
+        mainClass = BaseMooInfluenceAdapter.MAIN_CLASS;
+        break;
+      case BaseMultiplePathsAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseMultiplePathsAdapter();
+        mainClass = BaseMultiplePathsAdapter.MAIN_CLASS;
+        break;
+      case BaseNeedSlicingAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseNeedSlicingAdapter();
+        mainClass = BaseNeedSlicingAdapter.MAIN_CLASS;
         break;
         //      case SoundAdapter.PROGRAM_NAME:
         //        commandList.add("./examples.sh");
