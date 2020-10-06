@@ -28,6 +28,7 @@ import edu.cmu.cs.mvelezce.lc.adapters.barInfluence2.BaseBarInfluence2Adapter;
 import edu.cmu.cs.mvelezce.lc.adapters.diffStacks.BaseDiffStacksAdapter;
 import edu.cmu.cs.mvelezce.lc.adapters.dummyRegion.BaseDummyRegionAdapter;
 import edu.cmu.cs.mvelezce.lc.adapters.earlyReturn.BaseEarlyReturnAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.ifAMoo.BaseIfAMooAdapter;
 import edu.cmu.cs.mvelezce.lc.adapters.mooInfluence.BaseMooInfluenceAdapter;
 import edu.cmu.cs.mvelezce.lc.adapters.multiplePaths.BaseMultiplePathsAdapter;
 import edu.cmu.cs.mvelezce.lc.adapters.needSlicing.BaseNeedSlicingAdapter;
@@ -275,6 +276,11 @@ public class DynamicAnalysisExecutor {
         commandList.add("./examples.sh");
         adapter = new BaseEarlyReturnAdapter();
         mainClass = BaseEarlyReturnAdapter.MAIN_CLASS;
+        break;
+      case BaseIfAMooAdapter.PROGRAM_NAME:
+        commandList.add("./examples.sh");
+        adapter = new BaseIfAMooAdapter();
+        mainClass = BaseIfAMooAdapter.MAIN_CLASS;
         break;
       case BaseMooInfluenceAdapter.PROGRAM_NAME:
         commandList.add("./examples.sh");

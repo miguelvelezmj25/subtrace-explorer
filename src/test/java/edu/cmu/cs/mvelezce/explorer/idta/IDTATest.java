@@ -26,6 +26,7 @@ import edu.cmu.cs.mvelezce.lc.adapters.barInfluence2.BaseBarInfluence2Adapter;
 import edu.cmu.cs.mvelezce.lc.adapters.diffStacks.BaseDiffStacksAdapter;
 import edu.cmu.cs.mvelezce.lc.adapters.dummyRegion.BaseDummyRegionAdapter;
 import edu.cmu.cs.mvelezce.lc.adapters.earlyReturn.BaseEarlyReturnAdapter;
+import edu.cmu.cs.mvelezce.lc.adapters.ifAMoo.BaseIfAMooAdapter;
 import edu.cmu.cs.mvelezce.lc.adapters.mooInfluence.BaseMooInfluenceAdapter;
 import edu.cmu.cs.mvelezce.lc.adapters.multiplePaths.BaseMultiplePathsAdapter;
 import edu.cmu.cs.mvelezce.lc.adapters.needSlicing.BaseNeedSlicingAdapter;
@@ -125,6 +126,21 @@ public class IDTATest {
     String programName = BaseEarlyReturnAdapter.PROGRAM_NAME;
     String workloadSize = "small";
     List<String> options = BaseEarlyReturnAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void IfAMooSmall() throws IOException, InterruptedException {
+    String programName = BaseIfAMooAdapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    List<String> options = BaseIfAMooAdapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
     String[] args = new String[2];
