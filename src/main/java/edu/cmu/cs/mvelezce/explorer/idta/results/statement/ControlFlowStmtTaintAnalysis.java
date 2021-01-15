@@ -2,6 +2,7 @@ package edu.cmu.cs.mvelezce.explorer.idta.results.statement;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
 import edu.cmu.cs.mvelezce.explorer.idta.results.parser.DecisionTaints;
 import edu.cmu.cs.mvelezce.explorer.idta.results.statement.info.ControlFlowStmtTaints;
@@ -101,6 +102,7 @@ public class ControlFlowStmtTaintAnalysis
       file.getParentFile().mkdirs();
 
       ObjectMapper mapper = new ObjectMapper();
+      mapper.enable(SerializationFeature.INDENT_OUTPUT);
       mapper.writeValue(file, controlFlowInfosToSave);
     }
   }

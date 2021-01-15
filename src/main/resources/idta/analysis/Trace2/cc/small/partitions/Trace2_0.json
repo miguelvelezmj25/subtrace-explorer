@@ -1,0 +1,13 @@
+[ {
+  "packageName" : "edu.cmu.cs.mvelezce.tracing",
+  "className" : "Trace2",
+  "methodSignature" : "moo(Z)I",
+  "decisionIndex" : 1,
+  "info" : [ "!A", "A" ]
+}, {
+  "packageName" : "edu.cmu.cs.mvelezce.tracing",
+  "className" : "Trace2",
+  "methodSignature" : "bar(I)V",
+  "decisionIndex" : 1,
+  "info" : [ "!A", "A" ]
+} ]
