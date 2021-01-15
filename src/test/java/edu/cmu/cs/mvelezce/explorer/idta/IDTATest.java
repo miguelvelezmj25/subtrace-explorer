@@ -20,6 +20,7 @@ import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapters.runBenchC.BaseRunBenchCAdapter;
 import edu.cmu.cs.mvelezce.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapters.subtraces.BaseSubtracesAdapter;
+import edu.cmu.cs.mvelezce.adapters.trace1.BaseTrace1Adapter;
 import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
 import org.junit.Before;
 import org.junit.Test;
@@ -42,6 +43,21 @@ public class IDTATest {
     String programName = BaseTrivialAdapter.PROGRAM_NAME;
     String workloadSize = "small";
     List<String> options = BaseTrivialAdapter.getListOfOptions();
+    Set<String> initialConfig = new HashSet<>();
+
+    String[] args = new String[2];
+    args[0] = "-delres";
+    args[1] = "-saveres";
+
+    IDTA analysis = new IDTA(programName, workloadSize, options, initialConfig);
+    analysis.analyze(args);
+  }
+
+  @Test
+  public void Trace1Small() throws IOException, InterruptedException {
+    String programName = BaseTrace1Adapter.PROGRAM_NAME;
+    String workloadSize = "small";
+    List<String> options = BaseTrace1Adapter.getListOfOptions();
     Set<String> initialConfig = new HashSet<>();
 
     String[] args = new String[2];

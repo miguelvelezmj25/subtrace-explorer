@@ -22,6 +22,7 @@ import edu.cmu.cs.mvelezce.adapters.pngtastic.BasePngtasticAdapter;
 import edu.cmu.cs.mvelezce.adapters.runBenchC.BaseRunBenchCAdapter;
 import edu.cmu.cs.mvelezce.adapters.staticMethodCall.BaseStaticMethodCallAdapter;
 import edu.cmu.cs.mvelezce.adapters.subtraces.BaseSubtracesAdapter;
+import edu.cmu.cs.mvelezce.adapters.trace1.BaseTrace1Adapter;
 import edu.cmu.cs.mvelezce.adapters.trivial.BaseTrivialAdapter;
 
 import java.io.File;
@@ -282,6 +283,11 @@ public class DynamicAnalysisExecutor {
         commandList.add("./multithread.sh");
         adapter = new BaseMultithreadAdapter();
         mainClass = BaseMultithreadAdapter.MAIN_CLASS;
+        break;
+      case BaseTrace1Adapter.PROGRAM_NAME:
+        commandList.add("./tracing.sh");
+        adapter = new BaseTrace1Adapter();
+        mainClass = BaseTrace1Adapter.MAIN_CLASS;
         break;
       case BaseRunBenchCAdapter.PROGRAM_NAME:
         commandList.add("./runBenchC.sh");

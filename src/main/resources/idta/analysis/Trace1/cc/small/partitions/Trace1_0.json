@@ -1,0 +1,7 @@
+[ {
+  "packageName" : "edu.cmu.cs.mvelezce.tracing",
+  "className" : "Trace1",
+  "methodSignature" : "main([Ljava/lang/String;)V",
+  "decisionIndex" : 1,
+  "info" : [ "!A", "A" ]
+} ]

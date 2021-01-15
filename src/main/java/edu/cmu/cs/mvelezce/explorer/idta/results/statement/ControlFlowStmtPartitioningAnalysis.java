@@ -2,6 +2,7 @@ package edu.cmu.cs.mvelezce.explorer.idta.results.statement;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
 import com.google.common.base.Objects;
 import de.fosd.typechef.featureexpr.FeatureExpr;
 import edu.cmu.cs.mvelezce.explorer.idta.IDTA;
@@ -207,6 +208,7 @@ public class ControlFlowStmtPartitioningAnalysis
       }
 
       ObjectMapper mapper = new ObjectMapper();
+      mapper.enable(SerializationFeature.INDENT_OUTPUT);
       mapper.writeValue(file, prettyResults);
     }
   }
